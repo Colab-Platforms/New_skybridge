@@ -1,0 +1,194 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+
+export default function HeroSection() {
+    const [isMounted, setIsMounted] = useState(false);
+    const [times, setTimes] = useState({
+        mumbai: "00:59",
+        newYork: "03:59",
+        london: "08:59",
+        abuDhabi: "09:59",
+    });
+
+    useEffect(() => {
+        setIsMounted(true);
+
+        const updateClocks = () => {
+            const getFormattedTime = (timeZone: string) => {
+                try {
+                    return new Intl.DateTimeFormat("en-US", {
+                        timeZone,
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: false,
+                    }).format(new Date());
+                } catch (e) {
+                    return "00:00";
+                }
+            };
+
+            setTimes({
+                mumbai: getFormattedTime("Asia/Kolkata"),
+                newYork: getFormattedTime("America/New_York"),
+                london: getFormattedTime("Europe/London"),
+                abuDhabi: getFormattedTime("Asia/Dubai"),
+            });
+        };
+
+        updateClocks();
+        const interval = setInterval(updateClocks, 1000);
+        return () => clearInterval(interval);
+    }, []);
+
+    return (
+        <div className="relative flex flex-col justify-between flex-grow w-full  overflow-hidden min-h-screen select-none">
+
+            {/* Background Video */}
+            <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover z-0"
+            >
+                <source src="/Use_the_uploaded_Skybridge_log%20(2).mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>
+
+            {/* Background Gradient simulating a muted sky/fog effect */}
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,_rgba(26,20,16,0.1)_0%,_rgba(26,20,16,0.5)_70%,_#1A1410_100%)] z-10" />
+
+            {/* Soft Dark Overlay to ensure perfect contrast and aesthetic depth */}
+            <div className="absolute inset-0 bg-black/20 z-10 pointer-events-none" />
+
+            {/* Main Bottom Columns Section */}
+            <div className="relative z-20 border-t border-white/10 max-w-[1920px] w-full mx-auto px-12 pb-4 pt-4 grid grid-cols-1 lg:grid-cols-2 gap-16 items-end mt-auto border-amber-50">
+
+                {/* Left Column: Location, Headline, Scroll Down Button */}
+                <div className="flex flex-row justify-between items-end gap-8 w-full">
+                    <div className="flex-grow max-w-xl">
+                        <span className="text-[10px] tracking-[0.3em] text-white/60 font-semibold mb-4 block uppercase font-sans">
+                            Fort, Mumbai
+                        </span>
+                        <h1 className="text-white text-3xl md:text-4xl lg:text-[54px] leading-[1.15] font-normal font-sans tracking-tight">
+                            Building Exceptional Businesses. Creating Enduring Value.
+                        </h1>
+                    </div>
+                    <div className="flex-shrink-0 pb-2">
+                        <div className="w-14 h-14 rounded-full border border-white/25 flex items-center justify-center cursor-pointer hover:border-white hover:bg-white/5 transition-all duration-300 group">
+                            <svg
+                                className="w-5 h-5 text-white/80 group-hover:translate-y-1 transition-transform duration-300"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 13l-7 7-7-7m14-6l-7 7-7-7" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Right Column: Mandates Section with Glassmorphism Card */}
+                <div className="border-t lg:border-t-0 lg:border-l border-white/10 pt-10 lg:pt-0 lg:pl-16 flex flex-col gap-6 w-full">
+                    <div>
+                        <span className="text-[10px] tracking-[0.3em] text-white/60 font-semibold mb-4 block uppercase font-sans">
+                            Recent Mandates
+                        </span>
+
+                        {/* Glassmorphic Mandates Card */}
+                        <div className="bg-white/[0.05] backdrop-blur-md border border-white/10 rounded-xl p-5 flex flex-row items-center gap-5 hover:bg-white/[0.08] hover:border-white/15 transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.12)] group cursor-pointer">
+                            <div className="relative w-20 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-slate-800">
+                                <Image
+                                    src="/handshake.jpg"
+                                    alt="Corporate Mandate Handshake"
+                                    fill
+                                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                    sizes="80px"
+                                    priority
+                                />
+                            </div>
+                            <div className="flex-grow">
+                                <div className="text-[9px] tracking-wider text-white/45 font-medium mb-1 uppercase font-sans">
+                                    Private Wealth Management • June 2026
+                                </div>
+                                <h3 className="text-white text-base font-semibold tracking-wide leading-snug font-sans">
+                                    India Investment Strategy - June 2026
+                                </h3>
+                            </div>
+                            <div className="w-10 h-10 rounded-full bg-[#0084ff] flex items-center justify-center text-white flex-shrink-0 group-hover:bg-blue-600 transition-colors shadow-lg shadow-blue-500/10">
+                                <svg className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Pagination Indicators */}
+                    <div className="flex flex-row gap-2 justify-start items-center pl-1">
+                        <span className="w-2.5 h-2.5 rounded-full bg-white cursor-pointer transition-colors duration-200" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-white/25 hover:bg-white/45 transition-colors duration-200 cursor-pointer" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-white/25 hover:bg-white/45 transition-colors duration-200 cursor-pointer" />
+                    </div>
+                </div>
+
+            </div>
+
+            {/* Dynamic Timezone Indicators Along the Bottom */}
+            <div className="w-full border-t border-white/10 py-5 px-12 relative z-20">
+                <div className="max-w-[1920px] w-full mx-auto flex flex-row justify-between items-center gap-6">
+                    <div className="grid grid-cols-2 md:grid-cols-4 w-full gap-8">
+
+                        {/* Mumbai Time */}
+                        <div className="flex flex-col gap-1">
+                            <div className="flex items-center gap-1.5 text-slate-400 text-[10px] tracking-[0.2em] font-medium uppercase font-sans">
+                                <span className="w-1 h-1 rounded-full bg-slate-400" />
+                                Mumbai
+                            </div>
+                            <div className="text-[17px] text-white font-medium tracking-widest pl-2.5 font-sans">
+                                {isMounted ? times.mumbai : "00:59"}
+                            </div>
+                        </div>
+
+                        {/* New York Time */}
+                        <div className="flex flex-col gap-1">
+                            <div className="flex items-center gap-1.5 text-slate-400 text-[10px] tracking-[0.2em] font-medium uppercase font-sans">
+                                <span className="w-1 h-1 rounded-full bg-slate-400" />
+                                New York
+                            </div>
+                            <div className="text-[17px] text-white font-medium tracking-widest pl-2.5 font-sans">
+                                {isMounted ? times.newYork : "03:59"}
+                            </div>
+                        </div>
+
+                        {/* London Time */}
+                        <div className="flex flex-col gap-1">
+                            <div className="flex items-center gap-1.5 text-slate-400 text-[10px] tracking-[0.2em] font-medium uppercase font-sans">
+                                <span className="w-1 h-1 rounded-full bg-slate-400" />
+                                London
+                            </div>
+                            <div className="text-[17px] text-white font-medium tracking-widest pl-2.5 font-sans">
+                                {isMounted ? times.london : "08:59"}
+                            </div>
+                        </div>
+
+                        {/* Abu Dhabi Time */}
+                        <div className="flex flex-col gap-1">
+                            <div className="flex items-center gap-1.5 text-slate-400 text-[10px] tracking-[0.2em] font-medium uppercase font-sans">
+                                <span className="w-1 h-1 rounded-full bg-slate-400" />
+                                Abu Dhabi
+                            </div>
+                            <div className="text-[17px] text-white font-medium tracking-widest pl-2.5 font-sans">
+                                {isMounted ? times.abuDhabi : "09:59"}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    );
+}
