@@ -12,13 +12,13 @@ export default function AtGlance() {
         <div className="lg:col-span-5 flex flex-col gap-6">
           <div>
             {/* Label */}
-            <div className="flex items-center gap-2 text-blue-600 text-xs font-bold tracking-[0.3em] uppercase mb-4">
+            <div className="flex items-center gap-2 text-blue-600 text-[24.22px] font-bold tracking-[0.3em] uppercase mb-4">
               <span className="inline-block w-2.5 h-2.5 bg-blue-600 rounded-[2px]" />
               At A Glance
             </div>
 
             {/* Heading */}
-            <h2 className="text-3xl md:text-4xl lg:text-[44px] xl:text-[54px] font-semibold leading-[1.15] text-[#0d2147] tracking-tight font-sans">
+            <h2 className="text-3xl w-[672px] text-[#10296e] md:text-4xl lg:text-[44px] xl:text-[80px]  leading-[86px] capitalize font-oswald  text-left flex items-center">
               Strategic Capital. <br />
               Long-Term Partnership.
             </h2>
@@ -41,7 +41,7 @@ export default function AtGlance() {
             </div>
 
             {/* Paragraphs of text */}
-            <div className="flex flex-col gap-6 text-slate-700 text-sm md:text-base font-normal leading-relaxed">
+            <div className=" w-[572px] flex flex-col gap-6 text-slate-700 text-sm md:text-[22]  relative text-[22px] leading-[160%] font-tasa-orbiter text-gray text-left items-center">
               <p>
                 Sky Bridge Group is a strategic investment and capital platform partnering with visionary entrepreneurs and growth-focused businesses.
               </p>
@@ -57,14 +57,14 @@ export default function AtGlance() {
 
         {/* Right Column: 3x3 Photo-Stat Grid */}
         <div className="lg:col-span-7 w-full flex justify-center">
-          <div className="relative w-full aspect-square md:aspect-[4/3] max-w-[640px] xl:max-w-[720px] overflow-hidden rounded-lg shadow-xl border border-white/30">
+          <div className="relative xl:h-[999px] w-full aspect-square md:aspect-[4/3] max-w-[640px] xl:max-w-[1000px] overflow-hidden rounded-lg shadow-xl border border-white/30">
             {/* Background Gateway Image with Duotone filter effect */}
             <div className="absolute inset-0 z-0 bg-slate-900">
               <Image
                 src="/gateway.png"
                 alt="Gateway of India, Mumbai"
                 fill
-                className="object-cover object-center filter grayscale contrast-[115%] brightness-[80%]"
+                className="object-cover object-center filter  contrast-[115%] brightness-[80%]"
                 priority
               />
               {/* Duotone overlays matching the premium mockup design */}
