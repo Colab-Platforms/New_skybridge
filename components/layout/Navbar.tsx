@@ -20,7 +20,7 @@ export default function Navbar() {
           <Image
             src={LogoImage}
             alt="Sky Bridge Logo"
-            className="object-contain h-auto"
+            className="object-contain h-auto w-auto"
             width={180}
             height={44}
             priority
