@@ -328,21 +328,23 @@ function CarouselCard({ service, slotIndex, totalVisible, dir, animMs }: Carouse
         sizes="(max-width: 768px) 60vw, 22vw"
       />
 
-      {/* Bottom vignette for text readability */}
-      {/* <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent" /> */}
+      {/* Bottom gradient overlay — darkens bottom ~50% for text readability */}
+      <div
+        className="absolute inset-0 pointer-events-none z-1"
+        style={{
+          background: "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 35%, transparent 65%)",
+        }}
+      />
 
       {/* Card label */}
-      <div className="absolute bottom-0 left-0 right-0 p-4 z-10">
-        {/* <p className="text-white/45 text-[9px] tracking-[0.28em] uppercase font-medium mb-1">
-          {String(service.id).padStart(2, "0")} / {String(SERVICES.length).padStart(2, "0")}
-        </p> */}
-        <h3 className="text-white font-oswald uppercase leading-tight tracking-wide text-sm">
+      <div className="absolute bottom-0 left-0 right-0 px-4 pb-4 z-2">
+        <h3 className="text-white font-oswald uppercase leading-[1.15] tracking-wide text-[13px] font-semibold">
           {service.title}
         </h3>
       </div>
 
-      {/* Hover glow border */}
-      <div className="absolute inset-0 rounded-2xl border border-transparent group-hover:border-blue-400/30 transition-all duration-300 pointer-events-none" />
+      {/* Subtle card border */}
+      <div className="absolute inset-0 rounded-2xl border border-white/10 group-hover:border-blue-400/30 transition-all duration-300 pointer-events-none z-3" />
     </div>
   );
 }
