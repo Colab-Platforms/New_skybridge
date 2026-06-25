@@ -1,0 +1,157 @@
+"use client";
+
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+
+export default function Footer() {
+  const handleInitiateClick = () => {
+    // Scroll to LetsDiscuss form section at the bottom of the page if it exists
+    const discussSection = document.getElementById("initiate-discuss");
+    if (discussSection) {
+      discussSection.scrollIntoView({ behavior: "smooth" });
+    } else {
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  return (
+    <footer className="bg-[#070708] text-white pt-20 pb-12 px-6 md:px-12 lg:px-24 border-t border-white/5 w-full flex flex-col items-center">
+      <div className="max-w-[1400px] w-full flex flex-col">
+        
+        {/* Top Section: Three Columns Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-10">
+          
+          {/* Column 1: Logo & Tagline (5 Columns wide on desktop) */}
+          <div className="md:col-span-6 lg:col-span-5 flex flex-col gap-6 items-start">
+            <div className="relative w-[180px] h-[45px]">
+              <Image
+                src="/skybridge-logo.png"
+                alt="Sky Bridge Logo"
+                fill
+                sizes="180px"
+                className="object-contain object-left"
+                priority
+              />
+            </div>
+            <p className="text-slate-400 text-sm md:text-base leading-relaxed font-light max-w-sm mt-2">
+              Partner with us to turn strategic ambition into measurable business results.
+            </p>
+            <button
+              onClick={handleInitiateClick}
+              className="bg-[#132c66] hover:bg-[#10296e] transition-colors duration-300 text-white font-bold text-[11px] tracking-widest uppercase px-6 py-3.5 rounded-lg shadow-md cursor-pointer mt-2"
+            >
+              Initiate a Conversation
+            </button>
+          </div>
+
+          {/* Column 2: Main Pages (3 Columns wide on desktop) */}
+          <div className="md:col-span-3 lg:col-span-3 flex flex-col gap-6">
+            <span className="text-white/40 text-[10px] font-bold tracking-[0.25em] uppercase">
+              Main Pages
+            </span>
+            <ul className="flex flex-col gap-3.5 text-sm font-light text-slate-400">
+              <li>
+                <Link href="/" className="hover:text-white transition-colors duration-200">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="hover:text-white transition-colors duration-200">
+                  Our Story
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="hover:text-white transition-colors duration-200">
+                  Our Capabilities
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="hover:text-white transition-colors duration-200">
+                  Market Insights
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 3: Contact Info & Address (4 Columns wide on desktop) */}
+          <div className="md:col-span-3 lg:col-span-4 flex flex-col gap-6">
+            <span className="text-white/40 text-[10px] font-bold tracking-[0.25em] uppercase">
+              Contact
+            </span>
+            <div className="flex flex-col gap-4 text-sm font-light text-slate-400">
+              <Link
+                href="mailto:partnership@skybridgegroup.in"
+                className="hover:text-white transition-colors duration-200 break-all"
+              >
+                partnership@skybridgegroup.in
+              </Link>
+              <Link
+                href="tel:+919136641303"
+                className="hover:text-white transition-colors duration-200"
+              >
+                +91 91366 41303
+              </Link>
+              <div className="flex flex-col gap-1 mt-2 text-slate-400 text-xs md:text-sm font-light leading-relaxed">
+                <span>30, Fl. 2 , Nawab Bldg, D.N Rd Hutatma Chowk</span>
+                <span>Fort, Mumbai G.P.O., Mumbai, Mumbai,</span>
+                <span>Maharashtra, India, 400001</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        {/* Divider line */}
+        <hr className="border-white/10 my-12" />
+
+        {/* Bottom Section: Copyright & Social Links */}
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
+          <span className="text-[11px] md:text-xs text-slate-500 font-light tracking-wide text-center sm:text-left">
+            Copyright © 2024 SkyBridge Group. All rights reserved.
+          </span>
+          
+          {/* Social Icons circles */}
+          <div className="flex items-center gap-3">
+            {/* Facebook */}
+            <Link
+              href="#"
+              className="w-9 h-9 rounded-full border border-white/15 text-slate-400 hover:text-white hover:border-white transition-all duration-300 flex items-center justify-center"
+              aria-label="Facebook"
+            >
+              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
+              </svg>
+            </Link>
+
+            {/* LinkedIn */}
+            <Link
+              href="#"
+              className="w-9 h-9 rounded-full border border-white/15 text-slate-400 hover:text-white hover:border-white transition-all duration-300 flex items-center justify-center"
+              aria-label="LinkedIn"
+            >
+              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+              </svg>
+            </Link>
+
+            {/* Twitter / X */}
+            <Link
+              href="#"
+              className="w-9 h-9 rounded-full border border-white/15 text-slate-400 hover:text-white hover:border-white transition-all duration-300 flex items-center justify-center"
+              aria-label="Twitter / X"
+            >
+              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+            </Link>
+          </div>
+        </div>
+
+      </div>
+    </footer>
+  );
+}

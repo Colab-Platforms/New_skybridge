@@ -80,36 +80,36 @@ const SECTORS_ROW2: Sector[] = [
 
 function SectorCard({ sector }: { sector: Sector }) {
   return (
-    <div className="relative overflow-hidden group cursor-pointer flex-1 min-h-110.75 bg-white flex flex-col justify-between pt-14 pb-7 px-5">
+    <div className="relative overflow-hidden group cursor-pointer w-full min-h-72 sm:min-h-96 lg:min-h-110.75 bg-white flex flex-col justify-between pt-10 pb-6 px-5 sm:pt-12 sm:pb-7 lg:pt-14 lg:pb-7">
 
-      {/* ── Background image: fades in on hover ── */}
+      {/* Background image — fades in on hover */}
       <div
         className="absolute inset-0 bg-cover bg-center opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out"
         style={{ backgroundImage: `url(${sector.image})` }}
       />
-      {/* Dark scrim over the image */}
+      {/* Dark scrim */}
       <div className="absolute inset-0 bg-black/72 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out" />
 
-      {/* ── Number: fades out on hover ── */}
-      <p className="relative z-10 font-oswald text-[70px] leading-none text-gray-300 select-none group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
+      {/* Number — fades out on hover */}
+      <p className="relative z-10 font-oswald text-[50px] sm:text-[60px] lg:text-[70px] leading-none text-gray-300 select-none group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
         {sector.id}
       </p>
 
-      {/* ── Middle: pill + description slides up on hover ── */}
+      {/* Middle: pill + description — slides up on hover */}
       <div
-        className="relative z-10 flex flex-col gap-4 transition-transform duration-500 group-hover:-translate-y-5"
+        className="relative z-10 flex flex-col gap-3 sm:gap-4 transition-transform duration-500 group-hover:-translate-y-5"
         style={{ transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)" }}
       >
         {/* Pill tag */}
-        <div className="border border-black group-hover:border-white/70 rounded-full px-4 py-1.5 self-start transition-colors duration-300">
-          <span className="font-tasa-orbiter text-[13px] uppercase tracking-[0.97px] text-black group-hover:text-white whitespace-nowrap transition-colors duration-300">
+        <div className="border border-black group-hover:border-white/70 rounded-full px-3 py-1 sm:px-4 sm:py-1.5 self-start transition-colors duration-300">
+          <span className="font-tasa-orbiter text-[11px] sm:text-[13px] uppercase tracking-[0.97px] text-black group-hover:text-white whitespace-nowrap transition-colors duration-300">
             {sector.tag}
           </span>
         </div>
 
-        {/* Description — slides up and fades in */}
+        {/* Description — slides up and fades in on hover */}
         <p
-          className="font-tasa-orbiter text-[13px] leading-relaxed text-white max-w-65 opacity-0 -translate-y-2 group-hover:opacity-100 group-hover:translate-y-0"
+          className="font-tasa-orbiter text-[12px] sm:text-[13px] leading-relaxed text-white max-w-65 opacity-0 -translate-y-2 group-hover:opacity-100 group-hover:translate-y-0"
           style={{
             transition: "opacity 0.45s ease, transform 0.45s ease",
             transitionDelay: "120ms",
@@ -119,14 +119,13 @@ function SectorCard({ sector }: { sector: Sector }) {
         </p>
       </div>
 
-      {/* ── Bottom row: subtitle + arrow ── */}
+      {/* Bottom: subtitle + arrow */}
       <div className="relative z-10 flex items-end justify-between gap-3">
-        {/* Subtitle fades out on hover */}
-        <span className="font-tasa-orbiter text-[12px] text-black leading-[1.25] group-hover:opacity-0 transition-opacity duration-200">
+        <span className="font-tasa-orbiter text-[11px] sm:text-[12px] text-black leading-[1.25] group-hover:opacity-0 transition-opacity duration-200">
           {sector.subtitle}
         </span>
 
-        {/* Arrow button: navy square → white circle, arrow rotates */}
+        {/* Arrow button: navy square → white circle, rotates on hover */}
         <div
           className="flex items-center justify-center shrink-0 bg-[#10296e] group-hover:bg-white rounded-[10px] group-hover:rounded-full w-5 h-5 group-hover:w-8 group-hover:h-8 transition-all duration-500"
           style={{ transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)" }}
@@ -154,44 +153,61 @@ function SectorCard({ sector }: { sector: Sector }) {
   );
 }
 
+/** Returns border classes for a card at `index` out of `total` in the row. */
+function cardBorderClasses(index: number, total: number): string {
+  const classes = ["border-b border-gray-100"];
+  // sm (2-col): right border on even-index cards (left column)
+  if (index % 2 === 0) classes.push("sm:border-r");
+  // lg (4-col): right border on all except last
+  if (index < total - 1) classes.push("lg:border-r");
+  return classes.join(" ");
+}
+
 export default function StrategicFocus() {
   return (
-    <section className="bg-white w-full py-24 lg:py-25">
+    <section className="bg-white w-full py-16 md:py-20 lg:py-25">
+
       {/* ── Header ── */}
-      <div className="flex flex-col items-center gap-6 mb-16">
+      <div className="flex flex-col items-center gap-4 sm:gap-6 mb-10 sm:mb-12 lg:mb-16 px-4 text-center">
         <div className="flex items-center gap-2.5">
           <div className="w-2.5 h-2.5 bg-[#275ff9] rounded-[1px] shrink-0" />
-          <span className="font-ibm-mono text-[#275ff9] text-sm font-semibold tracking-[0.3em] uppercase">
+          <span className="font-ibm-mono text-[#275ff9] text-xs sm:text-sm font-semibold tracking-[0.3em] uppercase">
             Strategic Focus Areas
           </span>
         </div>
         <h2
           className="font-oswald text-[#10296e] text-center font-normal capitalize leading-[1.08] max-w-[1000px]"
-          style={{ fontSize: "clamp(48px, 5.5vw, 80px) " }}
+          style={{ fontSize: "clamp(36px, 5.5vw, 80px)" }}
         >
           Sectors benefiting from
-          <br />
-          structural growth trends.
+          <br className="hidden sm:block" />
+          {" "}structural growth trends.
         </h2>
       </div>
 
-      {/* ── Row 1: cards 1–4, left-aligned ── */}
-      <div className="px-20">
-        <div className="flex divide-x divide-gray-100 border-t border-b border-gray-100">
-          {SECTORS_ROW1.map((s) => (
-            <SectorCard key={s.id} sector={s} />
+      {/* ── Row 1: cards 1–4 ── */}
+      <div className="px-4 sm:px-8 lg:px-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-gray-100">
+          {SECTORS_ROW1.map((s, i) => (
+            <div key={s.id} className={cardBorderClasses(i, SECTORS_ROW1.length)}>
+              <SectorCard sector={s} />
+            </div>
           ))}
         </div>
       </div>
 
-      {/* ── Row 2: cards 5–8, shifted right by ~1 card width ── */}
-      <div className="pr-20" style={{ paddingLeft: "clamp(80px, 22vw, 374px)" }}>
-        <div className="flex divide-x divide-gray-100 border-b border-gray-100">
-          {SECTORS_ROW2.map((s) => (
-            <SectorCard key={s.id} sector={s} />
+      {/* ── Row 2: cards 5–8, staggered right on desktop ── */}
+      <div className="px-4 sm:px-8 lg:px-0">
+        {/* sf-row2-offset (globals.css) applies clamp pl + pr-20 at lg only */}
+        <div className="sf-row2-offset grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+          {SECTORS_ROW2.map((s, i) => (
+            <div key={s.id} className={cardBorderClasses(i, SECTORS_ROW2.length)}>
+              <SectorCard sector={s} />
+            </div>
           ))}
         </div>
       </div>
+
     </section>
   );
 }
