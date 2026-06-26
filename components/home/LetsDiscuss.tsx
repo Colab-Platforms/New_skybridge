@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 
 export default function LetsDiscuss() {
@@ -14,6 +14,22 @@ export default function LetsDiscuss() {
   });
 
   const [fileName, setFileName] = useState<string | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect(); // fire once
+        }
+      },
+      { threshold: 0.12 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -44,45 +60,82 @@ export default function LetsDiscuss() {
   };
 
   return (
-    <section id="initiate-discuss" className="bg-[#0b1d47] py-24 px-6 md:px-12 lg:px-24 w-full flex flex-col items-center border-t border-white/5">
+    <section id="initiate-discuss" ref={sectionRef} className="bg-[#0b1d47] py-24 px-6 md:px-12 lg:px-24 w-full flex flex-col items-center border-t border-white/5 overflow-hidden">
       <div className="max-w-[1600px] w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-stretch">
 
-        {/* Left Column: Heading and Subtext */}
-        {/* <div> */}
-          <div className="lg:col-span-4 flex flex-col justify-center gap-6 relative left-16 z-99 pr-5">
-            <div className="lg:-mr-30">
-              <div className="flex flex-col gap-4">
-                <span className="text-[13px] text-white/80 font-bold tracking-[0.25em] uppercase">
-                  Start a Confidential Conversation
-                </span>
-                <h2 className="text-white font-oswald text-4xl md:text-5xl lg:text-[62px] font-bold leading-[1.08] tracking-tight">
-                  Let's Discuss What's <br /> Next
-                </h2>
+        {/* Left Column: Heading & Subtext — reveals left-to-right via max-width */}
+          <div className="lg:col-span-4 flex flex-col justify-center gap-6 relative  lg:left-16 z-[99] pr-5">
+            {/* Clipping wrapper: max-width transitions from 0 → 100% */}
+            <div
+              className="lg:-mr-30 overflow-hidden"
+              style={{
+                maxWidth: isVisible ? "130%" : "0%",
+                transition: isVisible
+                  ? "max-width 1s cubic-bezier(0.22, 1, 0.36, 1) 0s"
+                  : "none",
+              }}
+            >
+              {/* Inner div prevents text from wrapping until container is wide enough */}
+              <div style={{ minWidth: "min(340px, 90vw)" }}>
+                <div className="flex flex-col gap-4">
+                  <span className="text-[13px] text-white/80 font-bold tracking-[0.25em] uppercase">
+                    Start a Confidential Conversation
+                  </span>
+                  <h2 className="text-white font-oswald text-4xl md:text-5xl lg:text-[62px] font-bold leading-[1.08] tracking-tight">
+                    Let&apos;s Discuss What&apos;s <br /> Next
+                  </h2>
+                </div>
+                <p className="text-slate-300 text-sm md:text-base leading-relaxed font-light max-w-md mt-4">
+                  Whether you&apos;re raising capital, evaluating strategic opportunities,
+                  exploring restructuring options, or seeking advisory support, our team is
+                  ready to understand your objectives.
+                </p>
               </div>
-              <p className="text-slate-300 text-sm md:text-base leading-relaxed font-light max-w-md">
-                Whether you're raising capital, evaluating strategic opportunities, exploring restructuring options, or seeking advisory support, our team is ready to understand your objectives.
-              </p>
-
-
             </div>
-
           </div>
 
-          {/* Middle Column: Vertical Image of Mumbai Marine Drive at Sunset */}
-          <div className="lg:col-span-3 min-h-[450px] lg:min-h-full relative  z-10 overflow-hidden shadow-2xl bg-[#091636]">
+          {/* Middle Column: Image — scales up from bottom */}
+          <div
+            className="lg:col-span-3 min-h-[450px] lg:min-h-full relative z-10 shadow-2xl bg-[#091636]"
+            style={{
+              overflow: "hidden",
+              transform: isVisible ? "scaleY(1)" : "scaleY(0)",
+              transformOrigin: "bottom center",
+              transition: isVisible
+                ? "transform 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.08s"
+                : "none",
+            }}
+          >
             <Image
               src="/mumbai_sunset.png"
               alt="Mumbai Marine Drive at Sunset"
               fill
               sizes="(max-width: 1024px) 100vw, 350px"
               className="object-cover"
+              style={{
+                transform: isVisible ? "scaleY(1)" : "scaleY(4)",
+                transformOrigin: "bottom center",
+                transition: isVisible
+                  ? "transform 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.08s"
+                  : "none",
+              }}
               priority
             />
           </div>
         {/* </div> */}
 
         {/* Right Column: Confidential Form Card */}
-        <div className="lg:col-span-5 bg-[#132a68] border border-white/5 rounded-3xl p-8 md:p-10 flex flex-col gap-6 shadow-2xl justify-between">
+        {/* Right Column: Form card — scales up from bottom with slight delay */}
+        <div
+          className="lg:col-span-5 bg-[#132a68] border border-white/5 rounded-3xl p-8 md:p-10 flex flex-col gap-6 shadow-2xl justify-between"
+          style={{
+            transform: isVisible ? "scaleY(1)" : "scaleY(0)",
+            transformOrigin: "bottom center",
+            transition: isVisible
+              ? "transform 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.25s"
+              : "none",
+          }}
+        >
           <form onSubmit={handleSubmit} className="flex flex-col gap-6 w-full">
 
             {/* Input Grid (2x2) */}

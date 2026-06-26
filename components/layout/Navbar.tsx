@@ -14,7 +14,7 @@ export default function Navbar() {
 
   return (
     <header className="absolute top-0 left-0 right-0 z-50 w-full bg-[linear-gradient(180deg,_#10296E_-62.4%,_rgba(5,15,42,0)_100%)] py-4">
-      <div className="flex flex-row justify-between items-center px-12 max-w-[1920px] w-full  mx-auto gap-6">
+      <div className="flex flex-row justify-between items-center px-2 lg:px-12 max-w-[1920px] w-full  mx-auto gap-6">
         {/* Logo Section */}
         <Link href="/" className="flex items-center flex-shrink-0 transition-transform duration-300 hover:scale-102">
           <Image
