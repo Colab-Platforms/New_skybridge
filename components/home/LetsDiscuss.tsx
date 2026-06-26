@@ -45,40 +45,46 @@ export default function LetsDiscuss() {
 
   return (
     <section id="initiate-discuss" className="bg-[#0b1d47] py-24 px-6 md:px-12 lg:px-24 w-full flex flex-col items-center border-t border-white/5">
-      <div className="max-w-[1400px] w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-stretch">
-        
-        {/* Left Column: Heading and Subtext */}
-        <div className="lg:col-span-4 flex flex-col justify-center gap-6">
-          <div className="flex flex-col gap-4">
-            <span className="text-[13px] text-white/80 font-bold tracking-[0.25em] uppercase">
-              Start a Confidential Conversation
-            </span>
-            <h2 className="text-white font-oswald text-4xl md:text-5xl lg:text-[62px] font-bold leading-[1.08] tracking-tight">
-              Let's Discuss <br />
-              What's Next
-            </h2>
-          </div>
-          <p className="text-slate-300 text-sm md:text-base leading-relaxed font-light max-w-md">
-            Whether you're raising capital, evaluating strategic opportunities, exploring restructuring options, or seeking advisory support, our team is ready to understand your objectives.
-          </p>
-        </div>
+      <div className="max-w-[1600px] w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-stretch">
 
-        {/* Middle Column: Vertical Image of Mumbai Marine Drive at Sunset */}
-        <div className="lg:col-span-3 min-h-[450px] lg:min-h-full relative rounded-2xl overflow-hidden shadow-2xl bg-[#091636]">
-          <Image
-            src="/mumbai_sunset.png"
-            alt="Mumbai Marine Drive at Sunset"
-            fill
-            sizes="(max-width: 1024px) 100vw, 350px"
-            className="object-cover"
-            priority
-          />
-        </div>
+        {/* Left Column: Heading and Subtext */}
+        {/* <div> */}
+          <div className="lg:col-span-4 flex flex-col justify-center gap-6 relative left-16 z-99 pr-5">
+            <div className="lg:-mr-30">
+              <div className="flex flex-col gap-4">
+                <span className="text-[13px] text-white/80 font-bold tracking-[0.25em] uppercase">
+                  Start a Confidential Conversation
+                </span>
+                <h2 className="text-white font-oswald text-4xl md:text-5xl lg:text-[62px] font-bold leading-[1.08] tracking-tight">
+                  Let's Discuss What's <br /> Next
+                </h2>
+              </div>
+              <p className="text-slate-300 text-sm md:text-base leading-relaxed font-light max-w-md">
+                Whether you're raising capital, evaluating strategic opportunities, exploring restructuring options, or seeking advisory support, our team is ready to understand your objectives.
+              </p>
+
+
+            </div>
+
+          </div>
+
+          {/* Middle Column: Vertical Image of Mumbai Marine Drive at Sunset */}
+          <div className="lg:col-span-3 min-h-[450px] lg:min-h-full relative  z-10 overflow-hidden shadow-2xl bg-[#091636]">
+            <Image
+              src="/mumbai_sunset.png"
+              alt="Mumbai Marine Drive at Sunset"
+              fill
+              sizes="(max-width: 1024px) 100vw, 350px"
+              className="object-cover"
+              priority
+            />
+          </div>
+        {/* </div> */}
 
         {/* Right Column: Confidential Form Card */}
         <div className="lg:col-span-5 bg-[#132a68] border border-white/5 rounded-3xl p-8 md:p-10 flex flex-col gap-6 shadow-2xl justify-between">
           <form onSubmit={handleSubmit} className="flex flex-col gap-6 w-full">
-            
+
             {/* Input Grid (2x2) */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-6">
               {/* Full Name */}

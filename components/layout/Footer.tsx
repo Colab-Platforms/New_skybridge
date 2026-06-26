@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import LogoImage from "@/public/skybridge-logo.png";
 
 export default function Footer() {
   const handleInitiateClick = () => {
@@ -19,25 +20,25 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-[#070708] text-white pt-20 pb-12 px-6 md:px-12 lg:px-24 border-t border-white/5 w-full flex flex-col items-center">
-      <div className="max-w-[1400px] w-full flex flex-col">
-        
+    <footer className="bg-[#070708] text-white pt-[100px] pb-12 px-6 md:px-12 lg:px-[80px] border-t border-white/5 w-full flex flex-col items-center">
+      <div className=" w-full flex flex-col">
+
         {/* Top Section: Three Columns Grid */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-10">
-          
+
           {/* Column 1: Logo & Tagline (5 Columns wide on desktop) */}
           <div className="md:col-span-6 lg:col-span-5 flex flex-col gap-6 items-start">
-            <div className="relative w-[180px] h-[45px]">
-              <Image
-                src="/skybridge-logo.png"
-                alt="Sky Bridge Logo"
-                fill
-                sizes="180px"
-                className="object-contain object-left"
-                priority
-              />
-            </div>
-            <p className="text-slate-400 text-sm md:text-base leading-relaxed font-light max-w-sm mt-2">
+            <Link href="/" className="flex items-center flex-shrink-0 transition-transform duration-300 hover:scale-102">
+          <Image
+            src={LogoImage}
+            alt="Sky Bridge Logo"
+            className="object-contain h-auto w-auto"
+            width={180}
+            height={44}
+            priority
+          />
+        </Link>
+            <p className="text-slate-400 text-sm md:text-3xl  leading-relaxed font-light  mt-2">
               Partner with us to turn strategic ambition into measurable business results.
             </p>
             <button
@@ -50,10 +51,10 @@ export default function Footer() {
 
           {/* Column 2: Main Pages (3 Columns wide on desktop) */}
           <div className="md:col-span-3 lg:col-span-3 flex flex-col gap-6">
-            <span className="text-white/40 text-[10px] font-bold tracking-[0.25em] uppercase">
+            <span className="text-white text-[20px] font-bold tracking-[0.25em] uppercase  ">
               Main Pages
             </span>
-            <ul className="flex flex-col gap-3.5 text-sm font-light text-slate-400">
+            <ul className="flex flex-col gap-3.5 text-2xl font-light text-slate-400">
               <li>
                 <Link href="/" className="hover:text-white transition-colors duration-200">
                   Home
@@ -79,10 +80,10 @@ export default function Footer() {
 
           {/* Column 3: Contact Info & Address (4 Columns wide on desktop) */}
           <div className="md:col-span-3 lg:col-span-4 flex flex-col gap-6">
-            <span className="text-white/40 text-[10px] font-bold tracking-[0.25em] uppercase">
+            <span className="text-white text-[20px] font-bold tracking-[0.25em] uppercase  ">
               Contact
             </span>
-            <div className="flex flex-col gap-4 text-sm font-light text-slate-400">
+            <div className="flex flex-col gap-4 text-2xl font-light text-slate-400">
               <Link
                 href="mailto:partnership@skybridgegroup.in"
                 className="hover:text-white transition-colors duration-200 break-all"
@@ -113,7 +114,7 @@ export default function Footer() {
           <span className="text-[11px] md:text-xs text-slate-500 font-light tracking-wide text-center sm:text-left">
             Copyright © 2024 SkyBridge Group. All rights reserved.
           </span>
-          
+
           {/* Social Icons circles */}
           <div className="flex items-center gap-3">
             {/* Facebook */}
