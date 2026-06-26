@@ -57,7 +57,7 @@ export default function AtGlance() {
 
         {/* Right Column: 3x3 Photo-Stat Grid */}
         <div className="lg:col-span-7 w-full flex justify-center">
-          <div className="relative xl:h-[999px] w-full aspect-square md:aspect-[4/3] max-w-[640px] xl:max-w-[1000px] overflow-hidden rounded-lg shadow-xl border border-white/30">
+          <div className="relative xl:h-[999px] w-full aspect-square md:aspect-[4/3] max-w-[640px] xl:max-w-[1000px] overflow-hidden ">
             {/* Background Gateway Image with Duotone filter effect */}
             <div className="absolute inset-0 z-0 bg-slate-900">
               <Image

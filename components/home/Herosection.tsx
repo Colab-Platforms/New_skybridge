@@ -65,7 +65,7 @@ export default function HeroSection() {
             <div className="absolute inset-0 bg-black/20 z-10 pointer-events-none" />
 
             {/* Main Bottom Columns Section */}
-            <div className="relative z-20 border-t border-white/10 max-w-[1920px] w-full mx-auto px-12 pb-4 pt-4 grid grid-cols-1 lg:grid-cols-2 gap-16 items-end mt-auto border-amber-50">
+            <div className="relative z-20 border-t border-white/10 max-w-[1920px] w-full mx-auto px-[100px] pb-4 pt-4 grid grid-cols-1 lg:grid-cols-2 gap-16 items-end mt-auto border-amber-50">
 
                 {/* Left Column: Location, Headline, Scroll Down Button */}
                 <div className="flex flex-row justify-between items-end gap-8 w-full">
@@ -127,7 +127,7 @@ export default function HeroSection() {
                     </div>
 
                     {/* Pagination Indicators */}
-                    <div className="flex flex-row gap-2 justify-start items-center pl-1">
+                    <div className="flex flex-row gap-2 justify-center items-center pl-1">
                         <span className="w-2.5 h-2.5 rounded-full bg-white cursor-pointer transition-colors duration-200" />
                         <span className="w-1.5 h-1.5 rounded-full bg-white/25 hover:bg-white/45 transition-colors duration-200 cursor-pointer" />
                         <span className="w-1.5 h-1.5 rounded-full bg-white/25 hover:bg-white/45 transition-colors duration-200 cursor-pointer" />
