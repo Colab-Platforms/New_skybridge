@@ -18,7 +18,7 @@ export default function AtGlance() {
             </div>
 
             {/* Heading */}
-            <h2 className="text-3xl w-[672px] text-[#10296e] md:text-4xl lg:text-[44px] xl:text-[80px]  leading-[86px] capitalize font-oswald  text-left flex items-center">
+            <h2 className="text-3xl max-w-[672px] w-full text-[#10296e] md:text-4xl lg:text-[44px] xl:text-[80px] leading-tight xl:leading-[1.08] capitalize font-oswald text-left flex items-center">
               Strategic Capital. <br />
               Long-Term Partnership.
             </h2>
@@ -41,7 +41,7 @@ export default function AtGlance() {
             </div>
 
             {/* Paragraphs of text */}
-            <div className=" w-[572px] flex flex-col gap-6 text-slate-700 text-sm md:text-[22]  relative text-[22px] leading-[160%] font-tasa-orbiter text-gray text-left items-center">
+            <div className=" md:max-w-[572px] flex flex-col gap-6 text-slate-700 text-sm md:text-[22]  relative text-[22px] leading-[160%] font-tasa-orbiter text-gray text-left items-center">
               <p>
                 Sky Bridge Group is a strategic investment and capital platform partnering with visionary entrepreneurs and growth-focused businesses.
               </p>

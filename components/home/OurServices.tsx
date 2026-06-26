@@ -1,22 +1,17 @@
 "use client";
 
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 import Image from "next/image";
 
 // ─────────────────────────────────────────────────────────────
 // Service data
-// 5 services → 5 carousel cards
-// images point into /public/carouselcards/
-// The background image syncs with whichever card is "active"
 // ─────────────────────────────────────────────────────────────
 interface ServiceItem {
   id: number;
   title: string;
   subtitle: string;
   bullets: string[][];
-  /** Carousel card image (inside /public) */
   image: string;
-  /** Full-screen background image (inside /public) — falls back to card image */
   bgImage?: string;
 }
 
@@ -30,7 +25,7 @@ const SERVICES: ServiceItem[] = [
       ["Equity Capital Markets"],
     ],
     image: "/carouselcards/Card 2.png",
-    bgImage: "/carouselbgimage/2.png", // keeps existing bg for first slide
+    bgImage: "/carouselbgimage/2.png",
   },
   {
     id: 2,
@@ -78,10 +73,8 @@ const SERVICES: ServiceItem[] = [
   },
 ];
 
-// 4 fully visible cards + the 5th half-bleeds off the right edge
-const VISIBLE_COUNT = 5; // render 5, last one clips at edge
+const VISIBLE_COUNT = 5;
 const ANIM_MS = 520;
-
 type Dir = "next" | "prev" | null;
 
 // ─────────────────────────────────────────────────────────────
@@ -90,6 +83,20 @@ export default function OurServices() {
   const [dir, setDir] = useState<Dir>(null);
   const [busy, setBusy] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Responsive card sizing: track window width
+  const [windowW, setWindowW] = useState(0);
+  useEffect(() => {
+    const update = () => setWindowW(window.innerWidth);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  // Mobile: show ~2.3 cards in the strip; desktop: fixed 220px
+  const isMobile = windowW > 0 && windowW < 1024;
+  const CARD_W = isMobile ? Math.max(130, Math.round(windowW * 0.43)) : 220;
+  const STRIP_H = isMobile ? 220 : 400;
 
   const go = useCallback(
     (direction: Dir, newIdx: number) => {
@@ -111,7 +118,6 @@ export default function OurServices() {
 
   const active = SERVICES[activeIdx];
 
-  // Ordered list starting from active so the active card is always slot 0
   const ordered = Array.from(
     { length: SERVICES.length },
     (_, i) => SERVICES[(activeIdx + i) % SERVICES.length]
@@ -122,7 +128,7 @@ export default function OurServices() {
       className="relative w-full bg-[#080c14] select-none overflow-hidden"
       style={{ minHeight: "100svh" }}
     >
-      {/* ══════════════ DYNAMIC BACKGROUND (syncs with active card) ══════════════ */}
+      {/* ══════════════ DYNAMIC BACKGROUND ══════════════ */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         {SERVICES.map((svc, i) => {
           const bgSrc = svc.bgImage ?? svc.image;
@@ -151,19 +157,18 @@ export default function OurServices() {
         })}
       </div>
 
-      {/* ══════════════ MAIN LAYOUT: left 2fr · right 3fr ══════════════ */}
+      {/* ══════════════ MAIN LAYOUT ══════════════
+          Desktop: left 2fr (text) | right 3fr (carousel)
+          Mobile:  single column — text stacked above carousel
+      */}
       <div
-        className="relative z-10 w-full"
-        style={{
-          minHeight: "100svh",
-          display: "grid",
-          gridTemplateColumns: "2fr 3fr",
-          alignItems: "center",
-        }}
+        className="relative z-10 w-full grid grid-cols-1 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] items-center"
+        style={{ minHeight: "100svh" }}
       >
-        {/* ─── LEFT CONTENT PANEL ─── */}
-        <div className="flex flex-col gap-6 px-8 sm:px-12 lg:px-16 xl:px-20 py-24">
-          {/* Label */}
+        {/* ─── LEFT / TOP: TEXT CONTENT ─── */}
+        <div className="flex flex-col gap-5 px-6 sm:px-10 lg:px-16 xl:px-20 pt-14 pb-6 lg:py-24">
+
+          {/* Section label */}
           <div className="flex items-center gap-2 text-blue-400 text-[11px] font-semibold tracking-[0.35em] uppercase">
             <span className="inline-block w-2 h-2 bg-blue-400 rounded-[2px]" />
             Our Services
@@ -174,7 +179,7 @@ export default function OurServices() {
             <h2
               key={`h-${activeIdx}`}
               className="services-slide-left text-white font-oswald uppercase leading-[0.9] tracking-tight"
-              style={{ fontSize: "clamp(56px, 7.5vw, 108px)" }}
+              style={{ fontSize: "clamp(36px, 7.5vw, 108px)" }}
             >
               {active.title}
             </h2>
@@ -184,8 +189,7 @@ export default function OurServices() {
           <div className="overflow-hidden">
             <p
               key={`s-${activeIdx}`}
-              className="services-slide-left-delay text-white/70 font-light italic leading-snug whitespace-pre-line"
-              style={{ fontSize: "clamp(18px, 1.9vw, 28px)" }}
+              className="services-slide-left-delay text-white/70 font-light italic leading-snug whitespace-pre-line text-base lg:text-lg xl:text-[clamp(18px,1.9vw,28px)]"
             >
               {active.subtitle}
             </p>
@@ -194,32 +198,43 @@ export default function OurServices() {
           {/* Accent line */}
           <div className="w-14 h-px bg-gradient-to-r from-blue-400 to-transparent" />
 
-          {/* Bullets */}
+          {/* Bullets — flat single column on mobile, grouped rows on desktop */}
           <div key={`b-${activeIdx}`} className="services-fade-in flex flex-col gap-2">
-            {active.bullets.map((row, ri) => (
-              <div key={ri} className="flex flex-wrap gap-x-6 gap-y-1.5">
-                {row.map((item) => (
-                  <span key={item} className="flex items-center gap-2 text-white/55 text-sm">
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-400/70 flex-shrink-0" />
-                    {item}
-                  </span>
-                ))}
-              </div>
-            ))}
+            {/* On mobile flatten to single column; on desktop keep original row groups */}
+            <div className="lg:hidden flex flex-col gap-2">
+              {active.bullets.flat().map((item) => (
+                <span key={item} className="flex items-center gap-2 text-white/55 text-sm">
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400/70 flex-shrink-0" />
+                  {item}
+                </span>
+              ))}
+            </div>
+            <div className="hidden lg:flex flex-col gap-2">
+              {active.bullets.map((row, ri) => (
+                <div key={ri} className="flex flex-wrap gap-x-6 gap-y-1.5">
+                  {row.map((item) => (
+                    <span key={item} className="flex items-center gap-2 text-white/55 text-sm">
+                      <span className="w-1.5 h-1.5 rounded-full bg-blue-400/70 flex-shrink-0" />
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* ─── RIGHT: CAROUSEL CARDS + NAV BELOW ─── */}
-        <div className="flex flex-col justify-center gap-8 py-24 pr-0">
+        {/* ─── RIGHT / BOTTOM: CAROUSEL ─── */}
+        <div className="flex flex-col gap-5 lg:gap-8 pb-12 lg:py-24 overflow-hidden">
 
           {/* Card strip
-              - All cards same height, horizontally level
-              - overflow:visible so the 5th card bleeds off the right edge
-              - Section overflow:hidden clips it at the section boundary
+              - `overflow: visible` so 5th card bleeds off right edge
+              - Section `overflow-hidden` clips it at the boundary
+              - pl-6 on mobile so cards start with a bit of left padding (matches Figma)
           */}
           <div
-            className="flex gap-4 items-stretch"
-            style={{ height: 400, overflow: "visible" }}
+            className="flex gap-3 lg:gap-4 items-stretch pl-6 lg:pl-0"
+            style={{ height: STRIP_H, overflow: "visible" }}
           >
             {ordered.slice(0, VISIBLE_COUNT).map((svc, slotIdx) => (
               <CarouselCard
@@ -229,17 +244,18 @@ export default function OurServices() {
                 totalVisible={VISIBLE_COUNT}
                 dir={dir}
                 animMs={ANIM_MS}
+                cardWidth={CARD_W}
               />
             ))}
           </div>
 
-          {/* Navigation: prev/next + progress bar + counter */}
-          <div className="flex items-center gap-4 pl-1">
+          {/* Navigation: prev / next arrows + progress bar + counter */}
+          <div className="flex items-center gap-4 pl-6 lg:pl-1">
             <button
               onClick={prev}
               disabled={busy}
               aria-label="Previous service"
-              className="w-10 h-10 rounded-full border border-white/25 flex items-center justify-center text-white/60 hover:border-blue-400/70 hover:text-blue-400 hover:bg-blue-400/10 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed group flex-shrink-0"
+              className="w-9 h-9 lg:w-10 lg:h-10 rounded-full border border-white/25 flex items-center justify-center text-white/60 hover:border-blue-400/70 hover:text-blue-400 hover:bg-blue-400/10 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed group flex-shrink-0"
             >
               <svg className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -250,7 +266,7 @@ export default function OurServices() {
               onClick={next}
               disabled={busy}
               aria-label="Next service"
-              className="w-10 h-10 rounded-full border border-white/25 flex items-center justify-center text-white/60 hover:border-blue-400/70 hover:text-blue-400 hover:bg-blue-400/10 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed group flex-shrink-0"
+              className="w-9 h-9 lg:w-10 lg:h-10 rounded-full border border-white/25 flex items-center justify-center text-white/60 hover:border-blue-400/70 hover:text-blue-400 hover:bg-blue-400/10 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed group flex-shrink-0"
             >
               <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -281,9 +297,6 @@ export default function OurServices() {
 
 // ─────────────────────────────────────────────────────────────
 // CarouselCard
-// All cards sit at the same height (no scale).
-// Brightness falls off for cards further from active.
-// The 5th card (slotIndex 4) is partially clipped by section overflow:hidden.
 // ─────────────────────────────────────────────────────────────
 interface CarouselCardProps {
   service: ServiceItem;
@@ -291,18 +304,14 @@ interface CarouselCardProps {
   totalVisible: number;
   dir: Dir;
   animMs: number;
+  cardWidth: number;
 }
 
-function CarouselCard({ service, slotIndex, totalVisible, dir, animMs }: CarouselCardProps) {
-  // All cards the same width — the section clips the last one
-  // Widths are equal so cards line up horizontally like the reference
-  const CARD_WIDTH = 220; // px — 4 cards + gap ~= carousel area, 5th bleeds
-
-  // Brightness: active card full, each subsequent step dimmer
+function CarouselCard({ service, slotIndex, dir, animMs, cardWidth }: CarouselCardProps) {
+  // Brightness falls off for cards further from active
   const brightnessSteps = [1, 0.82, 0.65, 0.45, 0.28];
   const brightness = brightnessSteps[slotIndex] ?? 0.2;
 
-  // Directional entrance animation
   let animClass = "";
   if (dir !== null) {
     animClass = dir === "next" ? "services-card-in-up" : "services-card-in-down";
@@ -312,7 +321,7 @@ function CarouselCard({ service, slotIndex, totalVisible, dir, animMs }: Carouse
     <div
       className={`relative flex-shrink-0 overflow-hidden rounded-2xl group cursor-pointer ${animClass}`}
       style={{
-        width: CARD_WIDTH,
+        width: cardWidth,
         height: "100%",
         filter: `brightness(${brightness})`,
         transition: `filter ${animMs}ms ease`,
@@ -325,26 +334,26 @@ function CarouselCard({ service, slotIndex, totalVisible, dir, animMs }: Carouse
         alt={service.title}
         fill
         className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
-        sizes="(max-width: 768px) 60vw, 22vw"
+        sizes="(max-width: 1023px) 44vw, 22vw"
       />
 
-      {/* Bottom gradient overlay — darkens bottom ~50% for text readability */}
+      {/* Bottom gradient overlay */}
       <div
-        className="absolute inset-0 pointer-events-none z-1"
+        className="absolute inset-0 pointer-events-none z-[1]"
         style={{
           background: "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 35%, transparent 65%)",
         }}
       />
 
       {/* Card label */}
-      <div className="absolute bottom-0 left-0 right-0 px-4 pb-4 z-2">
-        <h3 className="text-white font-oswald uppercase leading-[1.15] tracking-wide text-[13px] font-semibold">
+      <div className="absolute bottom-0 left-0 right-0 px-3 pb-3 z-[2]">
+        <h3 className="text-white font-oswald uppercase leading-[1.15] tracking-wide text-[11px] lg:text-[13px] font-semibold">
           {service.title}
         </h3>
       </div>
 
       {/* Subtle card border */}
-      <div className="absolute inset-0 rounded-2xl border border-white/10 group-hover:border-blue-400/30 transition-all duration-300 pointer-events-none z-3" />
+      <div className="absolute inset-0 rounded-2xl border border-white/10 group-hover:border-blue-400/30 transition-all duration-300 pointer-events-none z-[3]" />
     </div>
   );
 }

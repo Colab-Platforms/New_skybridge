@@ -44,7 +44,7 @@ export default function HeroSection() {
     }, []);
 
     return (
-        <div className="relative flex flex-col justify-between flex-grow w-full  overflow-hidden min-h-screen select-none">
+        <div className="relative flex flex-col justify-between flex-grow w-full overflow-hidden min-h-screen select-none pt-24 sm:pt-28 md:pt-0">
 
             {/* Background Video */}
             <video
@@ -64,23 +64,26 @@ export default function HeroSection() {
             {/* Soft Dark Overlay to ensure perfect contrast and aesthetic depth */}
             <div className="absolute inset-0 bg-black/20 z-10 pointer-events-none" />
 
+            {/* Spacer — pushes bottom content down on desktop where pt-0 is used */}
+            <div className="flex-grow" />
+
             {/* Main Bottom Columns Section */}
-            <div className="relative z-20 border-t border-white/10 max-w-[1920px] w-full mx-auto px-[100px] pb-4 pt-4 grid grid-cols-1 lg:grid-cols-2 gap-16 items-end mt-auto border-amber-50">
+            <div className="relative z-20 border-t border-white/10 max-w-[1920px] w-full mx-auto px-6 sm:px-10 md:px-16 lg:px-20 xl:px-[100px] pb-4 pt-36 lg:pt-0 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-end">
 
                 {/* Left Column: Location, Headline, Scroll Down Button */}
-                <div className="flex flex-row justify-between items-end gap-8 w-full">
+                <div className="flex flex-row justify-between items-end gap-4 sm:gap-8 w-full">
                     <div className="flex-grow max-w-xl">
-                        <span className="text-[10px] tracking-[0.3em] text-white/60 font-semibold mb-4 block uppercase font-sans">
+                        <span className="text-[10px] tracking-[0.3em] text-white/60 font-semibold mb-3 sm:mb-4 block uppercase font-sans">
                             Fort, Mumbai
                         </span>
-                        <h1 className="text-white text-3xl md:text-4xl lg:text-[54px] leading-[1.15] font-normal font-sans tracking-tight">
+                        <h1 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-[54px] leading-[1.15] font-normal font-sans tracking-tight">
                             Building Exceptional Businesses. Creating Enduring Value.
                         </h1>
                     </div>
                     <div className="flex-shrink-0 pb-2">
-                        <div className="w-14 h-14 rounded-full border border-white/25 flex items-center justify-center cursor-pointer hover:border-white hover:bg-white/5 transition-all duration-300 group">
+                        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border border-white/25 flex items-center justify-center cursor-pointer hover:border-white hover:bg-white/5 transition-all duration-300 group">
                             <svg
-                                className="w-5 h-5 text-white/80 group-hover:translate-y-1 transition-transform duration-300"
+                                className="w-4 h-4 sm:w-5 sm:h-5 text-white/80 group-hover:translate-y-1 transition-transform duration-300"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -92,7 +95,7 @@ export default function HeroSection() {
                 </div>
 
                 {/* Right Column: Mandates Section with Glassmorphism Card */}
-                <div className="border-t lg:border-t-0 lg:border-l border-white/10 pt-10 lg:pt-0 lg:pl-16 flex flex-col gap-6 w-full">
+                <div className="border-t lg:border-t-0 lg:border-l border-white/10 pt-6 sm:pt-10 lg:pt-0 lg:pl-16 flex flex-col gap-6 w-full">
                     <div>
                         <span className="text-[10px] tracking-[0.3em] text-white/60 font-semibold mb-4 block uppercase font-sans">
                             Recent Mandates
