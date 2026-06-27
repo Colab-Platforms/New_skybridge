@@ -24,7 +24,7 @@ const SERVICES: ServiceItem[] = [
       ["Credit Solutions", "Private Equity Syndication"],
       ["Equity Capital Markets"],
     ],
-    image: "/carouselcards/Card 2.png",
+    image: "/carouselcards/card1.png",
     bgImage: "/carouselbgimage/2.png",
   },
   {
@@ -35,7 +35,7 @@ const SERVICES: ServiceItem[] = [
       ["M&A Advisory", "Restructuring"],
       ["Valuation Services"],
     ],
-    image: "/carouselcards/Card 3.png",
+    image: "/carouselcards/card2.png",
     bgImage: "/carouselbgimage/4.png",
   },
   {
@@ -46,7 +46,7 @@ const SERVICES: ServiceItem[] = [
       ["Portfolio Strategy", "Alternative Investments"],
       ["Family Office Setup"],
     ],
-    image: "/carouselcards/Card 4 (Partial)-1.png",
+    image: "/carouselcards/card3.png",
     bgImage: "/carouselbgimage/5.png",
   },
   {
@@ -57,7 +57,7 @@ const SERVICES: ServiceItem[] = [
       ["Due Diligence", "Legal Coordination"],
       ["Regulatory Compliance"],
     ],
-    image: "/carouselcards/Card 4 (Partial)-2.png",
+    image: "/carouselcards/card4.png",
     bgImage: "/carouselbgimage/2.png",
   },
   {
@@ -68,7 +68,7 @@ const SERVICES: ServiceItem[] = [
       ["Growth Capital", "Fund Structuring"],
       ["Exit Strategy"],
     ],
-    image: "/carouselcards/Card 4 (Partial).png",
+    image: "/carouselcards/card5.png",
     bgImage: "/gateway.png",
   },
 ];
@@ -93,10 +93,10 @@ export default function OurServices() {
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  // Mobile: show ~2.3 cards in the strip; desktop: fixed 220px
+  // Mobile: show ~2.3 cards in the strip; desktop: fixed 283px (Figma spec)
   const isMobile = windowW > 0 && windowW < 1024;
-  const CARD_W = isMobile ? Math.max(130, Math.round(windowW * 0.43)) : 220;
-  const STRIP_H = isMobile ? 220 : 400;
+  const CARD_W = isMobile ? Math.max(120, Math.round(windowW * 0.43)) : 283;
+  const STRIP_H = isMobile ? 220 : 412;
 
   const go = useCallback(
     (direction: Dir, newIdx: number) => {
@@ -123,9 +123,12 @@ export default function OurServices() {
     (_, i) => SERVICES[(activeIdx + i) % SERVICES.length]
   );
 
+  // Split subtitle: first part normal, second part Playfair italic
+  const [subtitleLine1, subtitleLine2] = active.subtitle.split("\n");
+
   return (
     <section
-      className="relative w-full bg-[#080c14] select-none overflow-hidden"
+      className="relative w-full bg-[#0d0a07] select-none overflow-hidden"
       style={{ minHeight: "100svh" }}
     >
       {/* ══════════════ DYNAMIC BACKGROUND ══════════════ */}
@@ -150,8 +153,8 @@ export default function OurServices() {
                 sizes="100vw"
               />
               {/* Heavy left vignette to protect text */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#080c14]/95 via-[#080c14]/65 to-[#080c14]/10" />
-              <div className="absolute inset-0 bg-[#080c14]/30" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#1a1410]/95 via-[#1a1410]/65 to-[#1a1410]/10" />
+              <div className="absolute inset-0 bg-[#1a1410]/30" />
             </div>
           );
         })}
@@ -166,61 +169,57 @@ export default function OurServices() {
         style={{ minHeight: "100svh" }}
       >
         {/* ─── LEFT / TOP: TEXT CONTENT ─── */}
-        <div className="flex flex-col gap-5 px-6 sm:px-10 lg:px-16 xl:px-20 pt-14 pb-6 lg:py-24">
+        <div className="flex flex-col gap-6 px-6 sm:px-10 lg:px-16 xl:px-20 pt-14 pb-6 lg:py-24">
 
           {/* Section label */}
-          <div className="flex items-center gap-2 text-blue-400 text-[11px] font-semibold tracking-[0.35em] uppercase">
-            <span className="inline-block w-2 h-2 bg-blue-400 rounded-[2px]" />
-            Our Services
+          <div className="flex items-center gap-2 text-[11px] lg:text-[13px] font-semibold tracking-[0.35em] uppercase">
+            <span className="inline-block w-2.5 h-2.5 bg-[#275ff9] rounded-[2px] flex-shrink-0" />
+            <span className="text-white">Our Services</span>
           </div>
 
           {/* Heading */}
           <div className="overflow-hidden">
             <h2
               key={`h-${activeIdx}`}
-              className="services-slide-left text-white font-oswald uppercase leading-[0.9] tracking-tight"
-              style={{ fontSize: "clamp(36px, 7.5vw, 108px)" }}
+              className="services-slide-left text-white font-oswald font-medium uppercase leading-[1.15] tracking-tight"
+              style={{ fontSize: "clamp(40px, 5.5vw, 70px)" }}
             >
               {active.title}
             </h2>
           </div>
 
-          {/* Subtitle */}
+          {/* Subtitle — mixed fonts: TASA Orbiter + Playfair italic */}
           <div className="overflow-hidden">
             <p
               key={`s-${activeIdx}`}
-              className="services-slide-left-delay text-white/70 font-light italic leading-snug whitespace-pre-line text-base lg:text-lg xl:text-[clamp(18px,1.9vw,28px)]"
+              className="services-slide-left-delay text-[#d1d5db] font-tasa-orbiter font-semibold leading-snug"
+              style={{ fontSize: "clamp(22px, 2.8vw, 40px)" }}
             >
-              {active.subtitle}
+              {subtitleLine1}{" "}
+              <span className="font-accent italic">{subtitleLine2}</span>
             </p>
           </div>
 
-          {/* Accent line */}
-          <div className="w-14 h-px bg-gradient-to-r from-blue-400 to-transparent" />
-
-          {/* Bullets — flat single column on mobile, grouped rows on desktop */}
-          <div key={`b-${activeIdx}`} className="services-fade-in flex flex-col gap-2">
-            {/* On mobile flatten to single column; on desktop keep original row groups */}
-            <div className="lg:hidden flex flex-col gap-2">
-              {active.bullets.flat().map((item) => (
-                <span key={item} className="flex items-center gap-2 text-white/55 text-sm">
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400/70 flex-shrink-0" />
-                  {item}
-                </span>
-              ))}
-            </div>
-            <div className="hidden lg:flex flex-col gap-2">
-              {active.bullets.map((row, ri) => (
-                <div key={ri} className="flex flex-wrap gap-x-6 gap-y-1.5">
-                  {row.map((item) => (
-                    <span key={item} className="flex items-center gap-2 text-white/55 text-sm">
-                      <span className="w-1.5 h-1.5 rounded-full bg-blue-400/70 flex-shrink-0" />
+          {/* Bullets — pill badge style */}
+          <div key={`b-${activeIdx}`} className="services-fade-in flex flex-col gap-3">
+            {active.bullets.map((row, ri) => (
+              <div key={ri} className="flex flex-wrap gap-3">
+                {row.map((item) => (
+                  <div
+                    key={item}
+                    className="inline-flex items-center gap-2 px-3 py-2 rounded-full backdrop-blur-[5px]"
+                    style={{
+                      background: "linear-gradient(to right, rgba(26,20,16,0.5), rgba(255,255,255,0))",
+                    }}
+                  >
+                    <span className="w-[7px] h-[7px] rounded-[1px] bg-white flex-shrink-0" />
+                    <span className="text-[#d1d5db] font-tasa-orbiter text-sm lg:text-lg whitespace-nowrap">
                       {item}
                     </span>
-                  ))}
-                </div>
-              ))}
-            </div>
+                  </div>
+                ))}
+              </div>
+            ))}
           </div>
         </div>
 
@@ -230,10 +229,10 @@ export default function OurServices() {
           {/* Card strip
               - `overflow: visible` so 5th card bleeds off right edge
               - Section `overflow-hidden` clips it at the boundary
-              - pl-6 on mobile so cards start with a bit of left padding (matches Figma)
+              - pl-6 on mobile so cards start with a bit of left padding
           */}
           <div
-            className="flex gap-3 lg:gap-4 items-stretch pl-6 lg:pl-0"
+            className="flex gap-[14px] lg:gap-[23px] items-stretch pl-6 lg:pl-0"
             style={{ height: STRIP_H, overflow: "visible" }}
           >
             {ordered.slice(0, VISIBLE_COUNT).map((svc, slotIdx) => (
@@ -255,9 +254,9 @@ export default function OurServices() {
               onClick={prev}
               disabled={busy}
               aria-label="Previous service"
-              className="w-9 h-9 lg:w-10 lg:h-10 rounded-full border border-white/25 flex items-center justify-center text-white/60 hover:border-blue-400/70 hover:text-blue-400 hover:bg-blue-400/10 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed group flex-shrink-0"
+              className="w-12 h-12 lg:w-16 lg:h-16 rounded-full border border-slategray flex items-center justify-center text-white/60 hover:border-blue-400/70 hover:text-blue-400 hover:bg-blue-400/10 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed group flex-shrink-0"
             >
-              <svg className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-4 h-4 lg:w-5 lg:h-5 group-hover:-translate-x-0.5 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
@@ -266,17 +265,17 @@ export default function OurServices() {
               onClick={next}
               disabled={busy}
               aria-label="Next service"
-              className="w-9 h-9 lg:w-10 lg:h-10 rounded-full border border-white/25 flex items-center justify-center text-white/60 hover:border-blue-400/70 hover:text-blue-400 hover:bg-blue-400/10 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed group flex-shrink-0"
+              className="w-12 h-12 lg:w-16 lg:h-16 rounded-full border border-slategray flex items-center justify-center text-white/60 hover:border-blue-400/70 hover:text-blue-400 hover:bg-blue-400/10 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed group flex-shrink-0"
             >
-              <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-4 h-4 lg:w-5 lg:h-5 group-hover:translate-x-0.5 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </button>
 
             {/* Progress bar */}
-            <div className="flex-1 h-px bg-white/15 relative rounded-full overflow-hidden max-w-[380px]">
+            <div className="flex-1 h-[3px] bg-[#d1d5db]/30 relative rounded-full overflow-hidden max-w-[380px]">
               <div
-                className="absolute left-0 top-0 h-full bg-blue-400 rounded-full"
+                className="absolute left-0 top-0 h-full bg-[#708ddf] rounded-full"
                 style={{
                   width: `${((activeIdx + 1) / SERVICES.length) * 100}%`,
                   transition: "width 0.5s cubic-bezier(0.22,1,0.36,1)",
@@ -284,8 +283,11 @@ export default function OurServices() {
               />
             </div>
 
-            {/* Counter */}
-            <span className="text-white/40 text-sm font-mono tabular-nums tracking-widest">
+            {/* Counter — large Oswald Bold */}
+            <span
+              className="text-white/80 font-oswald font-bold tracking-[-0.05em] tabular-nums flex-shrink-0"
+              style={{ fontSize: "clamp(32px, 4vw, 58px)", lineHeight: 1 }}
+            >
               {String(activeIdx + 1).padStart(2, "0")}
             </span>
           </div>
@@ -319,13 +321,14 @@ function CarouselCard({ service, slotIndex, dir, animMs, cardWidth }: CarouselCa
 
   return (
     <div
-      className={`relative flex-shrink-0 overflow-hidden rounded-2xl group cursor-pointer ${animClass}`}
+      className={`relative flex-shrink-0 overflow-hidden rounded-[19px] group cursor-pointer ${animClass}`}
       style={{
         width: cardWidth,
         height: "100%",
         filter: `brightness(${brightness})`,
         transition: `filter ${animMs}ms ease`,
         animationDuration: `${animMs}ms`,
+        boxShadow: "0px 40px 80px -19px rgba(0,0,0,0.25)",
       }}
     >
       {/* Card image */}
@@ -333,7 +336,7 @@ function CarouselCard({ service, slotIndex, dir, animMs, cardWidth }: CarouselCa
         src={service.image}
         alt={service.title}
         fill
-        className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
+        className="object-cover  group-hover:scale-105 transition-transform duration-700"
         sizes="(max-width: 1023px) 44vw, 22vw"
       />
 
@@ -341,19 +344,22 @@ function CarouselCard({ service, slotIndex, dir, animMs, cardWidth }: CarouselCa
       <div
         className="absolute inset-0 pointer-events-none z-[1]"
         style={{
-          background: "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 35%, transparent 65%)",
+          background: "linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.55) 35%, transparent 65%)",
         }}
       />
 
       {/* Card label */}
-      <div className="absolute bottom-0 left-0 right-0 px-3 pb-3 z-[2]">
-        <h3 className="text-white font-oswald uppercase leading-[1.15] tracking-wide text-[11px] lg:text-[13px] font-semibold">
+      <div className="absolute bottom-0 left-0 right-0 px-5 pb-5 lg:px-6 lg:pb-6 z-[2]">
+        <h3
+          className="text-white font-oswald font-bold uppercase leading-[1.25] tracking-wide"
+          style={{ fontSize: "clamp(14px, 1.5vw, 22px)" }}
+        >
           {service.title}
         </h3>
       </div>
 
       {/* Subtle card border */}
-      <div className="absolute inset-0 rounded-2xl border border-white/10 group-hover:border-blue-400/30 transition-all duration-300 pointer-events-none z-[3]" />
+      <div className="absolute inset-0 rounded-[19px] border border-white/10 group-hover:border-blue-400/30 transition-all duration-300 pointer-events-none z-[3]" />
     </div>
   );
 }

@@ -59,10 +59,10 @@ export default function HeroSection() {
             </video>
 
             {/* Background Gradient simulating a muted sky/fog effect */}
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,_rgba(26,20,16,0.1)_0%,_rgba(26,20,16,0.5)_70%,_#1A1410_100%)] z-10" />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,_rgba(26,_20,_16,_0.1),_rgba(26,_20,_16,_0.5)_70%,_#1a1410)] z-10" />
 
             {/* Soft Dark Overlay to ensure perfect contrast and aesthetic depth */}
-            <div className="absolute inset-0 bg-black/20 z-10 pointer-events-none" />
+            {/* <div className="absolute inset-0 bg-black/20 z-10 pointer-events-none" /> */}
 
             {/* Spacer — pushes bottom content down on desktop where pt-0 is used */}
             <div className="flex-grow" />
@@ -73,10 +73,10 @@ export default function HeroSection() {
                 {/* Left Column: Location, Headline, Scroll Down Button */}
                 <div className="flex flex-row justify-between items-end gap-4 sm:gap-8 w-full">
                     <div className="flex-grow max-w-xl">
-                        <span className="text-[10px] tracking-[0.3em] text-white/60 font-semibold mb-3 sm:mb-4 block uppercase font-sans">
+                        <span className="text-xl tracking-[0.3em] text-white/60 font-semibold mb-3 sm:mb-4 block uppercase font-tasa-orbiter">
                             Fort, Mumbai
                         </span>
-                        <h1 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-[54px] leading-[1.15] font-normal font-sans tracking-tight">
+                        <h1 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-[54px] leading-[1.15] font-normal font-tasa-orbiter tracking-tight">
                             Building Exceptional Businesses. Creating Enduring Value.
                         </h1>
                     </div>
@@ -97,7 +97,7 @@ export default function HeroSection() {
                 {/* Right Column: Mandates Section with Glassmorphism Card */}
                 <div className="border-t lg:border-t-0 lg:border-l border-white/10 pt-6 sm:pt-10 lg:pt-0 lg:pl-16 flex flex-col gap-6 w-full">
                     <div>
-                        <span className="text-[10px] tracking-[0.3em] text-white/60 font-semibold mb-4 block uppercase font-sans">
+                        <span className="text-xl tracking-[0.3em] text-white/60 font-semibold mb-4 block uppercase font-sans">
                             Recent Mandates
                         </span>
 
