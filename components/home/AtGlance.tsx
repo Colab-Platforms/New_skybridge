@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 
+
 export default function AtGlance() {
   return (
     <section className="bg-white py-20 px-6 md:px-12 lg:px-24 text-[#0d2147] border-t border-slate-100">
@@ -18,7 +19,7 @@ export default function AtGlance() {
             </div>
 
             {/* Heading */}
-            <h2 className="text-3xl max-w-[672px] w-full text-[#10296e] md:text-4xl lg:text-[44px] xl:text-[80px] leading-tight xl:leading-[1.08] capitalize font-oswald text-left flex items-center">
+            <h2 className="text-3xl max-w-[700px] w-full text-[#10296e] md:text-4xl lg:text-[58px] xl:text-[65px] leading-tight xl:leading-[1.2] capitalize font-oswald text-left flex items-center">
               Strategic Capital. <br />
               Long-Term Partnership.
             </h2>
