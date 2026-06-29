@@ -102,13 +102,13 @@ export default function OurServices() {
     (direction: Dir, newIdx: number) => {
       if (busy) return;
       setBusy(true);
+      setActiveIdx(newIdx);
       setDir(direction);
       if (timer.current) clearTimeout(timer.current);
       timer.current = setTimeout(() => {
-        setActiveIdx(newIdx);
         setDir(null);
         setBusy(false);
-      }, ANIM_MS);
+      }, 850);
     },
     [busy]
   );
@@ -117,11 +117,6 @@ export default function OurServices() {
   const prev = () => go("prev", (activeIdx - 1 + SERVICES.length) % SERVICES.length);
 
   const active = SERVICES[activeIdx];
-
-  const ordered = Array.from(
-    { length: SERVICES.length },
-    (_, i) => SERVICES[(activeIdx + i) % SERVICES.length]
-  );
 
   // Split subtitle: first part normal, second part Playfair italic
   const [subtitleLine1, subtitleLine2] = active.subtitle.split("\n");
@@ -135,26 +130,23 @@ export default function OurServices() {
       <div className="absolute inset-0 z-0 pointer-events-none">
         {SERVICES.map((svc, i) => {
           const bgSrc = svc.bgImage ?? svc.image;
+          const isActive = i === activeIdx;
           return (
             <div
               key={svc.id}
-              className="absolute inset-0"
-              style={{
-                opacity: i === activeIdx ? 1 : 0,
-                transition: "opacity 0.9s ease",
-              }}
+              className={`absolute inset-0 transition-opacity duration-1000 ${isActive ? "bg-spread-active z-10" : "opacity-0 z-0"}`}
             >
               <Image
                 src={bgSrc}
                 alt={svc.title}
                 fill
-                className="object-fill object-center"
+                className="object-cover object-center"
                 priority={i === 0}
                 sizes="100vw"
               />
               {/* Heavy left vignette to protect text */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#1a1410]/95 via-[#1a1410]/65 to-[#1a1410]/10" />
-              <div className="absolute inset-0 bg-[#1a1410]/30" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#1a1410]/95 via-[#1a1410]/65 to-[#1a1410]/10 z-10" />
+              <div className="absolute inset-0 bg-[#1a1410]/30 z-10" />
             </div>
           );
         })}
@@ -226,26 +218,65 @@ export default function OurServices() {
         {/* ─── RIGHT / BOTTOM: CAROUSEL ─── */}
         <div className="flex flex-col gap-5 lg:gap-8 pb-12 lg:py-24 overflow-hidden">
 
-          {/* Card strip
-              - `overflow: visible` so 5th card bleeds off right edge
-              - Section `overflow-hidden` clips it at the boundary
-              - pl-6 on mobile so cards start with a bit of left padding
-          */}
+          {/* Card strip */}
           <div
-            className="flex gap-[14px] lg:gap-[23px] items-stretch pl-6 lg:pl-0"
-            style={{ height: STRIP_H, overflow: "visible" }}
+            className="relative pl-6 lg:pl-0"
+            style={{ height: STRIP_H, width: "100%" }}
           >
-            {ordered.slice(0, VISIBLE_COUNT).map((svc, slotIdx) => (
-              <CarouselCard
-                key={`${svc.id}-${activeIdx}`}
-                service={svc}
-                slotIndex={slotIdx}
-                totalVisible={VISIBLE_COUNT}
-                dir={dir}
-                animMs={ANIM_MS}
-                cardWidth={CARD_W}
-              />
-            ))}
+            {SERVICES.map((svc, i) => {
+              const relIdx = (i - activeIdx + SERVICES.length) % SERVICES.length;
+              const brightnessSteps = [1, 0.82, 0.65, 0.45, 0.28];
+              const brightness = brightnessSteps[relIdx] ?? 0.2;
+              const gap = isMobile ? 14 : 23;
+
+              return (
+                <div
+                  key={svc.id}
+                  onClick={() => go(null, i)}
+                  className="absolute top-0 left-0 h-full rounded-[19px] overflow-hidden group cursor-pointer"
+                  style={{
+                    width: CARD_W,
+                    transform: `translateX(${relIdx * (CARD_W + gap)}px)`,
+                    filter: `brightness(${brightness})`,
+                    transition: `transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), filter 0.85s ease, opacity 0.85s ease`,
+                    boxShadow: "0px 40px 80px -19px rgba(0,0,0,0.25)",
+                    zIndex: SERVICES.length - relIdx,
+                    opacity: relIdx >= 4 ? 0 : 1,
+                    pointerEvents: relIdx >= 4 ? "none" : "auto",
+                  }}
+                >
+                  {/* Card image */}
+                  <Image
+                    src={svc.image}
+                    alt={svc.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    sizes="(max-width: 1023px) 44vw, 22vw"
+                  />
+
+                  {/* Bottom gradient overlay */}
+                  <div
+                    className="absolute inset-0 pointer-events-none z-[1]"
+                    style={{
+                      background: "linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.55) 35%, transparent 65%)",
+                    }}
+                  />
+
+                  {/* Card label */}
+                  <div className="absolute bottom-0 left-0 right-0 px-5 pb-5 lg:px-6 lg:pb-6 z-[2]">
+                    <h3
+                      className="text-white font-oswald font-bold uppercase leading-[1.25] tracking-wide"
+                      style={{ fontSize: "clamp(14px, 1.5vw, 22px)" }}
+                    >
+                      {svc.title}
+                    </h3>
+                  </div>
+
+                  {/* Subtle card border */}
+                  <div className="absolute inset-0 rounded-[19px] border border-white/10 group-hover:border-blue-400/30 transition-all duration-300 pointer-events-none z-[3]" />
+                </div>
+              );
+            })}
           </div>
 
           {/* Navigation: prev / next arrows + progress bar + counter */}
@@ -294,72 +325,5 @@ export default function OurServices() {
         </div>
       </div>
     </section>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────
-// CarouselCard
-// ─────────────────────────────────────────────────────────────
-interface CarouselCardProps {
-  service: ServiceItem;
-  slotIndex: number;
-  totalVisible: number;
-  dir: Dir;
-  animMs: number;
-  cardWidth: number;
-}
-
-function CarouselCard({ service, slotIndex, dir, animMs, cardWidth }: CarouselCardProps) {
-  // Brightness falls off for cards further from active
-  const brightnessSteps = [1, 0.82, 0.65, 0.45, 0.28];
-  const brightness = brightnessSteps[slotIndex] ?? 0.2;
-
-  let animClass = "";
-  if (dir !== null) {
-    animClass = dir === "next" ? "services-card-in-up" : "services-card-in-down";
-  }
-
-  return (
-    <div
-      className={`relative flex-shrink-0 overflow-hidden rounded-[19px] group cursor-pointer ${animClass}`}
-      style={{
-        width: cardWidth,
-        height: "100%",
-        filter: `brightness(${brightness})`,
-        transition: `filter ${animMs}ms ease`,
-        animationDuration: `${animMs}ms`,
-        boxShadow: "0px 40px 80px -19px rgba(0,0,0,0.25)",
-      }}
-    >
-      {/* Card image */}
-      <Image
-        src={service.image}
-        alt={service.title}
-        fill
-        className="object-cover  group-hover:scale-105 transition-transform duration-700"
-        sizes="(max-width: 1023px) 44vw, 22vw"
-      />
-
-      {/* Bottom gradient overlay */}
-      <div
-        className="absolute inset-0 pointer-events-none z-[1]"
-        style={{
-          background: "linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.55) 35%, transparent 65%)",
-        }}
-      />
-
-      {/* Card label */}
-      <div className="absolute bottom-0 left-0 right-0 px-5 pb-5 lg:px-6 lg:pb-6 z-[2]">
-        <h3
-          className="text-white font-oswald font-bold uppercase leading-[1.25] tracking-wide"
-          style={{ fontSize: "clamp(14px, 1.5vw, 22px)" }}
-        >
-          {service.title}
-        </h3>
-      </div>
-
-      {/* Subtle card border */}
-      <div className="absolute inset-0 rounded-[19px] border border-white/10 group-hover:border-blue-400/30 transition-all duration-300 pointer-events-none z-[3]" />
-    </div>
   );
 }

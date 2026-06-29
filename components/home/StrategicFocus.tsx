@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 
 interface Sector {
   id: number;
@@ -79,40 +81,51 @@ const SECTORS_ROW2: Sector[] = [
 ];
 
 function SectorCard({ sector }: { sector: Sector }) {
-  return (
-    <div className="relative overflow-hidden group cursor-pointer w-full min-h-72 sm:min-h-96 lg:min-h-110.75 bg-white flex flex-col justify-between pt-10 pb-6 px-5 sm:pt-12 sm:pb-7 lg:pt-14 lg:pb-7">
+  const [active, setActive] = useState(false);
 
-      {/* Background image — fades in on hover */}
+  return (
+    <div
+      onTouchStart={() => setActive(true)}
+      onTouchEnd={() => setActive(false)}
+      onTouchCancel={() => setActive(false)}
+      className="relative overflow-hidden group cursor-pointer w-full min-h-72 sm:min-h-96 lg:min-h-110.75 bg-white flex flex-col justify-between pt-10 pb-6 px-5 sm:pt-12 sm:pb-7 lg:pt-14 lg:pb-7"
+    >
+      {/* Background image — fades in on hover or active touch */}
       <div
-        className="absolute inset-0 bg-cover bg-center opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out"
+        className={`absolute inset-0 bg-cover bg-center opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out ${active ? "opacity-100" : ""}`}
         style={{ backgroundImage: `url(${sector.image})` }}
       />
       {/* Dark scrim */}
-      <div className="absolute inset-0 bg-black/72 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out" />
+      <div
+        className={`absolute inset-0 bg-black/72 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out ${active ? "opacity-100" : ""}`}
+      />
 
-      {/* Number — fades out on hover */}
-      <p className="relative z-10 font-oswald text-[50px] sm:text-[60px] lg:text-[70px] leading-none text-gray-300 select-none group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
+      {/* Number */}
+      <p className="relative z-10 font-oswald text-[50px] sm:text-[60px] lg:text-[70px] leading-none text-gray-300 select-none transition-opacity duration-300 ease-in-out">
         {sector.id}
       </p>
 
-      {/* Middle: pill + description — slides up on hover */}
+      {/* Middle: pill + description — slides up on hover or active touch */}
       <div
-        className="relative z-10 flex flex-col gap-3 sm:gap-4 transition-transform duration-500 group-hover:-translate-y-5"
+        className={`relative z-10 flex flex-col gap-3 sm:gap-4 transition-transform duration-500 group-hover:-translate-y-5 ${active ? "-translate-y-5" : ""}`}
         style={{ transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)" }}
       >
         {/* Pill tag */}
-        <div className="border border-black group-hover:border-white/70 rounded-full px-3 py-1 sm:px-4 sm:py-1.5 self-start transition-colors duration-300">
-          <span className="font-tasa-orbiter text-[11px] sm:text-[13px] uppercase tracking-[0.97px] text-black group-hover:text-white whitespace-nowrap transition-colors duration-300">
+        <div
+          className={`border border-black group-hover:border-white/70 rounded-full px-3 py-1 sm:px-4 sm:py-1.5 self-start transition-colors duration-300 ${active ? "border-white/70" : ""}`}
+        >
+          <span
+            className={`font-tasa-orbiter text-[11px] sm:text-[13px] uppercase tracking-[0.97px] text-black group-hover:text-white whitespace-nowrap transition-colors duration-300 ${active ? "text-white" : ""}`}
+          >
             {sector.tag}
           </span>
         </div>
 
-        {/* Description — slides up and fades in on hover */}
+        {/* Description — slides up and fades in on hover or active touch */}
         <p
-          className="font-tasa-orbiter text-[12px] sm:text-[13px] leading-relaxed text-white max-w-65 opacity-0 -translate-y-2 group-hover:opacity-100 group-hover:translate-y-0"
+          className={`font-tasa-orbiter text-[12px] sm:text-[13px] leading-relaxed text-white max-w-65 opacity-0 -translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[450ms] ${active ? "opacity-100 translate-y-0" : ""}`}
           style={{
-            transition: "opacity 0.45s ease, transform 0.45s ease",
-            transitionDelay: "120ms",
+            transitionDelay: active ? "0ms" : "120ms",
           }}
         >
           {sector.description}
@@ -121,13 +134,15 @@ function SectorCard({ sector }: { sector: Sector }) {
 
       {/* Bottom: subtitle + arrow */}
       <div className="relative z-10 flex items-end justify-between gap-3">
-        <span className="font-tasa-orbiter text-[11px] sm:text-[12px] text-black leading-[1.25] group-hover:opacity-0 transition-opacity duration-200">
+        <span
+          className={`font-tasa-orbiter text-[11px] sm:text-[12px] text-black leading-[1.25] group-hover:opacity-0 transition-opacity duration-200 ${active ? "opacity-0" : ""}`}
+        >
           {sector.subtitle}
         </span>
 
-        {/* Arrow button: navy square → white circle, rotates on hover */}
+        {/* Arrow button: navy square → white circle, rotates on hover or active touch */}
         <div
-          className="flex items-center justify-center shrink-0 bg-[#10296e] group-hover:bg-white rounded-[10px] group-hover:rounded-full w-5 h-5 group-hover:w-8 group-hover:h-8 transition-all duration-500"
+          className={`flex items-center justify-center shrink-0 bg-[#10296e] group-hover:bg-white rounded-[10px] group-hover:rounded-full w-5 h-5 group-hover:w-8 group-hover:h-8 transition-all duration-500 ${active ? "bg-white rounded-full w-8 h-8" : ""}`}
           style={{ transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)" }}
         >
           <svg
@@ -136,7 +151,7 @@ function SectorCard({ sector }: { sector: Sector }) {
             viewBox="0 0 10 10"
             fill="none"
             aria-hidden
-            className="text-white group-hover:text-[#10296e] transition-all duration-500 group-hover:rotate-15"
+            className={`text-white group-hover:text-[#10296e] transition-all duration-500 group-hover:rotate-15 ${active ? "text-[#10296e] rotate-15" : ""}`}
             style={{ transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)" }}
           >
             <path

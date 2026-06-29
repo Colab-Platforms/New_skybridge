@@ -249,3 +249,34 @@ body {
     padding-right: 80px;
   }
 }
+
+/* ── OurServices: Background Image Spread Transition ── */
+@keyframes bg-spread {
+  0% {
+    opacity: 0;
+    transform: scale(0.35);
+    border-radius: 19px;
+  }
+
+  30% {
+    opacity: 0.85;
+    border-radius: 19px;
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    border-radius: 0;
+  }
+}
+
+.bg-spread-active {
+  animation: bg-spread 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transform-origin: 50% 85%;
+}
+
+@media (min-width: 1024px) {
+  .bg-spread-active {
+    transform-origin: 75% 55%;
+  }
+}
