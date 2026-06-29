@@ -3,13 +3,26 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import LogoImage from "@/public/skybridge-logo.png";
 
 export default function Navbar() {
+  const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen((prev) => !prev);
+  };
+
+  const isHomeActive = pathname === "/";
+  const isAboutActive = pathname === "/about";
+  const isSolutionsActive = pathname === "/solutions";
+  const isContactActive = pathname === "/contact";
+
+  const getLinkClasses = (isActive: boolean) => {
+    return isActive
+      ? "group relative py-2 text-[#275ff9] font-bold text-base transition-colors duration-250"
+      : "group relative py-2 text-white/95 font-medium text-base transition-colors duration-250 hover:text-white hover:text-shadow-[0_0_10px_rgba(255,255,255,0.3)]";
   };
 
   return (
@@ -31,24 +44,25 @@ export default function Navbar() {
         <nav className="hidden md:block">
           <ul className="flex flex-row items-center list-none m-0 p-0 gap-10">
             <li>
-              <Link href="/" className="relative py-2 text-[#0d2147] font-bold text-base transition-colors duration-250 hover:text-[#0b1a36] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-[#0d2147]">
-                Home
+              <Link href="/" className={getLinkClasses(isHomeActive)}>
+                <span>Home</span>
+                <span className={`absolute bottom-0 left-0 h-[2px] transition-all duration-250 ${isHomeActive ? "w-full bg-[#275ff9]" : "w-0 bg-[#0084ff] group-hover:w-full"}`}></span>
               </Link>
             </li>
             <li>
-              <Link href="/about" className="group relative py-2 text-white/95 font-medium text-base transition-colors duration-250 hover:text-white hover:text-shadow-[0_0_10px_rgba(255,255,255,0.3)]">
+              <Link href="/about" className={getLinkClasses(isAboutActive)}>
                 <span className="flex items-center gap-1.5">
                   About Us <span className="inline-flex text-sm transition-transform duration-200 group-hover:translate-y-0.5">↓</span>
                 </span>
-                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#0084ff] transition-all duration-250 group-hover:w-full"></span>
+                <span className={`absolute bottom-0 left-0 h-[2px] transition-all duration-250 ${isAboutActive ? "w-full bg-[#275ff9]" : "w-0 bg-[#0084ff] group-hover:w-full"}`}></span>
               </Link>
             </li>
             <li>
-              <Link href="/solutions" className="group relative py-2 text-white/95 font-medium text-base transition-colors duration-250 hover:text-white hover:text-shadow-[0_0_10px_rgba(255,255,255,0.3)]">
+              <Link href="/solutions" className={getLinkClasses(isSolutionsActive)}>
                 <span className="flex items-center gap-1.5">
                   Our Solutions <span className="inline-flex text-sm transition-transform duration-200 group-hover:translate-y-0.5">↓</span>
                 </span>
-                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#0084ff] transition-all duration-250 group-hover:w-full"></span>
+                <span className={`absolute bottom-0 left-0 h-[2px] transition-all duration-250 ${isSolutionsActive ? "w-full bg-[#275ff9]" : "w-0 bg-[#0084ff] group-hover:w-full"}`}></span>
               </Link>
             </li>
           </ul>
@@ -56,9 +70,9 @@ export default function Navbar() {
 
         {/* Right Action Section */}
         <div className="hidden md:flex items-center gap-10">
-          <Link href="/contact" className="group relative py-2 text-white/95 font-medium text-base transition-colors duration-250 hover:text-white">
+          <Link href="/contact" className={getLinkClasses(isContactActive)}>
             <span>Contact</span>
-            <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#0084ff] transition-all duration-250 group-hover:w-full"></span>
+            <span className={`absolute bottom-0 left-0 h-[2px] transition-all duration-250 ${isContactActive ? "w-full bg-[#275ff9]" : "w-0 bg-[#0084ff] group-hover:w-full"}`}></span>
           </Link>
           <Link
             href="/initiate-conversation"
@@ -90,7 +104,7 @@ export default function Navbar() {
             <li>
               <Link
                 href="/"
-                className="text-[#0d2147] font-bold text-lg block py-2 border-b border-slate-700/50"
+                className={`text-lg block py-2 border-b border-slate-700/50 ${isHomeActive ? "text-[#275ff9] font-bold" : "text-white font-medium hover:text-sky-400"}`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Home
@@ -99,7 +113,7 @@ export default function Navbar() {
             <li>
               <Link
                 href="/about"
-                className="text-white font-medium text-lg block py-2 border-b border-slate-700/50 hover:text-sky-400"
+                className={`text-lg block py-2 border-b border-slate-700/50 ${isAboutActive ? "text-[#275ff9] font-bold" : "text-white font-medium hover:text-sky-400"}`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 About Us ↓
@@ -108,7 +122,7 @@ export default function Navbar() {
             <li>
               <Link
                 href="/solutions"
-                className="text-white font-medium text-lg block py-2 border-b border-slate-700/50 hover:text-sky-400"
+                className={`text-lg block py-2 border-b border-slate-700/50 ${isSolutionsActive ? "text-[#275ff9] font-bold" : "text-white font-medium hover:text-sky-400"}`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Our Solutions ↓
@@ -117,7 +131,7 @@ export default function Navbar() {
             <li>
               <Link
                 href="/contact"
-                className="text-white font-medium text-lg block py-2 border-b border-slate-700/50 hover:text-sky-400"
+                className={`text-lg block py-2 border-b border-slate-700/50 ${isContactActive ? "text-[#275ff9] font-bold" : "text-white font-medium hover:text-sky-400"}`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Contact
