@@ -201,8 +201,8 @@ export default function StrategicFocus() {
       </div>
 
       {/* ── Row 1: cards 1–4 ── */}
-      <div className="px-4 sm:px-8 lg:px-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-gray-100">
+      <div className="px-4 sm:px-8 lg:px-40">
+        <div className="md:pr-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-gray-100">
           {SECTORS_ROW1.map((s, i) => (
             <div key={s.id} className={cardBorderClasses(i, SECTORS_ROW1.length)}>
               <SectorCard sector={s} />
