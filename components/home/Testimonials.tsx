@@ -112,12 +112,13 @@ export default function Testimonials() {
           <div
             style={{
               display: "flex",
-              transform: `translateX(-${index * 100}%)`,
+              gap: cardGap,
+              transform: `translateX(calc(-${index} * (80% + 0.2 * ${cardGap})))`,
               transition: "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
             }}
           >
             {TESTIMONIALS.map((t, i) => (
-              <div key={i} style={{ flexShrink: 0, width: "100%" }}>
+              <div key={i} style={{ flexShrink: 0, width: `calc(80% - 0.8 * ${cardGap})` }}>
                 {/* Card */}
                 <div
                   className="w-full flex flex-col lg:flex-row items-start lg:items-center bg-[#f6f6f6] rounded-[10.417px]"

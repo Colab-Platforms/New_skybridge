@@ -58,8 +58,8 @@ export default function HeroSection() {
                 Your browser does not support the video tag.
             </video>
 
-            {/* Background Gradient simulating a muted sky/fog effect */}
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,_rgba(26,_20,_16,_0.1),_rgba(26,_20,_16,_0.5)_70%,_#1a1410)] z-10" />
+            {/* Background Gradient simulating a cool slate/misty sky effect */}
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,_rgba(16,_22,_35,_0.8)_0%,_rgba(16,_22,_35,_0)_25%,_rgba(22,_22,_22,_0)_60%,_#161616_100%)] z-10" />
 
             {/* Soft Dark Overlay to ensure perfect contrast and aesthetic depth */}
             {/* <div className="absolute inset-0 bg-black/20 z-10 pointer-events-none" /> */}
@@ -98,7 +98,7 @@ export default function HeroSection() {
                 <div className="border-t lg:border-t-0 lg:border-l border-white/10 pt-6 sm:pt-10 lg:pt-0 lg:pl-16 flex flex-col gap-6 w-full">
                     <div>
                         <span className="text-xl tracking-[0.3em] text-white/60 font-semibold mb-4 block uppercase font-sans">
-                            Recent Mandates
+                            RECENT MANDATES
                         </span>
 
                         {/* Glassmorphic Mandates Card */}
@@ -115,7 +115,7 @@ export default function HeroSection() {
                             </div>
                             <div className="flex-grow">
                                 <div className="text-[9px] tracking-wider text-white/45 font-medium mb-1 uppercase font-sans">
-                                    Private Wealth Management • June 2026
+                                    PRIVATE WEALTH MANAGEMENT • JUNE 2026
                                 </div>
                                 <h3 className="text-white text-base font-semibold tracking-wide leading-snug font-sans">
                                     India Investment Strategy - June 2026
@@ -140,17 +140,17 @@ export default function HeroSection() {
             </div>
 
             {/* Dynamic Timezone Indicators Along the Bottom */}
-            <div className="w-full border-t border-white/10 py-5 px-12 relative z-20">
+            <div className="w-full border-t border-white/10 py-6 px-6 sm:px-10 md:px-16 lg:px-20 xl:px-[100px] relative z-20 ">
                 <div className="max-w-[1920px] w-full mx-auto flex flex-row justify-between items-center gap-6">
                     <div className="grid grid-cols-2 md:grid-cols-4 w-full gap-8">
 
                         {/* Mumbai Time */}
                         <div className="flex flex-col gap-1">
                             <div className="flex items-center gap-1.5 text-slate-400 text-[10px] tracking-[0.2em] font-medium uppercase font-sans">
-                                <span className="w-1 h-1 rounded-full bg-slate-400" />
-                                Mumbai
+                                <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
+                                MUMBAI
                             </div>
-                            <div className="text-[17px] text-white font-medium tracking-widest pl-2.5 font-sans">
+                            <div className="text-[22px] text-white font-medium tracking-widest font-sans mt-1">
                                 {isMounted ? times.mumbai : "00:59"}
                             </div>
                         </div>
@@ -158,10 +158,10 @@ export default function HeroSection() {
                         {/* New York Time */}
                         <div className="flex flex-col gap-1">
                             <div className="flex items-center gap-1.5 text-slate-400 text-[10px] tracking-[0.2em] font-medium uppercase font-sans">
-                                <span className="w-1 h-1 rounded-full bg-slate-400" />
-                                New York
+                                <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
+                                NEW YORK
                             </div>
-                            <div className="text-[17px] text-white font-medium tracking-widest pl-2.5 font-sans">
+                            <div className="text-[22px] text-white font-medium tracking-widest font-sans mt-1">
                                 {isMounted ? times.newYork : "03:59"}
                             </div>
                         </div>
@@ -169,10 +169,10 @@ export default function HeroSection() {
                         {/* London Time */}
                         <div className="flex flex-col gap-1">
                             <div className="flex items-center gap-1.5 text-slate-400 text-[10px] tracking-[0.2em] font-medium uppercase font-sans">
-                                <span className="w-1 h-1 rounded-full bg-slate-400" />
-                                London
+                                <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
+                                LONDON
                             </div>
-                            <div className="text-[17px] text-white font-medium tracking-widest pl-2.5 font-sans">
+                            <div className="text-[22px] text-white font-medium tracking-widest font-sans mt-1">
                                 {isMounted ? times.london : "08:59"}
                             </div>
                         </div>
@@ -180,10 +180,10 @@ export default function HeroSection() {
                         {/* Abu Dhabi Time */}
                         <div className="flex flex-col gap-1">
                             <div className="flex items-center gap-1.5 text-slate-400 text-[10px] tracking-[0.2em] font-medium uppercase font-sans">
-                                <span className="w-1 h-1 rounded-full bg-slate-400" />
-                                Abu Dhabi
+                                <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
+                                ABU DHABI
                             </div>
-                            <div className="text-[17px] text-white font-medium tracking-widest pl-2.5 font-sans">
+                            <div className="text-[22px] text-white font-medium tracking-widest font-sans mt-1">
                                 {isMounted ? times.abuDhabi : "09:59"}
                             </div>
                         </div>
