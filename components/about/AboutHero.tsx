@@ -6,7 +6,7 @@ export default function AboutHero() {
     <section className="relative w-full h-screen md:h-268 overflow-hidden">
       {/* Background: cityscape at 50% opacity per Figma */}
       <Image
-        src="/aboutimages/abouthero.png"
+        src="/aboutimages/aboutushero.png"
         alt=""
         fill
         className="object-cover opacity-50"

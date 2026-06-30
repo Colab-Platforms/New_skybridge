@@ -53,7 +53,7 @@ export default function AboutOverview() {
           Mobile: stacked — [building] [handshake] [paragraph 2]
           Desktop: side-by-side — left: building | right: [handshake + paragraph 2]
       */}
-      <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+      <div className="flex flex-col  lg:flex-row lg:items-start lg:justify-between lg:max-w-[90%]">
 
         {/* Left image — explicit heights avoid fill collapse */}
         <div className="relative w-full h-60 sm:h-80 lg:w-188 lg:h-121.5 lg:shrink-0">
@@ -61,7 +61,7 @@ export default function AboutOverview() {
             src="/aboutoverview/bandra-worli-sea-link.jpg"
             alt="Bandra-Worli Sea Link"
             fill
-            className="object-cover"
+            className="object-cover h-[486px] w-[752px] relative "
           />
         </div>
 

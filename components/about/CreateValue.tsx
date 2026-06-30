@@ -3,22 +3,22 @@ import Image from "next/image";
 
 const features = [
   {
-    icon: "/createvalue/icon-strategic-guidance.png",
+    icon: "/createvalue/icon-strategic-guidance.svg",
     title: "Strategic Guidance",
     body: "Supporting leadership teams in evaluating opportunities, managing complexity, and making informed decisions.",
   },
   {
-    icon: "/createvalue/icon-capital-solutions.png",
+    icon: "/createvalue/icon-capital-solutions.svg",
     title: "Capital Solutions",
     body: "Structuring financing and capital strategies aligned with business objectives and growth plans.",
   },
   {
-    icon: "/createvalue/icon-growth-acceleration.png",
+    icon: "/createvalue/icon-growth-acceleration.svg",
     title: "Growth Acceleration",
     body: "Identifying pathways for expansion, partnerships, and long-term value creation.",
   },
   {
-    icon: "/createvalue/icon-industry-networks.png",
+    icon: "/createvalue/icon-industry-networks.svg",
     title: "Industry & Investor Networks",
     body: "Connecting businesses with investors, institutions, and strategic relationships that unlock opportunity.",
   },
@@ -42,7 +42,7 @@ export default function CreateValue() {
             src="/createvalue/bg-meeting.jpg"
             alt=""
             fill
-            className="object-cover"
+            className="object-fill"
             priority
             
           />
