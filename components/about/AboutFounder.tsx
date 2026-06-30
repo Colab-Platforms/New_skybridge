@@ -14,14 +14,14 @@ export default function AboutFounder() {
 
         {/* Opening quotation mark — Playfair Display Bold */}
         <span
-          className="font-playfair font-bold text-white shrink-0 select-none
+          className="font-accent font-bold text-white shrink-0 select-none
                      text-[70px] leading-[0.65]
                      sm:text-[100px]
                      lg:text-[200px] lg:leading-[0.605]"
         >
           &ldquo;
         </span>
-
+    
         {/* Quote body — TASA Orbiter SemiBold with Playfair italic inlines */}
         <p
           className="font-tasa-orbiter font-semibold text-white
@@ -31,9 +31,9 @@ export default function AboutFounder() {
                      lg:text-[70px] lg:leading-[88px]"
         >
           Every business faces defining moments. Our role is to bring{" "}
-          <em className="font-playfair font-semibold italic">clarity</em>
+          <em className="font-accent font-semibold italic">clarity</em>
           {", conviction, and the right strategic partnership when those moments "}
-          <em className="font-playfair font-semibold italic">matter most.</em>
+          <em className="font-accent ">matter most.</em>
         </p>
       </div>
 
