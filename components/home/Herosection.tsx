@@ -102,24 +102,19 @@ export default function HeroSection() {
                         </span>
 
                         {/* Glassmorphic Mandates Card */}
-                        <div className="bg-white/[0.05] backdrop-blur-md border border-white/10 rounded-xl p-5 flex flex-row items-center gap-5 hover:bg-white/[0.08] hover:border-white/15 transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.12)] group cursor-pointer">
+                        <div className="bg-gray-800  w-[500px] backdrop-blur-2xl border border-white/10 rounded-xl p-5 flex flex-row items-center gap-5 hover:bg-white/[0.08] hover:border-white/15 transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.12)] group cursor-pointer">
                             <div className="relative w-20 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-slate-800">
                                 <Image
                                     src="/handshake.jpg"
                                     alt="Corporate Mandate Handshake"
-                                    fill
-                                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                                    sizes="80px"
-                                    priority
+                                    className="w-full h-full relative max-w-full overflow-hidden max-h-full object-cover" width={144.7} height={108.5} sizes="100vw"
                                 />
                             </div>
                             <div className="flex-grow">
-                                <div className="text-[9px] tracking-wider text-white/45 font-medium mb-1 uppercase font-sans">
+                                <div className="text-sm  tracking-wider text-white/45 font-medium mb-1 uppercase font-sans">
                                     PRIVATE WEALTH MANAGEMENT • JUNE 2026
                                 </div>
-                                <h3 className="text-white text-base font-semibold tracking-wide leading-snug font-sans">
-                                    India Investment Strategy - June 2026
-                                </h3>
+                                <div className="w-full relative text-[22px] leading-[25.43px] font-medium font-tasa-orbiter text-white text-left inline-block">India Investment<br/>Strategy - June 2026</div>
                             </div>
                             <div className="w-10 h-10 rounded-full bg-[#0084ff] flex items-center justify-center text-white flex-shrink-0 group-hover:bg-blue-600 transition-colors shadow-lg shadow-blue-500/10">
                                 <svg className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">

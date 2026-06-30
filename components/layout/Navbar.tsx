@@ -22,7 +22,7 @@ export default function Navbar() {
   const getLinkClasses = (isActive: boolean) => {
     return isActive
       ? "group relative py-2 text-[#275ff9] font-bold text-base transition-colors duration-250"
-      : "group relative py-2 text-white/95 font-medium text-base transition-colors duration-250 hover:text-white hover:text-shadow-[0_0_10px_rgba(255,255,255,0.3)]";
+      : "group relative py-2 text-white/95 font-medium text-base transition-colors duration-250 hover:text-white ";
   };
 
   return (
@@ -46,7 +46,7 @@ export default function Navbar() {
             <li>
               <Link href="/" className={getLinkClasses(isHomeActive)}>
                 <span>Home</span>
-                <span className={`absolute bottom-0 left-0 h-[2px] transition-all duration-250 ${isHomeActive ? "w-full bg-[#275ff9]" : "w-0 bg-[#0084ff] group-hover:w-full"}`}></span>
+                {/* <span className={`absolute bottom-0 left-0 h-[2px] transition-all duration-250 ${isHomeActive ? "w-full bg-[#275ff9]" : "w-0 bg-[#0084ff] group-hover:w-full"}`}></span> */}
               </Link>
             </li>
             <li>
@@ -54,15 +54,15 @@ export default function Navbar() {
                 <span className="flex items-center gap-1.5">
                   About Us <span className="inline-flex text-sm transition-transform duration-200 group-hover:translate-y-0.5">↓</span>
                 </span>
-                <span className={`absolute bottom-0 left-0 h-[2px] transition-all duration-250 ${isAboutActive ? "w-full bg-[#275ff9]" : "w-0 bg-[#0084ff] group-hover:w-full"}`}></span>
+                {/* <span className={`absolute bottom-0 left-0 h-[2px] transition-all duration-250 ${isAboutActive ? "w-full bg-[#275ff9]" : "w-0 bg-[#0084ff] group-hover:w-full"}`}></span> */}
               </Link>
             </li>
             <li>
-              <Link href="/solutions" className={getLinkClasses(isSolutionsActive)}>
+              <Link href="/service" className={getLinkClasses(isSolutionsActive)}>
                 <span className="flex items-center gap-1.5">
-                  Our Solutions <span className="inline-flex text-sm transition-transform duration-200 group-hover:translate-y-0.5">↓</span>
+                  Service <span className="inline-flex text-sm transition-transform duration-200 group-hover:translate-y-0.5">↓</span>
                 </span>
-                <span className={`absolute bottom-0 left-0 h-[2px] transition-all duration-250 ${isSolutionsActive ? "w-full bg-[#275ff9]" : "w-0 bg-[#0084ff] group-hover:w-full"}`}></span>
+                {/* <span className={`absolute bottom-0 left-0 h-[2px] transition-all duration-250 ${isSolutionsActive ? "w-full bg-[#275ff9]" : "w-0 bg-[#0084ff] group-hover:w-full"}`}></span> */}
               </Link>
             </li>
           </ul>
@@ -75,7 +75,7 @@ export default function Navbar() {
             <span className={`absolute bottom-0 left-0 h-[2px] transition-all duration-250 ${isContactActive ? "w-full bg-[#275ff9]" : "w-0 bg-[#0084ff] group-hover:w-full"}`}></span>
           </Link>
           <Link
-            href="/initiate-conversation"
+            href="/contact"
             className="bg-[#0d2147] text-white text-sm font-semibold tracking-wider px-7 py-3.5 rounded-lg border border-white/10 cursor-pointer transition-all duration-300 cubic-bezier(0.4, 0, 0.2, 1) shadow-[0_4px_12px_rgba(13,33,71,0.2)] hover:bg-[#122d60] hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(18,45,96,0.4),0_0_0_2px_rgba(0,132,255,0.3)] hover:border-white/25 active:translate-y-0 active:shadow-[0_2px_8px_rgba(13,33,71,0.2)] whitespace-nowrap"
           >
             INITIATE A CONVERSATION
@@ -121,11 +121,11 @@ export default function Navbar() {
             </li>
             <li>
               <Link
-                href="/solutions"
+                href="/service"
                 className={`text-lg block py-2 border-b border-slate-700/50 ${isSolutionsActive ? "text-[#275ff9] font-bold" : "text-white font-medium hover:text-sky-400"}`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                Our Solutions ↓
+                Service↓
               </Link>
             </li>
             <li>

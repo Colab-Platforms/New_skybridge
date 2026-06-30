@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 
 interface Sector {
   id: number;
@@ -17,7 +18,7 @@ const SECTORS_ROW1: Sector[] = [
     subtitle: "Intelligent Systems",
     description:
       "Backing businesses that harness intelligent technologies to transform industries and create next-generation solutions.",
-    image: "https://picsum.photos/seed/ai-neural-001/600/700",
+    image: "/Strategicfocus/AI-Machine-Learning.png",
   },
   {
     id: 2,
@@ -25,7 +26,7 @@ const SECTORS_ROW1: Sector[] = [
     subtitle: "Financial Innovation",
     description:
       "Investing in platforms reimagining financial services, payments, lending, and wealth management at global scale.",
-    image: "https://picsum.photos/seed/fintech-growth/600/700",
+    image: "/Strategicfocus/Fintech.png",
   },
   {
     id: 3,
@@ -33,7 +34,7 @@ const SECTORS_ROW1: Sector[] = [
     subtitle: "Advanced Industry",
     description:
       "Partnering with foundational chip and hardware companies powering the next wave of computing and connectivity.",
-    image: "https://picsum.photos/seed/semiconductor-chip/600/700",
+    image: "/Strategicfocus/Semiconductors.png",
   },
   {
     id: 4,
@@ -41,7 +42,7 @@ const SECTORS_ROW1: Sector[] = [
     subtitle: "Future of Health",
     description:
       "Supporting breakthroughs in diagnostics, therapeutics, and health infrastructure that improve lives globally.",
-    image: "https://picsum.photos/seed/healthcare-med/600/700",
+    image: "/Strategicfocus/Health-Tech-Innovation.png",
   },
 ];
 
@@ -52,7 +53,7 @@ const SECTORS_ROW2: Sector[] = [
     subtitle: "Next-Gen Mobility",
     description:
       "Enabling the autonomous sky economy through logistics drones, UAV platforms, and aerial intelligence systems.",
-    image: "https://picsum.photos/seed/drone-aerial-sky/600/700",
+    image: "/Strategicfocus/Drone-Technology.png",
   },
   {
     id: 6,
@@ -60,7 +61,7 @@ const SECTORS_ROW2: Sector[] = [
     subtitle: "Digital Economies",
     description:
       "Investing in interactive entertainment, virtual worlds, and the creator economy reshaping how the world plays.",
-    image: "https://picsum.photos/seed/gaming-neon-world/600/700",
+    image: "/Strategicfocus/Gaming.png",
   },
   {
     id: 7,
@@ -68,7 +69,7 @@ const SECTORS_ROW2: Sector[] = [
     subtitle: "Emerging Consumption",
     description:
       "Backing brands that capture the attention and wallets of the next billion consumers across new markets.",
-    image: "https://picsum.photos/seed/consumer-lifestyle/600/700",
+    image: "/Strategicfocus/Consumer-Brands.png",
   },
   {
     id: 8,
@@ -76,7 +77,7 @@ const SECTORS_ROW2: Sector[] = [
     subtitle: "Built Environments",
     description:
       "Deploying capital into commercial, residential, and tech-enabled real estate across high-growth corridors.",
-    image: "https://picsum.photos/seed/real-estate-arch/600/700",
+    image: "/Strategicfocus/Real-Estate.png",
   },
 ];
 
@@ -107,7 +108,7 @@ function SectorCard({ sector }: { sector: Sector }) {
 
       {/* Middle: pill + description — slides up on hover or active touch */}
       <div
-        className={`relative z-10 flex flex-col gap-3 sm:gap-4 transition-transform duration-500 group-hover:-translate-y-5 ${active ? "-translate-y-5" : ""}`}
+        className={`relative z-10 flex flex-col gap-3 md:mt-10 sm:gap-4 transition-transform duration-500 group-hover:-translate-y-5 ${active ? "-translate-y-5" : ""}`}
         style={{ transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)" }}
       >
         {/* Pill tag */}
@@ -123,7 +124,7 @@ function SectorCard({ sector }: { sector: Sector }) {
 
         {/* Description — slides up and fades in on hover or active touch */}
         <p
-          className={`font-tasa-orbiter text-[12px] sm:text-[13px] leading-relaxed text-white max-w-65 opacity-0 -translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[450ms] ${active ? "opacity-100 translate-y-0" : ""}`}
+          className={`font-tasa-orbiter text-[12px] sm:text-lg leading-relaxed text-white max-w-65 opacity-0 -translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[450ms] ${active ? "opacity-100 translate-y-0" : ""}`}
           style={{
             transitionDelay: active ? "0ms" : "120ms",
           }}
@@ -202,7 +203,7 @@ export default function StrategicFocus() {
 
       {/* ── Row 1: cards 1–4 ── */}
       <div className="px-4 sm:px-8 lg:px-40">
-        <div className="md:pr-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-gray-100">
+        <div className="md:pr-30 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-gray-100">
           {SECTORS_ROW1.map((s, i) => (
             <div key={s.id} className={cardBorderClasses(i, SECTORS_ROW1.length)}>
               <SectorCard sector={s} />
