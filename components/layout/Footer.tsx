@@ -38,9 +38,7 @@ export default function Footer() {
             priority
           />
         </Link>
-            <p className="text-slate-400 text-sm md:text-3xl  leading-relaxed font-light  mt-2">
-              Partner with us to turn strategic ambition into measurable business results.
-            </p>
+            <div className="relative text-3xl leading-[120%] font-tasa-orbiter text-slate-400 text-left">Partner with us to turn strategic ambition into<br/>measurable business results.</div>
             <button
               onClick={handleInitiateClick}
               className="bg-[#132c66] hover:bg-[#10296e] transition-colors duration-300 text-white font-bold text-[11px] tracking-widest uppercase px-6 py-3.5 rounded-lg shadow-md cursor-pointer mt-2"
@@ -54,7 +52,7 @@ export default function Footer() {
             <span className="text-white text-[20px] font-bold tracking-[0.25em] uppercase  ">
               Main Pages
             </span>
-            <ul className="flex flex-col gap-3.5 text-2xl font-light text-slate-400">
+            <ul className="flex flex-col gap-3.5  relative text-[23.95px] leading-[38.92px] font-tasa-orbiter font-light text-slate-400">
               <li>
                 <Link href="/" className="hover:text-white transition-colors duration-200">
                   Home
@@ -83,7 +81,7 @@ export default function Footer() {
             <span className="text-white text-[20px] font-bold tracking-[0.25em] uppercase  ">
               Contact
             </span>
-            <div className="flex flex-col gap-4 text-2xl font-light text-slate-400">
+            <div className="flex flex-col gap-4  font-light text-slate-400 relative text-[23.95px] leading-[38.92px] font-tasa-orbiter">
               <Link
                 href="mailto:partnership@skybridgegroup.in"
                 className="hover:text-white transition-colors duration-200 break-all"
@@ -96,11 +94,7 @@ export default function Footer() {
               >
                 +91 91366 41303
               </Link>
-              <div className="flex flex-col gap-1 mt-2 text-slate-400 text-xs md:text-sm font-light leading-relaxed">
-                <span>30, Fl. 2 , Nawab Bldg, D.N Rd Hutatma Chowk</span>
-                <span>Fort, Mumbai G.P.O., Mumbai, Mumbai,</span>
-                <span>Maharashtra, India, 400001</span>
-              </div>
+              <div className="w-full relative text-[23.95px] leading-[38.92px] font-tasa-orbiter text-darkgray text-left inline-block">30, Fl. 2 , Nawab Bldg, D.N Rd Hutatma Chowk Fort, Mumbai G.P.O., Mumbai, Mumbai, Maharashtra, India, 400001</div>
             </div>
           </div>
 

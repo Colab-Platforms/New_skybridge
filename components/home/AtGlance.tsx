@@ -111,7 +111,7 @@ export default function AtGlance() {
                 <div className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[38px] font-normal font-oswald text-[#0d2147] leading-tight group-hover:scale-102 transition-transform duration-300">
                   Founder-First Approach
                 </div>
-                <div className="text-[9px] xs:text-[10px] sm:text-xs md:text-sm lg:text-[15px] xl:text-[16px] text-[#0d2147]/85 font-medium leading-snug tracking-wide mt-2 md:mt-4">
+                <div className="text-[9px] xs:text-[10px] sm:text-xs md:text-sm lg:text-[15px] xl:text-[23.56px] text-[#0d2147]/85  font-tasa-orbit leading-[29.98px] tracking-wide mt-2 md:mt-4">
                   Partnering with entrepreneurs to build scalable and sustainable businesses.
                 </div>
               </div>
@@ -122,7 +122,7 @@ export default function AtGlance() {
                 <div className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[38px] font-normal font-oswald text-[#0d2147] leading-tight group-hover:scale-102 transition-transform duration-300">
                   Strategic Capital
                 </div>
-                <div className="text-[9px] xs:text-[10px] sm:text-xs md:text-sm lg:text-[15px] xl:text-[16px] text-[#0d2147]/85 font-medium leading-snug tracking-wide mt-2 md:mt-4">
+                <div className="text-[9px] xs:text-[10px] sm:text-xs md:text-sm lg:text-[15px] xl:text-[23.56px] text-[#0d2147]/85 font-tasa-orbit leading-[29.98px] tracking-wide mt-2 md:mt-4">
                   Providing growth capital aligned with long-term value creation.
                 </div>
               </div>
@@ -137,7 +137,7 @@ export default function AtGlance() {
                 <div className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[38px] font-normal font-oswald text-[#0d2147] leading-tight group-hover:scale-102 transition-transform duration-300">
                   Building Across Industries
                 </div>
-                <div className="text-[9px] xs:text-[10px] sm:text-xs md:text-sm lg:text-[15px] xl:text-[16px] text-[#0d2147]/85 font-medium leading-snug tracking-wide mt-2 md:mt-4">
+                <div className="text-[9px] xs:text-[10px] sm:text-xs md:text-sm lg:text-[15px] xl:text-[23.56px] text-[#0d2147]/85 font-tasa-orbit leading-[29.98px] tracking-wide mt-2 md:mt-4">
                   Evaluating opportunities across diverse industries and business models.
                 </div>
               </div>
@@ -148,7 +148,7 @@ export default function AtGlance() {
                 <div className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[38px] font-normal font-oswald text-[#0d2147] leading-tight group-hover:scale-102 transition-transform duration-300">
                   Long-Term Partnership
                 </div>
-                <div className="text-[9px] xs:text-[10px] sm:text-xs md:text-sm lg:text-[15px] xl:text-[16px] text-[#0d2147]/85 font-medium leading-snug tracking-wide mt-2 md:mt-4">
+                <div className="text-[9px] xs:text-[10px] sm:text-xs md:text-sm lg:text-[15px] xl:text-[23.56px] text-[#0d2147]/85 font-tasa-orbit leading-[29.98px] tracking-wide mt-2 md:mt-4">
                   Working alongside management teams through every stage of growth.
                 </div>
               </div>
