@@ -21,7 +21,7 @@ export default function Navbar() {
 
   const getLinkClasses = (isActive: boolean) => {
     return isActive
-      ? "group relative py-2 text-[#275ff9] font-bold text-base transition-colors duration-250"
+      ? "group relative py-2 text-[#10296e] font-bold text-base transition-colors duration-250"
       : "group relative py-2 text-white/95 font-medium text-base transition-colors duration-250 hover:text-white ";
   };
 
