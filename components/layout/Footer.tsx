@@ -20,7 +20,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-[#070708] text-white pt-[100px] pb-12 px-6 md:px-12 lg:px-[80px] border-t border-white/5 w-full flex flex-col items-center">
+    <footer className="bg-[#070708] text-white pt-16 sm:pt-20 md:pt-[100px] pb-12 px-6 md:px-12 lg:px-[80px] border-t border-white/5 w-full flex flex-col items-center">
       <div className=" w-full flex flex-col">
 
         {/* Top Section: Three Columns Grid */}
@@ -38,10 +38,10 @@ export default function Footer() {
             priority
           />
         </Link>
-            <div className="relative text-3xl leading-[120%] font-tasa-orbiter text-slate-400 text-left">Partner with us to turn strategic ambition into<br/>measurable business results.</div>
+            <div className="relative text-lg sm:text-xl md:text-2xl lg:text-3xl leading-[130%] md:leading-[120%] font-tasa-orbiter text-slate-400 text-left">Partner with us to turn strategic ambition into<br/>measurable business results.</div>
             <button
               onClick={handleInitiateClick}
-              className="bg-[#132c66] hover:bg-[#10296e] transition-colors duration-300 text-white font-bold text-[11px] tracking-widest uppercase px-6 py-3.5 rounded-lg shadow-md cursor-pointer mt-2"
+              className="w-full sm:w-auto text-center bg-[#132c66] hover:bg-[#10296e] transition-colors duration-300 text-white font-bold text-[11px] tracking-widest uppercase px-6 py-3.5 rounded-lg shadow-md cursor-pointer mt-2"
             >
               Initiate a Conversation
             </button>
@@ -49,10 +49,10 @@ export default function Footer() {
 
           {/* Column 2: Main Pages (3 Columns wide on desktop) */}
           <div className="md:col-span-3 lg:col-span-3 flex flex-col gap-6">
-            <span className="text-white text-[20px] font-bold tracking-[0.25em] uppercase  ">
+            <span className="text-white text-xs sm:text-sm md:text-[20px] font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase">
               Main Pages
             </span>
-            <ul className="flex flex-col gap-3.5  relative text-[23.95px] leading-[38.92px] font-tasa-orbiter font-light text-slate-400">
+            <ul className="flex flex-col gap-2 sm:gap-3 md:gap-3.5 relative text-base sm:text-lg md:text-[23.95px] leading-[1.8] md:leading-[38.92px] font-tasa-orbiter font-light text-slate-400">
               <li>
                 <Link href="/" className="hover:text-white transition-colors duration-200">
                   Home
@@ -78,10 +78,10 @@ export default function Footer() {
 
           {/* Column 3: Contact Info & Address (4 Columns wide on desktop) */}
           <div className="md:col-span-3 lg:col-span-4 flex flex-col gap-6">
-            <span className="text-white text-[20px] font-bold tracking-[0.25em] uppercase  ">
+            <span className="text-white text-xs sm:text-sm md:text-[20px] font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase">
               Contact
             </span>
-            <div className="flex flex-col gap-4  font-light text-slate-400 relative text-[23.95px] leading-[38.92px] font-tasa-orbiter">
+            <div className="flex flex-col gap-3 sm:gap-3.5 md:gap-4 font-light text-slate-400 relative text-base sm:text-lg md:text-[23.95px] leading-[1.8] md:leading-[38.92px] font-tasa-orbiter">
               <Link
                 href="mailto:partnership@skybridgegroup.in"
                 className="hover:text-white transition-colors duration-200 break-all"
@@ -94,7 +94,7 @@ export default function Footer() {
               >
                 +91 91366 41303
               </Link>
-              <div className="w-full relative text-[23.95px] leading-[38.92px] font-tasa-orbiter text-darkgray text-left inline-block">30, Fl. 2 , Nawab Bldg, D.N Rd Hutatma Chowk Fort, Mumbai G.P.O., Mumbai, Mumbai, Maharashtra, India, 400001</div>
+              <div className="w-full relative text-base sm:text-lg md:text-[23.95px] leading-[1.8] md:leading-[38.92px] font-tasa-orbiter text-darkgray text-left inline-block">30, Fl. 2 , Nawab Bldg, D.N Rd Hutatma Chowk Fort, Mumbai G.P.O., Mumbai, Mumbai, Maharashtra, India, 400001</div>
             </div>
           </div>
 
@@ -104,8 +104,8 @@ export default function Footer() {
         <hr className="border-white/10 my-12" />
 
         {/* Bottom Section: Copyright & Social Links */}
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
-          <span className="text-[11px] md:text-xs text-slate-500 font-light tracking-wide text-center sm:text-left">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
+          <span className="text-[11px] md:text-xs text-slate-500 font-light tracking-wide text-left">
             Copyright © 2024 SkyBridge Group. All rights reserved.
           </span>
 

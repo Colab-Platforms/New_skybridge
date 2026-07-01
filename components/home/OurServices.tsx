@@ -201,7 +201,7 @@ export default function OurServices() {
                     key={item}
                     className="inline-flex items-center gap-2 px-3 py-2 rounded-full backdrop-blur-[5px]"
                     style={{
-                      background: "linear-gradient(to right, rgba(26,20,16,0.5), rgba(255,255,255,0))",
+                      background: "linear-gradient( rgb(99 97 95 / 50%), rgba(255,255,255,0))",
                     }}
                   >
                     <span className="w-[7px] h-[7px] rounded-[1px] bg-white flex-shrink-0" />

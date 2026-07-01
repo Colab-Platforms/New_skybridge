@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 interface Sector {
@@ -81,17 +81,28 @@ const SECTORS_ROW2: Sector[] = [
   },
 ];
 
-function SectorCard({ sector }: { sector: Sector }) {
-  const [active, setActive] = useState(false);
-
+function SectorCard({
+  sector,
+  active,
+  onPause,
+  onResume,
+}: {
+  sector: Sector;
+  active: boolean;
+  onPause: () => void;
+  onResume: () => void;
+}) {
   return (
     <div
-      onTouchStart={() => setActive(true)}
-      onTouchEnd={() => setActive(false)}
-      onTouchCancel={() => setActive(false)}
+      onClick={(e) => {
+        e.stopPropagation();
+        onPause();
+      }}
+      onMouseEnter={onPause}
+      onMouseLeave={onResume}
       className="relative overflow-hidden group cursor-pointer w-full min-h-72 sm:min-h-96 lg:min-h-110.75 bg-white flex flex-col justify-between pt-10 pb-6 px-5 sm:pt-12 sm:pb-7 lg:pt-14 lg:pb-7"
     >
-      {/* Background image — fades in on hover or active touch */}
+      {/* Background image — fades in on hover or when this card is the active tap/click selection */}
       <div
         className={`absolute inset-0 bg-cover bg-center opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out ${active ? "opacity-100" : ""}`}
         style={{ backgroundImage: `url(${sector.image})` }}
@@ -152,7 +163,7 @@ function SectorCard({ sector }: { sector: Sector }) {
             viewBox="0 0 10 10"
             fill="none"
             aria-hidden
-            className={`text-white group-hover:text-[#10296e] transition-all duration-500 group-hover:rotate-15 ${active ? "text-[#10296e] rotate-15" : ""}`}
+            className={`text-white group-hover:text-[#10296e] transition-all duration-500 group-hover:rotate-45 ${active ? "text-[#10296e] rotate-90" : ""}`}
             style={{ transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)" }}
           >
             <path
@@ -179,9 +190,61 @@ function cardBorderClasses(index: number, total: number): string {
   return classes.join(" ");
 }
 
+const ALL_SECTORS: Sector[] = [...SECTORS_ROW1, ...SECTORS_ROW2];
+const AUTO_ADVANCE_MS = 1000;
+const RESUME_AFTER_MS = 5000; // fallback for touch, which has no "mouse leave"
+
 export default function StrategicFocus() {
+  // The highlighted card auto-cycles through all 8 (both rows, one loop)
+  // every AUTO_ADVANCE_MS. Hovering (desktop) or tapping (mobile) a card
+  // pins the highlight there and pauses the cycle; it resumes from that
+  // card's position on mouse-leave, on tapping elsewhere, or after a
+  // timeout (touch has no mouse-leave to rely on).
+  const [autoIndex, setAutoIndex] = useState(0);
+  const [pausedId, setPausedId] = useState<number | null>(null);
+  const resumeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const activeId = pausedId ?? ALL_SECTORS[autoIndex].id;
+
+  useEffect(() => {
+    if (pausedId !== null) return;
+    const t = setInterval(() => {
+      setAutoIndex((i) => (i + 1) % ALL_SECTORS.length);
+    }, AUTO_ADVANCE_MS);
+    return () => clearInterval(t);
+  }, [pausedId]);
+
+  useEffect(() => {
+    return () => {
+      if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
+    };
+  }, []);
+
+  const pauseOn = (id: number) => {
+    setAutoIndex(ALL_SECTORS.findIndex((s) => s.id === id));
+    setPausedId(id);
+    if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
+    resumeTimeoutRef.current = setTimeout(() => setPausedId(null), RESUME_AFTER_MS);
+  };
+
+  const resumeIfStillPaused = (id: number) => {
+    setPausedId((curr) => (curr === id ? null : curr));
+    if (resumeTimeoutRef.current) {
+      clearTimeout(resumeTimeoutRef.current);
+      resumeTimeoutRef.current = null;
+    }
+  };
+
+  const resumeAll = () => {
+    setPausedId(null);
+    if (resumeTimeoutRef.current) {
+      clearTimeout(resumeTimeoutRef.current);
+      resumeTimeoutRef.current = null;
+    }
+  };
+
   return (
-    <section className="bg-white w-full py-16 md:py-20 lg:py-25">
+    <section className="bg-white w-full py-16 md:py-20 lg:py-25" onClick={resumeAll}>
 
       {/* ── Header ── */}
       <div className="flex flex-col items-center gap-4 sm:gap-6 mb-10 sm:mb-12 lg:mb-16 px-4 text-center">
@@ -206,7 +269,12 @@ export default function StrategicFocus() {
         <div className="md:pr-30 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-gray-100">
           {SECTORS_ROW1.map((s, i) => (
             <div key={s.id} className={cardBorderClasses(i, SECTORS_ROW1.length)}>
-              <SectorCard sector={s} />
+              <SectorCard
+                sector={s}
+                active={activeId === s.id}
+                onPause={() => pauseOn(s.id)}
+                onResume={() => resumeIfStillPaused(s.id)}
+              />
             </div>
           ))}
         </div>
@@ -218,7 +286,12 @@ export default function StrategicFocus() {
         <div className="sf-row2-offset grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           {SECTORS_ROW2.map((s, i) => (
             <div key={s.id} className={cardBorderClasses(i, SECTORS_ROW2.length)}>
-              <SectorCard sector={s} />
+              <SectorCard
+                sector={s}
+                active={activeId === s.id}
+                onPause={() => pauseOn(s.id)}
+                onResume={() => resumeIfStillPaused(s.id)}
+              />
             </div>
           ))}
         </div>

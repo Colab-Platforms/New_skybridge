@@ -53,20 +53,10 @@ export default function AboutOverview() {
           Mobile: stacked — [building] [handshake] [paragraph 2]
           Desktop: side-by-side — left: building | right: [handshake + paragraph 2]
       */}
-      <div className="flex flex-col  lg:flex-row lg:items-start lg:justify-between lg:max-w-[90%]">
+      <div className="flex flex-col gap-6  lg:flex-row lg:items-start lg:justify-between lg:max-w-[90%]">
 
-        {/* Left image — explicit heights avoid fill collapse */}
-        <div className="relative w-full h-60 sm:h-80 lg:w-188 lg:h-121.5 lg:shrink-0">
-          <Image
-            src="/aboutoverview/bandra-worli-sea-link.jpg"
-            alt="Bandra-Worli Sea Link"
-            fill
-            className="object-cover h-[486px] w-[752px] relative "
-          />
-        </div>
-
-        {/* Right column: image + paragraph 2 */}
-        <div className="flex flex-col gap-6 w-full lg:w-243.75">
+          {/* Right column: image + paragraph 2 */}
+        <div className="flex flex-col gap-6 w-full lg:w-243.75 lg:order-2">
           <div className="relative w-full h-60 sm:h-80 lg:h-150.75">
             <Image
               src="/aboutoverview/gateway-of-india.jpg"
@@ -87,6 +77,16 @@ export default function AboutOverview() {
             multidisciplinary advisory capabilities, we help businesses navigate
             critical decisions, unlock opportunities, and build enduring value.
           </p>
+        </div>
+
+        {/* Left image — explicit heights avoid fill collapse */}
+        <div className="relative w-full h-60 sm:h-80 lg:w-188 lg:h-121.5 lg:order-1 lg:shrink-0">
+          <Image
+            src="/aboutoverview/bandra-worli-sea-link.jpg"
+            alt="Bandra-Worli Sea Link"
+            fill
+            className="object-cover h-[486px] w-[752px] relative "
+          />
         </div>
 
       </div>

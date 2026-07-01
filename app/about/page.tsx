@@ -16,7 +16,7 @@ export default function AboutPage() {
       <AboutFounder />
       <OurPhilosophy />
       <CreateValue />
-      <OurTeams /> 
+      {/* <OurTeams />  */}
     </>
   );
 }

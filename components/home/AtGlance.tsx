@@ -28,7 +28,7 @@ export default function AtGlance() {
         <div className="lg:col-span-5 flex flex-col gap-6">
           <div>
             {/* Label */}
-            <div className="flex items-center gap-2 text-blue-600 text-[24.22px] font-bold tracking-[0.3em] uppercase mb-4">
+            <div className="flex items-center gap-2 text-blue-600 text-sm md:text-[24.22px] font-bold tracking-[0.3em] uppercase mb-4">
               <span className="inline-block w-2.5 h-2.5 bg-blue-600 rounded-[2px]" />
               At A Glance
             </div>
