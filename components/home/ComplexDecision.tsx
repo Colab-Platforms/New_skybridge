@@ -343,7 +343,7 @@ export default function ComplexDecision() {
          ══════════════════════════════════════════════════════════════════════ */}
       <section
         ref={mobileRef as React.RefObject<HTMLElement>}
-        className="lg:hidden bg-[#10296e] w-full px-8 sm:px-12 pt-14 sm:pt-16 pb-16 sm:pb-20 flex flex-col gap-10 sm:gap-12 overflow-hidden"
+        className="lg:hidden bg-[#10296e] w-full pl-12 pr-8 sm:pl-16 sm:pr-12 pt-14 sm:pt-16 pb-16 sm:pb-20 flex flex-col gap-10 sm:gap-12 overflow-hidden"
       >
         {/* Header */}
         <div className="flex flex-col gap-4 sm:gap-5 shrink-0">
@@ -363,24 +363,36 @@ export default function ComplexDecision() {
           </div>
         </div>
 
-        {/* Icon row — free-scrolling */}
+        {/* Icon row — free-scrolling, icons connected by a line (mirrors the desktop strip) */}
         <div
-          className="flex items-center gap-8 sm:gap-12 overflow-x-auto pb-2 shrink-0"
+          className="flex overflow-x-auto snap-x snap-mandatory pb-2 -ml-12 pl-12 -mr-8 pr-8 sm:-ml-16 sm:pl-16 sm:-mr-12 sm:pr-12 shrink-0"
           style={{ scrollbarWidth: "none" }}
         >
           {CARDS.map((card, i) => (
-            <div key={i} {...mobileSlit(0.15 + i * 0.07, "shrink-0")}>
-              <card.Icon className="w-14 h-14 sm:w-18 sm:h-18" />
+            <div
+              key={i}
+              className="flex items-center shrink-0 snap-start"
+              style={{ width: i < CARDS.length - 1 ? "80%" : "auto" }}
+            >
+              <div {...mobileSlit(0.15 + i * 0.07, "shrink-0")}>
+                <card.Icon className="w-14 h-14 sm:w-18 sm:h-18" />
+              </div>
+              {i < CARDS.length - 1 && (
+                <div className="flex-1 h-px bg-white/20 ml-6 sm:ml-8" />
+              )}
             </div>
           ))}
         </div>
 
-        {/* Text cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10">
+        {/* Text cards — horizontally swipeable strip, next card peeks at the edge */}
+        <div
+          className="flex items-stretch gap-6 sm:gap-10 overflow-x-auto snap-x snap-mandatory pb-2 -ml-12 pl-12 -mr-8 pr-8 sm:-ml-16 sm:pl-16 sm:-mr-12 sm:pr-12"
+          style={{ scrollbarWidth: "none" }}
+        >
           {CARDS.map((card, i) => (
             <div
               key={i}
-              {...mobileSlide(0.2 + i * 0.07, "flex flex-col gap-3 pb-8 border-b border-white/15 last:border-b-0")}
+              {...mobileSlide(0.2 + i * 0.07, "flex flex-col gap-3 shrink-0 w-[80%] sm:w-[46%] snap-start")}
             >
               <h3 className="font-tasa-orbiter text-white uppercase whitespace-pre-line leading-[1.45] text-[17px] sm:text-[20px]">
                 {card.headline}

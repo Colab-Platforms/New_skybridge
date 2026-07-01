@@ -18,8 +18,8 @@ export default function Home() {
       <OurServices />
       <StrategicFocus />
       <ComplexDecision />
-      <MarketPerspectives />
-      <Testimonials />
+      {/* <MarketPerspectives /> */}
+      {/* <Testimonials /> */}
       <LetsDiscuss />
     </>
   );
