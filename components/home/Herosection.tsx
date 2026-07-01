@@ -64,21 +64,22 @@ export default function HeroSection() {
             {/* Soft Dark Overlay to ensure perfect contrast and aesthetic depth */}
             {/* <div className="absolute inset-0 bg-black/20 z-10 pointer-events-none" /> */}
 
-            {/* Spacer — pushes bottom content down on desktop where pt-0 is used */}
-            <div className="flex-grow" />
+            {/* Spacer — pushes bottom content down on desktop where pt-0 is used. Hidden on mobile so the clock strip can lead. */}
+            <div className="hidden lg:block lg:flex-grow lg:order-1" />
 
             {/* Main Bottom Columns Section */}
-            <div className="relative z-20 border-t border-white/10 max-w-[1920px] w-full mx-auto px-6 sm:px-10 md:px-16 lg:px-20 xl:px-[100px] pb-4 pt-36 lg:pt-0 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-end">
+            <div className="relative z-20 border-t border-white/10 max-w-[1920px] w-full mx-auto px-6 sm:px-10 md:px-16 lg:px-20 xl:px-[100px] pb-4 pt-8 sm:pt-12 lg:pt-0 grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-16 items-end order-2">
 
                 {/* Left Column: Location, Headline, Scroll Down Button */}
                 <div className="flex flex-row justify-between items-end gap-4 sm:gap-8 w-full">
                     <div className="flex-grow max-w-xl">
-                        <span className="text-xl tracking-[0.3em] text-white/60 font-semibold mb-3 sm:mb-4 block uppercase font-tasa-orbiter">
+                        <span className="text-xs sm:text-base md:text-lg lg:text-xl tracking-[0.2em] sm:tracking-[0.3em] text-white/60 font-semibold mb-3 sm:mb-4 block uppercase font-tasa-orbiter">
                             Fort, Mumbai
                         </span>
-                        <h1 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-[54px] leading-[1.15] font-normal font-tasa-orbiter tracking-tight">
-                            Building Exceptional Businesses. Creating Enduring Value.
-                        </h1>
+                        <div className="w-full relative text-[28px] sm:text-4xl md:text-5xl lg:text-6xl tracking-[-1px] sm:tracking-[-1.5px] lg:tracking-[-2.02px] leading-[120%] text-white text-left inline-block font-tasa-orbiter">
+                            <span className="leading-[120%]">Building Exceptional Businesses. Creating <br /></span>
+                            <span className="font-oswald leading-[120%]">Enduring Value.</span>
+                        </div>
                     </div>
                     <div className="flex-shrink-0 pb-2">
                         <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border border-white/25 flex items-center justify-center cursor-pointer hover:border-white hover:bg-white/5 transition-all duration-300 group">
@@ -97,27 +98,27 @@ export default function HeroSection() {
                 {/* Right Column: Mandates Section with Glassmorphism Card */}
                 <div className="border-t lg:border-t-0 lg:border-l border-white/10 pt-6 sm:pt-10 lg:pt-0 lg:pl-16 flex flex-col gap-6 w-full">
                     <div>
-                        <span className="text-xl tracking-[0.3em] text-white/60 font-semibold mb-4 block uppercase font-sans">
+                        <span className="text-xs sm:text-base md:text-lg lg:text-xl tracking-[0.2em] sm:tracking-[0.3em] text-white/60 font-semibold mb-4 block uppercase font-sans">
                             RECENT MANDATES
                         </span>
 
                         {/* Glassmorphic Mandates Card */}
-                        <div className="bg-gray-800  w-[500px] backdrop-blur-2xl border border-white/10 rounded-xl p-5 flex flex-row items-center gap-5 hover:bg-white/[0.08] hover:border-white/15 transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.12)] group cursor-pointer">
-                            <div className="relative w-20 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-slate-800">
+                        <div className="bg-gray/50 backdrop-blur-xl w-full lg:w-[500px] border border-white/10 rounded-xl p-3 sm:p-4 lg:p-5 flex flex-row items-center gap-3 sm:gap-4 lg:gap-5 transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.12)] group cursor-pointer">
+                            <div className="relative w-16 h-16 sm:w-20 sm:h-20 lg:w-26 lg:h-25 rounded-lg overflow-hidden flex-shrink-0 bg-slate-800">
                                 <Image
                                     src="/handshake.jpg"
                                     alt="Corporate Mandate Handshake"
                                     className="w-full h-full relative max-w-full overflow-hidden max-h-full object-cover" width={144.7} height={108.5} sizes="100vw"
                                 />
                             </div>
-                            <div className="flex-grow">
-                                <div className="text-sm  tracking-wider text-white/45 font-medium mb-1 uppercase font-sans">
+                            <div className="flex-grow min-w-0">
+                                <div className="text-[11px] sm:text-sm tracking-wider text-white/45 font-medium mb-1 uppercase font-sans">
                                     PRIVATE WEALTH MANAGEMENT • JUNE 2026
                                 </div>
-                                <div className="w-full relative text-[22px] leading-[25.43px] font-medium font-tasa-orbiter text-white text-left inline-block">India Investment<br/>Strategy - June 2026</div>
+                                <div className="w-full relative text-base sm:text-lg lg:text-[22px] leading-[125%] lg:leading-[25.43px] font-medium font-tasa-orbiter text-white text-left inline-block">India Investment<br/>Strategy - June 2026</div>
                             </div>
-                            <div className="w-10 h-10 rounded-full bg-[#0084ff] flex items-center justify-center text-white flex-shrink-0 group-hover:bg-blue-600 transition-colors shadow-lg shadow-blue-500/10">
-                                <svg className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <div className="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 rounded-full bg-[#0084ff] flex items-center justify-center text-white flex-shrink-0 group-hover:bg-blue-600 transition-colors shadow-lg shadow-blue-500/10">
+                                <svg className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                 </svg>
                             </div>
@@ -134,51 +135,51 @@ export default function HeroSection() {
 
             </div>
 
-            {/* Dynamic Timezone Indicators Along the Bottom */}
-            <div className="w-full border-t border-white/10 py-6 px-6 sm:px-10 md:px-16 lg:px-20 xl:px-[100px] relative z-20 ">
+            {/* Dynamic Timezone Indicators — leads on mobile, trails as a footer bar on desktop */}
+            <div className="w-full border-white/10 lg:border-t py-6 px-6 sm:px-10 md:px-16 lg:px-20 xl:px-[100px] relative z-20 order-1 lg:order-3">
                 <div className="max-w-[1920px] w-full mx-auto flex flex-row justify-between items-center gap-6">
-                    <div className="grid grid-cols-2 md:grid-cols-4 w-full gap-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 w-full gap-4 sm:gap-8">
 
                         {/* Mumbai Time */}
                         <div className="flex flex-col gap-1">
-                            <div className="flex items-center gap-1.5 text-slate-400 text-[10px] tracking-[0.2em] font-medium uppercase font-sans">
-                                <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
+                            <div className="flex items-center gap-1.5 text-[10px] tracking-[0.2em] font-medium uppercase font-sans">
+                                <span className="w-1.5 h-1.5 rounded-full bg-white" />
                                 MUMBAI
                             </div>
-                            <div className="text-[22px] text-white font-medium tracking-widest font-sans mt-1">
+                            <div className="text-lg sm:text-xl lg:text-[22px] text-white font-medium tracking-widest font-sans mt-1">
                                 {isMounted ? times.mumbai : "00:59"}
                             </div>
                         </div>
 
                         {/* New York Time */}
                         <div className="flex flex-col gap-1">
-                            <div className="flex items-center gap-1.5 text-slate-400 text-[10px] tracking-[0.2em] font-medium uppercase font-sans">
-                                <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
+                            <div className="flex items-center gap-1.5 text-[10px] tracking-[0.2em] font-medium uppercase font-sans">
+                                <span className="w-1.5 h-1.5 rounded-full bg-white" />
                                 NEW YORK
                             </div>
-                            <div className="text-[22px] text-white font-medium tracking-widest font-sans mt-1">
+                            <div className="text-lg sm:text-xl lg:text-[22px] text-white font-medium tracking-widest font-sans mt-1">
                                 {isMounted ? times.newYork : "03:59"}
                             </div>
                         </div>
 
                         {/* London Time */}
                         <div className="flex flex-col gap-1">
-                            <div className="flex items-center gap-1.5 text-slate-400 text-[10px] tracking-[0.2em] font-medium uppercase font-sans">
-                                <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
+                            <div className="flex items-center gap-1.5  text-[10px] tracking-[0.2em] font-medium uppercase font-sans">
+                                <span className="w-1.5 h-1.5 rounded-full bg-white" />
                                 LONDON
                             </div>
-                            <div className="text-[22px] text-white font-medium tracking-widest font-sans mt-1">
+                            <div className="text-lg sm:text-xl lg:text-[22px] text-white font-medium tracking-widest font-sans mt-1">
                                 {isMounted ? times.london : "08:59"}
                             </div>
                         </div>
 
                         {/* Abu Dhabi Time */}
                         <div className="flex flex-col gap-1">
-                            <div className="flex items-center gap-1.5 text-slate-400 text-[10px] tracking-[0.2em] font-medium uppercase font-sans">
-                                <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
+                            <div className="flex items-center gap-1.5  text-[10px] tracking-[0.2em] font-medium uppercase font-sans">
+                                <span className="w-1.5 h-1.5 rounded-full bg-white" />
                                 ABU DHABI
                             </div>
-                            <div className="text-[22px] text-white font-medium tracking-widest font-sans mt-1">
+                            <div className="text-lg sm:text-xl lg:text-[22px] text-white font-medium tracking-widest font-sans mt-1">
                                 {isMounted ? times.abuDhabi : "09:59"}
                             </div>
                         </div>

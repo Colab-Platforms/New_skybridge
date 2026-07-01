@@ -49,7 +49,7 @@ export default function AtGlance() {
                 <div className="w-1.5 h-1.5 rounded-full bg-blue-600" />
               </div>
               {/* Vertical Connecting Line */}
-              <div className="h-[235.1px] w-[1px] bg-blue-600 ml-[6.5px] my-2" />
+              <div className=" h-[78.1px] not-last:md:h-[235.1px] w-[1px]  bg-blue-600 ml-[6.5px] my-2" />
               {/* Bottom Circle */}
               <div className="w-3.5 h-3.5 rounded-full border border-blue-600 bg-white flex items-center justify-center flex-shrink-0">
                 <div className="w-1.5 h-1.5 rounded-full bg-blue-600" />
@@ -72,8 +72,8 @@ export default function AtGlance() {
         </div>
 
         {/* Right Column: 3x3 Photo-Stat Grid */}
-        <div className="lg:col-span-7 w-full flex justify-center">
-          <div className="relative xl:h-[999px] w-full aspect-[3/4] xs:aspect-[4/5] sm:aspect-square md:aspect-[4/3] max-w-[640px] xl:max-w-[1000px] overflow-hidden ">
+        <div className="lg:col-span-7 w-full h-[600px] md:h-full flex justify-center">
+          <div className="relative xl:h-[999px] w-full aspect-[3/4] sm:aspect-square md:aspect-[4/3] max-w-[640px] xl:max-w-[1000px] overflow-hidden ">
             {/* Background slideshow images with duotone filter effect */}
             <div className="absolute inset-0 z-0 ">
               {IMAGES.map((img, idx) => (
@@ -106,24 +106,24 @@ export default function AtGlance() {
               <div className="border-r border-b border-white/40 transition-colors duration-300 hover:bg-white/5 cursor-pointer"></div>
               {/* Cell 1,2: Image (transparent) */}
               <div className="hidden md:block border-r border-b border-white/40 transition-colors duration-300 hover:bg-white/5 cursor-pointer"></div>
-              {/* Cell 1,3: Founder-First Approach */}
-              <div className="bg-[#e9ecf5] border-b border-white/40 p-3 sm:p-5 md:p-6 lg:p-8 flex flex-col justify-between transition-all duration-300 hover:bg-[#dee3f0] hover:-translate-y-[1px] hover:shadow-lg cursor-pointer group">
-                <div className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[38px] font-normal font-oswald text-[#0d2147] leading-tight group-hover:scale-102 transition-transform duration-300">
-                  Founder-First Approach
+              {/* Cell 1,3: Capital Arranged */}
+              <div className="bg-[#e9ecf5] border-b border-white/40 p-4 sm:p-5 md:p-6 lg:p-8 flex flex-col justify-between transition-all duration-300 hover:bg-[#dee3f0] hover:-translate-y-[1px] hover:shadow-lg cursor-pointer group">
+                <div className="text-2xl sm:text-3xl md:text-3xl lg:text-[32px] xl:text-[38px] font-normal font-oswald text-[#0d2147] leading-tight group-hover:scale-102 transition-transform duration-300">
+                  ₹2,400Cr+
                 </div>
-                <div className="text-[9px] xs:text-[10px] sm:text-xs md:text-sm lg:text-[15px] xl:text-[23.56px] text-[#0d2147]/85  font-tasa-orbit leading-[29.98px] tracking-wide mt-2 md:mt-4">
-                  Partnering with entrepreneurs to build scalable and sustainable businesses.
+                <div className="text-[15px] sm:text-xs md:text-sm lg:text-[15px] xl:text-[23.56px] text-[#0d2147]/85 font-tasa-orbit leading-snug lg:leading-[29.98px] tracking-wide mt-2 md:mt-4">
+                  Capital arranged across all mandates
                 </div>
               </div>
 
               {/* ROW 2 */}
-              {/* Cell 2,1: Strategic Capital */}
-              <div className="bg-[#e9ecf5] border-r border-b border-white/40 p-3 sm:p-5 md:p-6 lg:p-8 flex flex-col justify-between transition-all duration-300 hover:bg-[#dee3f0] hover:-translate-y-[1px] hover:shadow-lg cursor-pointer group">
-                <div className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[38px] font-normal font-oswald text-[#0d2147] leading-tight group-hover:scale-102 transition-transform duration-300">
-                  Strategic Capital
+              {/* Cell 2,1: Transactions Closed */}
+              <div className="bg-[#e9ecf5] border-r border-b border-white/40 p-4 sm:p-5 md:p-6 lg:p-8 flex flex-col justify-between transition-all duration-300 hover:bg-[#dee3f0] hover:-translate-y-[1px] hover:shadow-lg cursor-pointer group">
+                <div className="text-2xl sm:text-3xl md:text-3xl lg:text-[32px] xl:text-[38px] font-normal font-oswald text-[#0d2147] leading-tight group-hover:scale-102 transition-transform duration-300">
+                  40+
                 </div>
-                <div className="text-[9px] xs:text-[10px] sm:text-xs md:text-sm lg:text-[15px] xl:text-[23.56px] text-[#0d2147]/85 font-tasa-orbit leading-[29.98px] tracking-wide mt-2 md:mt-4">
-                  Providing growth capital aligned with long-term value creation.
+                <div className="text-[15px] sm:text-xs md:text-sm lg:text-[15px] xl:text-[23.56px] text-[#0d2147]/85 font-tasa-orbit leading-snug lg:leading-[29.98px] tracking-wide mt-2 md:mt-4">
+                  Transactions closed since 2021
                 </div>
               </div>
               {/* Cell 2,2: Image (transparent) */}
@@ -132,24 +132,24 @@ export default function AtGlance() {
               <div className="hidden md:block border-b border-white/40 transition-colors duration-300 hover:bg-white/5 cursor-pointer"></div>
 
               {/* ROW 3 */}
-              {/* Cell 3,1: Building Across Industries */}
-              <div className="bg-[#e9ecf5] border-r border-white/40 p-3 sm:p-5 md:p-6 lg:p-8 flex flex-col justify-between transition-all duration-300 hover:bg-[#dee3f0] hover:-translate-y-[1px] hover:shadow-lg cursor-pointer group">
-                <div className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[38px] font-normal font-oswald text-[#0d2147] leading-tight group-hover:scale-102 transition-transform duration-300">
-                  Building Across Industries
+              {/* Cell 3,1: Sectors */}
+              <div className="bg-[#e9ecf5] border-r border-white/40 p-4 sm:p-5 md:p-6 lg:p-8 flex flex-col justify-between transition-all duration-300 hover:bg-[#dee3f0] hover:-translate-y-[1px] hover:shadow-lg cursor-pointer group">
+                <div className="text-2xl sm:text-3xl md:text-3xl lg:text-[32px] xl:text-[38px] font-normal font-oswald text-[#0d2147] leading-tight group-hover:scale-102 transition-transform duration-300">
+                  8
                 </div>
-                <div className="text-[9px] xs:text-[10px] sm:text-xs md:text-sm lg:text-[15px] xl:text-[23.56px] text-[#0d2147]/85 font-tasa-orbit leading-[29.98px] tracking-wide mt-2 md:mt-4">
-                  Evaluating opportunities across diverse industries and business models.
+                <div className="text-[15px] sm:text-xs md:text-sm lg:text-[15px] xl:text-[23.56px] text-[#0d2147]/85 font-tasa-orbit leading-snug lg:leading-[29.98px] tracking-wide mt-2 md:mt-4">
+                  Sectors with active deal history
                 </div>
               </div>
               {/* Cell 3,2: Image (transparent) */}
               <div className="hidden md:block border-r border-white/40 transition-colors duration-300 hover:bg-white/5 cursor-pointer"></div>
-              {/* Cell 3,3: Long-Term Partnership */}
-              <div className="bg-[#e9ecf5] p-3 sm:p-5 md:p-6 lg:p-8 flex flex-col justify-between transition-all duration-300 hover:bg-[#dee3f0] hover:-translate-y-[1px] hover:shadow-lg cursor-pointer group">
-                <div className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[38px] font-normal font-oswald text-[#0d2147] leading-tight group-hover:scale-102 transition-transform duration-300">
-                  Long-Term Partnership
+              {/* Cell 3,3: Partner-Led */}
+              <div className="bg-[#e9ecf5] p-4 sm:p-5 md:p-6 lg:p-8 flex flex-col justify-between transition-all duration-300 hover:bg-[#dee3f0] hover:-translate-y-[1px] hover:shadow-lg cursor-pointer group">
+                <div className="text-2xl sm:text-3xl md:text-3xl lg:text-[32px] xl:text-[38px] font-normal font-oswald text-[#0d2147] leading-tight group-hover:scale-102 transition-transform duration-300">
+                  100%
                 </div>
-                <div className="text-[9px] xs:text-[10px] sm:text-xs md:text-sm lg:text-[15px] xl:text-[23.56px] text-[#0d2147]/85 font-tasa-orbit leading-[29.98px] tracking-wide mt-2 md:mt-4">
-                  Working alongside management teams through every stage of growth.
+                <div className="text-[15px] sm:text-xs md:text-sm lg:text-[15px] xl:text-[23.56px] text-[#0d2147]/85 font-tasa-orbit leading-snug lg:leading-[29.98px] tracking-wide mt-2 md:mt-4">
+                  Partner-led - every mandate, every time
                 </div>
               </div>
             </div>
