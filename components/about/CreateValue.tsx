@@ -39,13 +39,11 @@ export default function CreateValue() {
       <div className="absolute inset-0 pointer-events-none" aria-hidden>
         <div className="absolute inset-0">
           <Image
-            src="/createvalue/bg-meeting.jpg"
+            src="/createvalue/new-meeting.png"
             alt=""
             fill
-            className="object-cover h-[180%] "
+            className="object-cover"
             priority
-            
-            
           />
         </div>
         <div

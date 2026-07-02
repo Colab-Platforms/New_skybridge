@@ -31,9 +31,9 @@ export default function AboutFounder() {
                      lg:text-[70px] lg:leading-[88px]"
         >
           Every business faces defining moments. Our role is to bring{" "}
-          <em className="font-playfair font-semibold italic">clarity</em>
+          <em className="font-playfair  ">clarity</em>
           {", conviction, and the right strategic partnership when those moments "}
-          <em className="font-playfair ">matter most.</em>
+          <em className="font-playfair   ">matter most.</em>
         </p>
       </div>
 

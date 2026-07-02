@@ -33,13 +33,21 @@ function ServiceCardItem({
   card,
   isOpen,
   onToggle,
+  onHoverOpen,
+  onHoverClose,
 }: {
   card: ServiceCard;
   isOpen: boolean;
   onToggle: () => void;
+  onHoverOpen: () => void;
+  onHoverClose: () => void;
 }) {
   return (
-    <div className="bg-white border border-[#d1d5db] rounded-[16px] lg:rounded-[22px] px-5 py-5 lg:px-[34px] lg:py-[22px] flex flex-col lg:flex-row lg:items-start lg:justify-between gap-5 lg:gap-8">
+    <div
+      onMouseEnter={onHoverOpen}
+      onMouseLeave={onHoverClose}
+      className="bg-white border border-[#d1d5db] rounded-[16px] lg:rounded-[22px] px-5 py-5 lg:px-[34px] lg:py-[22px] flex flex-col lg:flex-row lg:items-start lg:justify-between gap-5 lg:gap-8"
+    >
       {/* Number + title (+ mobile toggle, sharing the top row) */}
       <div className="flex items-start justify-between gap-4 lg:contents">
         <div className="flex flex-col gap-3 lg:gap-4 lg:shrink-0 lg:w-[min(49%,860px)]">
@@ -71,7 +79,7 @@ function ServiceCardItem({
         )}
 
         <div
-          className={`grid w-full transition-[grid-template-rows] duration-300 ease-in-out ${
+          className={`grid w-full transition-[grid-template-rows] duration-1000 ease-out ${
             isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
           }`}
         >
@@ -165,7 +173,7 @@ function TabContent({ tab }: { tab: CapabilityTab }) {
       </div>
 
       {/* Title + body — stacks on mobile, side-by-side on desktop */}
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 lg:gap-8">
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 lg:gap-8 px-5 lg:px-[34px]">
         <div className="flex flex-col gap-3 lg:gap-[18px] lg:shrink-0 lg:w-[min(49%,860px)] lg:tracking-[-0.96px]">
           <h2 className="font-oswald font-normal text-[#10296e] text-[34px] sm:text-[46px] lg:text-[70px] leading-[1.2] uppercase">
             {tab.title}
@@ -187,6 +195,8 @@ function TabContent({ tab }: { tab: CapabilityTab }) {
             card={card}
             isOpen={openIdx === idx}
             onToggle={() => setOpenIdx(openIdx === idx ? null : idx)}
+            onHoverOpen={() => setOpenIdx(idx)}
+            onHoverClose={() => setOpenIdx((cur) => (cur === idx ? null : cur))}
           />
         ))}
       </div>
