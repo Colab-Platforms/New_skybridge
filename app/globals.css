@@ -37,6 +37,8 @@
 
   --font-tasa-orbiter: var(--font-tasa-orbiter);
 
+  --font-playfair: var(--font-playfair);
+
 }
 
 
@@ -84,6 +86,8 @@
   --font-mono: var(--font-ibm-mono);
 
   --font-accent: var(--font-playfair);
+
+  --font-playfair: var(--font-playfair);
 
 }
 

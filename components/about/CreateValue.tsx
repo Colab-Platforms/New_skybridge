@@ -42,8 +42,9 @@ export default function CreateValue() {
             src="/createvalue/bg-meeting.jpg"
             alt=""
             fill
-            className="object-fill"
+            className="object-cover h-[180%] "
             priority
+            
             
           />
         </div>

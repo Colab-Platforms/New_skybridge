@@ -52,15 +52,14 @@ export default function HeroSection() {
                 loop
                 muted
                 playsInline
-                className="absolute inset-0 w-full h-full object-cover z-0"
+                className="absolute inset-0 w-full h-[120%] object-cover z-0"
             >
-                <source src="/Use_the_uploaded_Skybridge_log%20(2).mp4" type="video/mp4" />
+                <source src="/Skybridgenewvideo.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
             </video>
 
             {/* Background Gradient simulating a cool slate/misty sky effect */}
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,_rgba(16,_22,_35,_0.8)_0%,_rgba(16,_22,_35,_0)_25%,_rgba(22,_22,_22,_0)_60%,_#161616_100%)] z-10" />
-
+            {/* <div className="absolute inset-0 z-10 bg-[linear-gradient(180deg,rgba(16,22,35,0.8)_0%,rgba(16,22,35,0)_25%,rgba(22,22,22,0)_60%,#161616_100%)]" /> */}
             {/* Soft Dark Overlay to ensure perfect contrast and aesthetic depth */}
             {/* <div className="absolute inset-0 bg-black/20 z-10 pointer-events-none" /> */}
 

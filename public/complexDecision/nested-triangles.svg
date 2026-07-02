@@ -1,0 +1,25 @@
+<svg width="90" height="90" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="90" height="90" fill="#1E1E1E"/>
+<g id="Frame 222">
+<rect width="2890" height="910" transform="translate(-1784 -273)" fill="#10296E"/>
+<g id="Frame 366">
+<g id="Frame 237">
+<g id="6">
+<rect width="90" height="90" fill="#10296E"/>
+<path id="Triangles" fill-rule="evenodd" clip-rule="evenodd" d="M44.9999 21.6001L66.5999 60.6194H61.457L66.5999 69.9098H61.457L66.5999 79.2001H23.3999L28.5428 69.9098H23.3999L28.5428 60.6194H23.3999L44.9999 21.6001ZM29.5715 60.6194L24.9268 69.0098H29.041L33.6856 60.6194H29.5715ZM34.1838 59.7194H30.0697L44.9999 32.7487L59.9301 59.7194H55.816L44.9999 40.1808L34.1838 59.7194ZM34.7143 60.6194L30.0697 69.0098H59.9301L55.2855 60.6194H34.7143ZM54.7873 59.7194H35.2125L44.9999 42.0391L54.7873 59.7194ZM56.3142 60.6194L60.9588 69.0098H65.073L60.4283 60.6194H56.3142ZM60.9588 59.7194L44.9999 30.8904L29.041 59.7194H24.9268L44.9999 23.4584L65.073 59.7194H60.9588ZM24.9268 78.3001L29.5715 69.9098H60.4283L65.073 78.3001H24.9268Z" fill="url(#paint0_linear_26_56)"/>
+<path id="Star 1" d="M45.0001 10.7998L45.7894 14.2942L48.8185 12.3814L46.9057 15.4105L50.4001 16.1998L46.9057 16.9891L48.8185 20.0182L45.7894 18.1054L45.0001 21.5998L44.2108 18.1054L41.1817 20.0182L43.0945 16.9891L39.6001 16.1998L43.0945 15.4105L41.1817 12.3814L44.2108 14.2942L45.0001 10.7998Z" fill="url(#paint1_radial_26_56)"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear_26_56" x1="44.9999" y1="21.6001" x2="44.7589" y2="94.5291" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white"/>
+</linearGradient>
+<radialGradient id="paint1_radial_26_56" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(45.0001 16.1998) rotate(90) scale(5.4)">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="#C4C4C4"/>
+</radialGradient>
+</defs>
+</svg>

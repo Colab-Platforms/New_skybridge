@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 // ─── Viewport hook ────────────────────────────────────────────────────────────
 function useInView(threshold = 0.08) {
@@ -68,66 +69,34 @@ function IconNestedDiamonds({ className }: { className?: string }) {
 }
 
 function IconConcentricCrosshair({ className }: { className?: string }) {
-  const c = 45;
+  // const c = 45;
   return (
-    <svg viewBox="0 0 90 90" fill="none" aria-hidden className={className}>
-      <circle cx={c} cy={c} r="32" stroke="white" strokeWidth="0.9" />
-      <circle cx={c} cy={c} r="21" stroke="white" strokeWidth="0.9" />
-      <circle cx={c} cy={c} r="10" stroke="white" strokeWidth="0.9" />
-      <circle cx={c} cy={c} r="3.2" fill="white" />
-      <line x1={c} y1="10" x2={c} y2="24" stroke="white" strokeWidth="0.9" />
-      <line x1={c} y1="66" x2={c} y2="80" stroke="white" strokeWidth="0.9" />
-      <line x1="10" y1={c} x2="24" y2={c} stroke="white" strokeWidth="0.9" />
-      <line x1="66" y1={c} x2="80" y2={c} stroke="white" strokeWidth="0.9" />
-    </svg>
+    <Image src="/complexDecision/concentric-crosshair.svg" alt="" width={90} height={90} className={className} />
+
   );
 }
 
 function IconNestedTriangles({ className }: { className?: string }) {
-  const c = 45;
-  const tiers = [
-    [c, 14, 12, 78],
-    [c, 28, 24, 66],
-    [c, 41, 36, 54],
-  ] as const;
+  // const c = 45;
+  // const tiers = [
+  //   [c, 14, 12, 78],
+  //   [c, 28, 24, 66],
+  //   [c, 41, 36, 54],
+  // ] as const;
   return (
-    <svg viewBox="0 0 90 90" fill="none" aria-hidden className={className}>
-      {tiers.map(([cx, top, left, right], i) => (
-        <polygon
-          key={i}
-          points={`${cx},${top} ${right},72 ${left},72`}
-          stroke="white"
-          strokeWidth="0.9"
-        />
-      ))}
-      <circle cx={c} cy={62} r="2.5" fill="white" />
-    </svg>
+   
+<Image src="/complexDecision/nested-triangles.svg" alt="" width={90} height={90} className={className} />
+
   );
 }
 
 function IconRadiantStar({ className }: { className?: string }) {
-  const c = 45;
-  const outerR = 30;
-  const spokes = 6;
+  // const c = 45;
+  // const outerR = 30; 
+  // const spokes = 6;
   return (
-    <svg viewBox="0 0 90 90" fill="none" aria-hidden className={className}>
-      {Array.from({ length: spokes }, (_, i) => {
-        const a = (i * Math.PI) / spokes;
-        return (
-          <line
-            key={i}
-            x1={c + outerR * Math.cos(a)}
-            y1={c + outerR * Math.sin(a)}
-            x2={c - outerR * Math.cos(a)}
-            y2={c - outerR * Math.sin(a)}
-            stroke="white"
-            strokeWidth="0.9"
-          />
-        );
-      })}
-      <circle cx={c} cy={c} r="12" stroke="white" strokeWidth="0.9" />
-      <circle cx={c} cy={c} r="3.5" fill="white" />
-    </svg>
+   
+<Image src="/complexDecision/radiant-star.svg" alt="" className= "ml-2" width={90} height={90}  />
   );
 }
 

@@ -16,7 +16,7 @@ export default function Navbar() {
 
   const isHomeActive = pathname === "/";
   const isAboutActive = pathname === "/about";
-  const isSolutionsActive = pathname === "/solutions";
+  const isSolutionsActive = pathname === "/service";
   const isContactActive = pathname === "/contact";
 
   const getLinkClasses = (isActive: boolean) => {

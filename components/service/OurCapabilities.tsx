@@ -4,57 +4,127 @@ import { useState } from "react";
 import Image from "next/image";
 import { CAPABILITIES_DATA, type CapabilityTab, type ServiceCard } from "./capabilitiesData";
 
-function ServiceCardItem({ card }: { card: ServiceCard }) {
+function ToggleArrow({ isOpen, className = "" }: { isOpen: boolean; className?: string }) {
+  return (
+    <span
+      className={`inline-flex items-center justify-center w-11 h-11 rounded-full bg-[#f6f6f6] ${className}`}
+    >
+      <svg
+        className={`transition-transform duration-300 ease-in-out ${isOpen ? "rotate-90" : "rotate-0"}`}
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        aria-hidden
+      >
+        <path
+          d="M9 6l6 6-6 6"
+          stroke="#10296e"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </span>
+  );
+}
+
+function ServiceCardItem({
+  card,
+  isOpen,
+  onToggle,
+}: {
+  card: ServiceCard;
+  isOpen: boolean;
+  onToggle: () => void;
+}) {
   return (
     <div className="bg-white border border-[#d1d5db] rounded-[16px] lg:rounded-[22px] px-5 py-5 lg:px-[34px] lg:py-[22px] flex flex-col lg:flex-row lg:items-start lg:justify-between gap-5 lg:gap-8">
-      {/* Number + title */}
-      <div className="flex flex-col gap-3 lg:gap-4 lg:shrink-0 lg:w-[min(40%,664px)]">
-        <span className="font-mono font-medium text-[#275ff9] text-[20px] lg:text-[30px] leading-[1.2] uppercase">
-          {card.number}
-        </span>
-        <h3 className="font-tasa-orbiter font-medium text-[#1a1a1a] text-[26px] sm:text-[34px] lg:text-[50px] leading-[1.2] capitalize">
-          {card.title}
-        </h3>
+      {/* Number + title (+ mobile toggle, sharing the top row) */}
+      <div className="flex items-start justify-between gap-4 lg:contents">
+        <div className="flex flex-col gap-3 lg:gap-4 lg:shrink-0 lg:w-[min(49%,860px)]">
+          <span className="font-mono font-medium text-[#275ff9] text-[20px] lg:text-[30px] leading-[1.2] uppercase">
+            {card.number}
+          </span>
+          <h3 className="font-tasa-orbiter font-medium text-[#1a1a1a] text-[26px] sm:text-[34px] lg:text-[50px] leading-[1.2] capitalize">
+            {card.title}
+          </h3>
+        </div>
+
+        <button
+          type="button"
+          onClick={onToggle}
+          aria-expanded={isOpen}
+          aria-label="Toggle details"
+          className="lg:hidden shrink-0 mt-1 cursor-pointer"
+        >
+          <ToggleArrow isOpen={isOpen} />
+        </button>
       </div>
 
       {/* Description + tags */}
-      <div className="flex flex-col gap-6 lg:gap-[54px] items-start flex-1 lg:max-w-[644px]">
-        <p className="font-tasa-orbiter font-medium text-[#1a1a1a] text-[15px] sm:text-[17px] lg:text-[25px] leading-[1.6]">
-          {card.description}
-        </p>
-        {card.extraParagraph && (
-          <p className="font-tasa-orbiter font-medium text-[#1a1a1a] text-[15px] sm:text-[17px] lg:text-[25px] leading-[1.6]">
-            {card.extraParagraph}
+      <div className="flex flex-col gap-3 lg:gap-4 items-start flex-1 lg:max-w-[756px]">
+        {!isOpen && (
+          <p className="font-tasa-orbiter font-medium text-[#1a1a1a] text-[15px] sm:text-[17px] lg:text-[25px] leading-[1.6] line-clamp-2 w-full">
+            {card.description}
           </p>
         )}
-        {card.solutions && card.solutions.length > 0 && (
-          <div className="flex flex-col gap-3 lg:gap-4 w-full">
-            <p className="font-tasa-orbiter font-medium text-[#1a1a1a] text-[15px] sm:text-[17px] lg:text-[25px] leading-[1.6] capitalize">
-              Solutions include:
-            </p>
-            <div className="flex flex-wrap gap-[7px] lg:gap-[9px]">
-              {card.solutions.map((s) => (
-                <span
-                  key={s}
-                  className="bg-[#f6f6f6] rounded-[2px] px-[8px] py-[7px] lg:px-[10px] lg:py-[10px] font-tasa-orbiter text-black text-[13px] sm:text-[15px] lg:text-[22px] leading-[1.4] lg:leading-[30px] whitespace-nowrap"
-                >
-                  {s}
-                </span>
-              ))}
+
+        <div
+          className={`grid w-full transition-[grid-template-rows] duration-300 ease-in-out ${
+            isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+          }`}
+        >
+          <div className="overflow-hidden min-h-0">
+            <div className="flex flex-col gap-6 lg:gap-[54px] items-start">
+              <p className="font-tasa-orbiter font-medium text-[#1a1a1a] text-[15px] sm:text-[17px] lg:text-[25px] leading-[1.6]">
+                {card.description}
+              </p>
+              {card.extraParagraph && (
+                <p className="font-tasa-orbiter font-medium text-[#1a1a1a] text-[15px] sm:text-[17px] lg:text-[25px] leading-[1.6]">
+                  {card.extraParagraph}
+                </p>
+              )}
+              {card.solutions && card.solutions.length > 0 && (
+                <div className="flex flex-col gap-3 lg:gap-4 w-full">
+                  <p className="font-tasa-orbiter font-medium text-[#1a1a1a] text-[15px] sm:text-[17px] lg:text-[25px] leading-[1.6] capitalize">
+                    Solutions include:
+                  </p>
+                  <div className="flex flex-wrap gap-[7px] lg:gap-[9px]">
+                    {card.solutions.map((s) => (
+                      <span
+                        key={s}
+                        className="bg-[#f6f6f6] rounded-[2px] px-[8px] py-[7px] lg:px-[10px] lg:py-[10px] font-tasa-orbiter text-black text-[13px] sm:text-[15px] lg:text-[22px] leading-[1.4] lg:leading-[30px] whitespace-nowrap"
+                      >
+                        {s}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
-        )}
+        </div>
       </div>
 
-      {/* Decorative × — desktop only */}
-      <span className="hidden lg:inline text-[#d1d5db] text-[28px] leading-none shrink-0 mt-1 select-none">
-        ×
-      </span>
+      {/* Toggle — desktop only, trailing position */}
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-expanded={isOpen}
+        aria-label="Toggle details"
+        className="hidden lg:inline-flex shrink-0 mt-1 cursor-pointer"
+      >
+        <ToggleArrow isOpen={isOpen} />
+      </button>
     </div>
   );
 }
 
 function TabContent({ tab }: { tab: CapabilityTab }) {
+  const [openIdx, setOpenIdx] = useState<number | null>(0);
+  const [showQuote, setShowQuote] = useState(false);
+
   return (
     <div className="flex flex-col gap-6 lg:gap-8 w-full">
       {/* Hero image */}
@@ -70,11 +140,28 @@ function TabContent({ tab }: { tab: CapabilityTab }) {
         <div className="absolute inset-0 bg-black/25 pointer-events-none" />
 
         {/* Quote card */}
-        <div className="absolute left-4 right-4 bottom-4 lg:left-auto lg:right-[110px] lg:bottom-[90px] lg:max-w-[651px] bg-white rounded-[10px] lg:rounded-[12px] p-4 lg:p-5">
+        <div
+          className={`absolute left-4 right-4 bottom-4 lg:left-auto lg:right-[110px] lg:bottom-[90px] lg:max-w-[651px] bg-white rounded-[10px] lg:rounded-[12px] p-4 lg:p-5 transition-all duration-300 ease-in-out ${
+            showQuote ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none"
+          }`}
+        >
           <p className="font-tasa-orbiter font-medium text-[#1a1a1a] text-[13px] sm:text-[15px] lg:text-[25px] leading-[1.6]">
             {tab.quote}
           </p>
         </div>
+
+        {/* Info icon — hovering it reveals the quote; click/tap toggles it on mobile */}
+        <button
+          type="button"
+          onClick={() => setShowQuote((s) => !s)}
+          onMouseEnter={() => setShowQuote(true)}
+          onMouseLeave={() => setShowQuote(false)}
+          aria-expanded={showQuote}
+          aria-label="Toggle quote"
+          className="absolute bottom-4 right-4 lg:bottom-6 lg:right-6 z-10 w-9 h-9 lg:w-10 lg:h-10 rounded-full bg-gray-300 hover:bg-gray-400 backdrop-blur-sm text-black flex items-center justify-center transition-colors cursor-pointer"
+        >
+          <span className="font-serif italic text-sm lg:text-base leading-none">i</span>
+        </button>
       </div>
 
       {/* Title + body — stacks on mobile, side-by-side on desktop */}
@@ -94,8 +181,13 @@ function TabContent({ tab }: { tab: CapabilityTab }) {
 
       {/* Service cards */}
       <div className="flex flex-col gap-4 lg:gap-6">
-        {tab.cards.map((card) => (
-          <ServiceCardItem key={card.number} card={card} />
+        {tab.cards.map((card, idx) => (
+          <ServiceCardItem
+            key={card.number}
+            card={card}
+            isOpen={openIdx === idx}
+            onToggle={() => setOpenIdx(openIdx === idx ? null : idx)}
+          />
         ))}
       </div>
     </div>

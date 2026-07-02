@@ -147,7 +147,7 @@ export default function ContactWithUs() {
           <div className="flex justify-center pt-6 lg:pt-[44px]">
             <button
               type="submit"
-              className="flex items-center gap-3 bg-[#10296e] text-white rounded-full px-8 py-5 font-tasa-orbiter text-xl lg:text-2xl uppercase tracking-[0.8px] cursor-pointer hover:bg-[#0d2159] transition-colors duration-200 w-full sm:w-auto justify-center"
+              className="flex items-center gap-3 bg-[#10296e] text-white rounded-full md:px-8 md:py-5 font-tasa-orbiter text-xl lg:text-2xl uppercase tracking-[0.8px] cursor-pointer hover:bg-[#0d2159] transition-colors duration-200 sm:w-auto justify-center"
               style={{
                 minWidth: "clamp(240px, 30vw, 417px)",
                 boxShadow:
