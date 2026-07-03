@@ -31,17 +31,17 @@ export default function AboutFounder() {
                      lg:text-[70px] lg:leading-[88px]"
         >
           Every business faces defining moments. Our role is to bring{" "}
-          <em className="font-playfair  ">clarity</em>
+          <i className="font-playfair! italic! ">clarity</i>
           {", conviction, and the right strategic partnership when those moments "}
-          <em className="font-playfair   ">matter most.</em>
+          <i className="font-playfair!   italic! ">matter most.</i>
         </p>
       </div>
 
      
-      {/* <div className="flex items-center gap-6 lg:gap-[32px] lg:pl-[182px]">
+      <div className="flex items-center gap-6 lg:gap-[32px] pl-[50px] lg:pl-[105px]">
 
         
-        <div
+        {/* <div
           className="relative shrink-0 overflow-hidden rounded-xl
                      w-20 h-20
                      sm:w-28 sm:h-28
@@ -53,7 +53,7 @@ export default function AboutFounder() {
             fill
             className="object-cover"
           />
-        </div>
+        </div> */}
 
         
         <div className="flex flex-col gap-1.5">
@@ -73,7 +73,7 @@ export default function AboutFounder() {
           </p>
         </div>
 
-      </div> */}
+      </div>
     </section>
   );
 }

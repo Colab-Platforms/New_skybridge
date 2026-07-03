@@ -52,7 +52,7 @@ export default function HeroSection() {
                 loop
                 muted
                 playsInline
-                className="absolute inset-0 w-full h-[120%] object-cover z-0"
+                className="absolute inset-0 w-full h-[126%] object-cover z-0"
             >
                 <source src="/Skybridgenewvideo.mp4" type="video/mp4" />
                 Your browser does not support the video tag.

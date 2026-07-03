@@ -59,7 +59,7 @@ export default function AboutOverview() {
         <div className="flex flex-col gap-6 w-full lg:w-243.75 lg:order-2">
           <div className="relative w-full h-60 sm:h-80 lg:h-150.75">
             <Image
-              src="/aboutoverview/gateway-of-india.jpg"
+              src="/aboutoverview/handshake.png"
               alt="Gateway of India"
               fill
               className="object-cover"

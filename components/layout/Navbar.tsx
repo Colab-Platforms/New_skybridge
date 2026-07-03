@@ -60,7 +60,7 @@ export default function Navbar() {
             <li>
               <Link href="/service" className={getLinkClasses(isSolutionsActive)}>
                 <span className="flex items-center gap-1.5">
-                  Service <span className="inline-flex text-sm transition-transform duration-200 group-hover:translate-y-0.5">↓</span>
+                  Our Solutions <span className="inline-flex text-sm transition-transform duration-200 group-hover:translate-y-0.5">↓</span>
                 </span>
                 {/* <span className={`absolute bottom-0 left-0 h-[2px] transition-all duration-250 ${isSolutionsActive ? "w-full bg-[#275ff9]" : "w-0 bg-[#0084ff] group-hover:w-full"}`}></span> */}
               </Link>
@@ -125,7 +125,7 @@ export default function Navbar() {
                 className={`text-lg block py-2 border-b border-slate-700/50 ${isSolutionsActive ? "text-[#275ff9] font-bold" : "text-white font-medium hover:text-sky-400"}`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                Service↓
+                Our Solutions↓
               </Link>
             </li>
             <li>

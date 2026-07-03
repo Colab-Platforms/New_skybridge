@@ -64,7 +64,7 @@ export default function LetsDiscuss() {
       <div className="max-w-[1600px] w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-stretch">
 
         {/* Left Column: Heading & Subtext — reveals left-to-right via max-width */}
-          <div className="lg:col-span-4 flex flex-col justify-center gap-6 relative  lg:left-16 z-[99] pr-5">
+          <div className="lg:col-span-4 flex flex-col justify-center gap-6 relative  lg:left-16 z-10 pr-5">
             {/* Clipping wrapper: max-width transitions from 0 → 100% */}
             <div
               className="lg:-mr-30 overflow-hidden"
@@ -78,14 +78,14 @@ export default function LetsDiscuss() {
               {/* Inner div prevents text from wrapping until container is wide enough */}
               <div style={{ minWidth: "min(340px, 90vw)" }}>
                 <div className="flex flex-col gap-4">
-                  <span className="text-[13px] text-[#0b1d47]/80 font-bold tracking-[0.25em] uppercase">
+                  <span className=" text-[#10296e] font-bold text-[16.15px] tracking-[3.23px] leading-[21.53px] font-tasa-orbiter  uppercase">
                     Start a Confidential Conversation
                   </span>
-                  <h2 className="text-[#0b1d47] font-oswald text-4xl md:text-5xl lg:text-[62px] font-bold leading-[1.08] tracking-tight">
+                  <h2 className="text-[#10296e] font-oswald text-4xl md:text-5xl lg:text-[62px] font-bold leading-[1.08] tracking-tight">
                     Let&apos;s Discuss What&apos;s <br /> Next
                   </h2>
                 </div>
-                <p className="text-slate-600 text-sm md:text-base leading-relaxed font-light max-w-md mt-4">
+                <p className="text-slate-600 text-lg leading-7 font-tasa-orbiter md:text-base  font-light max-w-md mt-4">
                   Whether you&apos;re raising capital, evaluating strategic opportunities,
                   exploring restructuring options, or seeking advisory support, our team is
                   ready to understand your objectives.

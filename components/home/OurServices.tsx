@@ -25,15 +25,15 @@ const SERVICES: ServiceItem[] = [
       ["Equity Capital Markets"],
     ],
     image: "/carouselcards/card1.png",
-    bgImage: "/carouselbgimage/2.png",
+    bgImage: "/carouselbgimage/1.png",
   },
   {
     id: 2,
     title: "Strategic Transactions",
     subtitle: "When the next move\ndefines what’s next",
     bullets: [
-      ["M&A Advisory", "Restructuring"],
-      ["Valuation Services"],
+      ["Acquisitions", "Takeovers"],
+      ["Strategic Investments", "Buyouts  "],
     ],
     image: "/carouselcards/card2.png",
     bgImage: "/carouselbgimage/4.png",
@@ -47,7 +47,7 @@ const SERVICES: ServiceItem[] = [
       ["International Expansion","Cross-Border Partnerships"],
     ],
     image: "/carouselcards/card3.png",
-    bgImage: "/carouselbgimage/5.png",
+    bgImage: "/carouselbgimage/3.png",
   },
   {
     id: 4,
@@ -58,7 +58,7 @@ const SERVICES: ServiceItem[] = [
       ["Debt Rationalization", "Turnaround Strategies"],
     ],
     image: "/carouselcards/card4.png",
-    bgImage: "/carouselbgimage/2.png",
+    bgImage: "/carouselbgimage/4.png",
   },
   {
     id: 5,
@@ -69,7 +69,7 @@ const SERVICES: ServiceItem[] = [
       ["Strategic Alliances" , "Co-Investments"],
     ],
     image: "/carouselcards/card5.png",
-    bgImage: "/gateway.png",
+    bgImage: "/carouselbgimage/5.png",
   },
 ];
 
@@ -164,9 +164,9 @@ export default function OurServices() {
         <div className="flex flex-col gap-6 px-6 sm:px-10 lg:px-16 xl:px-20 pt-14 pb-6 lg:py-24">
 
           {/* Section label */}
-          <div className="flex items-center gap-2 text-[11px] lg:text-[13px] font-semibold tracking-[0.35em] uppercase">
+          <div className="flex items-center gap-2 text-[11px] lg:text-[13px] font-semibold tracking-[0.35em]  font-ibm-mono ">
             <span className="inline-block w-2.5 h-2.5 bg-[#275ff9] rounded-[2px] flex-shrink-0" />
-            <span className="text-white">Our Services</span>
+            <span className="text-white ">Our Services</span>
           </div>
 
           {/* Heading */}
@@ -188,7 +188,7 @@ export default function OurServices() {
               style={{ fontSize: "clamp(22px, 2.8vw, 40px)" }}
             >
               {subtitleLine1}{" "}
-              <span className="font-accent italic">{subtitleLine2}</span>
+              <span className="font-semibold font-playfair italic">{subtitleLine2}</span>
             </p>
           </div>
 

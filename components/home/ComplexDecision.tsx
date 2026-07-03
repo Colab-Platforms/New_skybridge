@@ -106,27 +106,27 @@ const CARDS = [
   {
     Icon: IconStackedSquares,
     headline: "We solve first.\nThen we structure.",
-    body: "Every engagement begins with understanding the problem — not with pushing a product. We don't arrive with a pre-built solution. We arrive with questions, and we design the structure around the answer.",
+    body: "Every engagement begins with understanding the problem - not with pushing a product. We don't arrive with a pre-built solution. We arrive with questions, and we design the structure around the answer.",
   },
   {
     Icon: IconNestedDiamonds,
     headline: "One team.\nNo handoffs.",
-    body: "Merchant bankers, CAs, lawyers, valuers — working together on your transaction, not in sequence. The person who understands your deal is the one who closes it. Complex transactions demand this. We're built for it.",
+    body: "Merchant bankers, CAs, lawyers, valuers - working together on your transaction, not in sequence. The person who understands your deal is the one who closes it. Complex transactions demand this. We're built for it.",
   },
   {
     Icon: IconConcentricCrosshair,
     headline: "Honest before\noptimistic.",
-    body: "We tell you what the market can support — not what you want to hear. Getting the mandate matters less to us than getting the outcome right. That is why clients come back, and why they refer others.",
+    body: "We tell you what the market can support - not what you want to hear. Getting the mandate matters less to us than getting the outcome right. That is why clients come back, and why they refer others.",
   },
   {
     Icon: IconNestedTriangles,
     headline: "We stay\nuntil it closes.",
-    body: "Advisory doesn't end at term sheet. We stay through documentation, regulatory steps, and every complication in between. A SkyBridge partner is in the room at every critical moment — because that's when it counts.",
+    body: "Advisory doesn't end at term sheet. We stay through documentation, regulatory steps, and every complication in between. A SkyBridge partner is in the room at every critical moment - because that's when it counts.",
   },
   {
     Icon: IconRadiantStar,
     headline: "When the standard structure doesn't fit, we build a new one.",
-    body: "We work with the full toolkit — not just the obvious instruments — because the right structure is the one that actually gets the deal done.",
+    body: "We work with the full toolkit - not just the obvious instruments - because the right structure is the one that actually gets the deal done.",
   },
 ] as const;
 
