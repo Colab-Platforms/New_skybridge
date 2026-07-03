@@ -109,10 +109,10 @@ export default function AtGlance() {
               {/* Cell 1,3: Capital Arranged */}
               <div className="bg-[#e9ecf5] border-b border-white/40 p-4 sm:p-5 md:p-6 lg:p-8 flex flex-col justify-between transition-all duration-300 hover:bg-[#dee3f0] hover:-translate-y-[1px] hover:shadow-lg cursor-pointer group">
                 <div className="text-2xl sm:text-3xl md:text-3xl lg:text-[32px] xl:text-[38px] font-normal font-oswald text-[#0d2147] leading-tight group-hover:scale-102 transition-transform duration-300">
-                  ₹2,400Cr+
+                  Founder-First Approach
                 </div>
                 <div className="text-[15px] sm:text-xs md:text-sm lg:text-[15px] xl:text-[23.56px] text-[#0d2147]/85 font-tasa-orbit leading-snug lg:leading-[29.98px] tracking-wide mt-2 md:mt-4">
-                  Capital arranged across all mandates
+                  Partnering with entrepreneurs to build scalable and sustainable businesses.
                 </div>
               </div>
 
@@ -120,10 +120,10 @@ export default function AtGlance() {
               {/* Cell 2,1: Transactions Closed */}
               <div className="bg-[#e9ecf5] border-r border-b border-white/40 p-4 sm:p-5 md:p-6 lg:p-8 flex flex-col justify-between transition-all duration-300 hover:bg-[#dee3f0] hover:-translate-y-[1px] hover:shadow-lg cursor-pointer group">
                 <div className="text-2xl sm:text-3xl md:text-3xl lg:text-[32px] xl:text-[38px] font-normal font-oswald text-[#0d2147] leading-tight group-hover:scale-102 transition-transform duration-300">
-                  40+
+                  Strategic Capital
                 </div>
                 <div className="text-[15px] sm:text-xs md:text-sm lg:text-[15px] xl:text-[23.56px] text-[#0d2147]/85 font-tasa-orbit leading-snug lg:leading-[29.98px] tracking-wide mt-2 md:mt-4">
-                  Transactions closed since 2021
+                  Providing growth capital aligned with long-term value creation.
                 </div>
               </div>
               {/* Cell 2,2: Image (transparent) */}
@@ -135,10 +135,10 @@ export default function AtGlance() {
               {/* Cell 3,1: Sectors */}
               <div className="bg-[#e9ecf5] border-r border-white/40 p-4 sm:p-5 md:p-6 lg:p-8 flex flex-col justify-between transition-all duration-300 hover:bg-[#dee3f0] hover:-translate-y-[1px] hover:shadow-lg cursor-pointer group">
                 <div className="text-2xl sm:text-3xl md:text-3xl lg:text-[32px] xl:text-[38px] font-normal font-oswald text-[#0d2147] leading-tight group-hover:scale-102 transition-transform duration-300">
-                  8
+                 Building Across Industries
                 </div>
                 <div className="text-[15px] sm:text-xs md:text-sm lg:text-[15px] xl:text-[23.56px] text-[#0d2147]/85 font-tasa-orbit leading-snug lg:leading-[29.98px] tracking-wide mt-2 md:mt-4">
-                  Sectors with active deal history
+                  Evaluating opportunities across diverse industries and business models.
                 </div>
               </div>
               {/* Cell 3,2: Image (transparent) */}
@@ -146,10 +146,10 @@ export default function AtGlance() {
               {/* Cell 3,3: Partner-Led */}
               <div className="bg-[#e9ecf5] p-4 sm:p-5 md:p-6 lg:p-8 flex flex-col justify-between transition-all duration-300 hover:bg-[#dee3f0] hover:-translate-y-[1px] hover:shadow-lg cursor-pointer group">
                 <div className="text-2xl sm:text-3xl md:text-3xl lg:text-[32px] xl:text-[38px] font-normal font-oswald text-[#0d2147] leading-tight group-hover:scale-102 transition-transform duration-300">
-                  100%
+                  Long-Term Partnership
                 </div>
                 <div className="text-[15px] sm:text-xs md:text-sm lg:text-[15px] xl:text-[23.56px] text-[#0d2147]/85 font-tasa-orbit leading-snug lg:leading-[29.98px] tracking-wide mt-2 md:mt-4">
-                  Partner-led - every mandate, every time
+                  Working alongside management teams through every stage of growth.
                 </div>
               </div>
             </div>

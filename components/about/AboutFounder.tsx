@@ -37,10 +37,10 @@ export default function AboutFounder() {
         </p>
       </div>
 
-      {/* Speaker attribution */}
-      <div className="flex items-center gap-6 lg:gap-[32px] lg:pl-[182px]">
+     
+      {/* <div className="flex items-center gap-6 lg:gap-[32px] lg:pl-[182px]">
 
-        {/* Portrait */}
+        
         <div
           className="relative shrink-0 overflow-hidden rounded-xl
                      w-20 h-20
@@ -55,7 +55,7 @@ export default function AboutFounder() {
           />
         </div>
 
-        {/* Name + role */}
+        
         <div className="flex flex-col gap-1.5">
           <p
             className="font-oswald font-bold text-white
@@ -73,7 +73,7 @@ export default function AboutFounder() {
           </p>
         </div>
 
-      </div>
+      </div> */}
     </section>
   );
 }
