@@ -67,42 +67,42 @@ export default function HeroSection() {
             <div className="hidden lg:block lg:flex-grow lg:order-1" />
 
             {/* Main Bottom Columns Section */}
-            <div className="relative z-20 border-t border-white/10 max-w-[1920px] w-full mx-auto px-6 sm:px-10 md:px-16 lg:px-20 xl:px-[100px] pb-4 pt-8 sm:pt-12 lg:pt-0 grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-16 items-end order-2">
+            <div className="relative z-20 border-t border-white/10 max-w-[1920px] w-full mx-auto px-6 sm:px-10 md:px-16 lg:px-20 xl:px-[100px] pb-4 pt-8 sm:pt-12 lg:pt-0 grid grid-cols-1 lg:grid-cols-1 gap-6 sm:gap-8 lg:gap-16 items-end order-2">
 
                 {/* Left Column: Location, Headline, Scroll Down Button */}
-                <div className="flex flex-row justify-between items-end gap-4 sm:gap-8 w-full">
-                    <div className="flex-grow max-w-xl">
+                <div className="flex flex-row justify-between items-center gap-4 sm:gap-8 w-full">
+                    <div className="flex-grow max-w-[100%] md:max-w-[70%] ">
                         <span className="text-xs sm:text-base md:text-lg lg:text-xl tracking-[0.2em] sm:tracking-[0.3em] text-white/60 font-semibold mb-3 sm:mb-4 block uppercase font-tasa-orbiter">
                             Fort, Mumbai
                         </span>
                         <div className="w-full relative text-[28px] sm:text-4xl md:text-5xl lg:text-6xl tracking-[-1px] sm:tracking-[-1.5px] lg:tracking-[-2.02px] leading-[120%] text-white text-left inline-block font-tasa-orbiter">
-                            <span className="leading-[120%]">Building Exceptional Businesses. Creating <br /></span>
+                            <span className="leading-[120%]">Building Exceptional Businesses. Creating </span>
                             <span className="font-oswald leading-[120%]">Enduring Value.</span>
-                        </div>
+                        </div>  
                     </div>
-                    <div className="flex-shrink-0 pb-2">
-                        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border border-white/25 flex items-center justify-center cursor-pointer hover:border-white hover:bg-white/5 transition-all duration-300 group">
+                    <div className="flex flex-col justify-center items-center pb-2">
+                        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border-2 border-white/25 flex items-center justify-center cursor-pointer hover:border-white hover:bg-white/5 transition-all duration-300 group">
                             <svg
-                                className="w-4 h-4 sm:w-5 sm:h-5 text-white/80 group-hover:translate-y-1 transition-transform duration-300"
+                                className="w-4 h-4 sm:w-5 sm:h-5 text-white hover:text-white group-hover:translate-y-1 transition-transform duration-300"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
                             >
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 13l-7 7-7-7m14-6l-7 7-7-7" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 13l-7 7-7-7m14-6l-7 7-7-7" />
                             </svg>
                         </div>
                     </div>
                 </div>
 
                 {/* Right Column: Mandates Section with Glassmorphism Card */}
-                <div className="border-t lg:border-t-0 lg:border-l border-white/10 pt-6 sm:pt-10 lg:pt-0 lg:pl-16 flex flex-col gap-6 w-full">
+                {/* <div className="border-t lg:border-t-0 lg:border-l border-white/10 pt-6 sm:pt-10 lg:pt-0 lg:pl-16 flex flex-col gap-6 w-full">
                     <div>
                         <span className="text-xs sm:text-base md:text-lg lg:text-xl tracking-[0.2em] sm:tracking-[0.3em] text-white/60 font-semibold mb-4 block uppercase font-sans">
                             RECENT MANDATES
-                        </span>
+                        </span> */}
 
                         {/* Glassmorphic Mandates Card */}
-                        <div className="bg-gray/50 backdrop-blur-xl w-full lg:w-[500px] border border-white/10 rounded-xl p-3 sm:p-4 lg:p-5 flex flex-row items-center gap-3 sm:gap-4 lg:gap-5 transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.12)] group cursor-pointer">
+                        {/* <div className="bg-gray/50 backdrop-blur-xl w-full lg:w-[500px] border border-white/10 rounded-xl p-3 sm:p-4 lg:p-5 flex flex-row items-center gap-3 sm:gap-4 lg:gap-5 transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.12)] group cursor-pointer">
                             <div className="relative w-16 h-16 sm:w-20 sm:h-20 lg:w-26 lg:h-25 rounded-lg overflow-hidden flex-shrink-0 bg-slate-800">
                                 <Image
                                     src="/handshake.jpg"
@@ -122,15 +122,15 @@ export default function HeroSection() {
                                 </svg>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* Pagination Indicators */}
-                    <div className="flex flex-row gap-2 justify-center items-center pl-1">
+                     {/* <div className="flex flex-row gap-2 justify-center items-center pl-1">
                         <span className="w-2.5 h-2.5 rounded-full bg-white cursor-pointer transition-colors duration-200" />
                         <span className="w-1.5 h-1.5 rounded-full bg-white/25 hover:bg-white/45 transition-colors duration-200 cursor-pointer" />
                         <span className="w-1.5 h-1.5 rounded-full bg-white/25 hover:bg-white/45 transition-colors duration-200 cursor-pointer" />
-                    </div>
-                </div>
+                    </div> 
+                </div> */}
 
             </div>
 

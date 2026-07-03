@@ -26,7 +26,7 @@ export const CAPABILITIES_DATA: CapabilityTab[] = [
       "The circular opening symbolises access, possibility, and scale. Much like capital itself, it creates pathways to growth, helping businesses move from private opportunities to public markets and larger ambitions.",
     title: "Capital Markets",
     subtitle: "From growth capital to public markets.",
-    body: "We supports businesses across the capital lifecycle, providing financing, growth capital, and capital market solutions designed to support expansion, strategic initiatives, and long-term value creation.",
+    body: "We support businesses across the capital lifecycle, providing financing, growth capital, and capital market solutions designed to support expansion, strategic initiatives, and long-term value creation.",
     cards: [
       {
         number: "[01]",
@@ -47,13 +47,13 @@ export const CAPABILITIES_DATA: CapabilityTab[] = [
         number: "[02]",
         title: "Private Equity & Growth Capital",
         description:
-          "We partners with founders, promoters, family-owned businesses, and growth-stage companies seeking strategic capital to scale operations, enter new markets, strengthen capabilities, and pursue transformational opportunities.",
+          "We partner with founders, promoters, family-owned businesses, and growth-stage companies seeking strategic capital to scale operations, enter new markets, strengthen capabilities, and pursue transformational opportunities.",
       },
       {
         number: "[03]",
         title: "Equity Capital Markets",
         description:
-          "We assists businesses in accessing public and private capital markets through a range of capital-raising and liquidity solutions designed to support growth and shareholder objectives.",
+          "We assist businesses in accessing public and private capital markets through a range of capital-raising and liquidity solutions designed to support growth and shareholder objectives.",
         solutions: [
           "Initial Public Offerings (IPOs)",
           "SME IPOs",
@@ -83,7 +83,7 @@ export const CAPABILITIES_DATA: CapabilityTab[] = [
         number: "[01]",
         title: "Mergers, Acquisitions & Takeovers",
         description:
-          "We supports strategic transactions that enable businesses to expand capabilities, enter new markets, consolidate industries, and unlock growth opportunities.",
+          "We support strategic transactions that enable businesses to expand capabilities, enter new markets, consolidate industries, and unlock growth opportunities.",
         solutions: [
           "Business Acquisitions",
           "Corporate Takeovers",
@@ -98,7 +98,7 @@ export const CAPABILITIES_DATA: CapabilityTab[] = [
         number: "[02]",
         title: "Strategic Joint Ventures",
         description:
-          "We helps structure strategic alliances between businesses, promoters, investors, and corporations to pursue high-potential opportunities.",
+          "We help structure strategic alliances between businesses, promoters, investors, and corporations to pursue high-potential opportunities.",
         extraParagraph:
           "These partnerships combine capital, expertise, relationships, and execution capabilities to create scalable growth platforms.",
       },
@@ -106,7 +106,7 @@ export const CAPABILITIES_DATA: CapabilityTab[] = [
         number: "[03]",
         title: "Consortium Investments",
         description:
-          "We participates in consortium-led investment opportunities alongside leading financial and strategic investors, enabling participation in larger and more complex transactions.",
+          "We participate in consortium-led investment opportunities alongside leading financial and strategic investors, enabling participation in larger and more complex transactions.",
         extraParagraph: "Consortium Participants May Include",
         solutions: [
           "Private Equity Funds",
@@ -158,7 +158,7 @@ export const CAPABILITIES_DATA: CapabilityTab[] = [
         number: "[01]",
         title: "Foreign Direct Investment (FDI) & Overseas Direct Investment (ODI)",
         description:
-          "We facilitates domestic and international investment opportunities through strategic advisory and cross-border transaction support.",
+          "We facilitate domestic and international investment opportunities through strategic advisory and cross-border transaction support.",
         solutions: [
           "Inbound Investments into India",
           "Cross-Border Partnerships",
