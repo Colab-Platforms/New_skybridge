@@ -105,28 +105,28 @@ function IconRadiantStar({ className }: { className?: string }) {
 const CARDS = [
   {
     Icon: IconStackedSquares,
-    headline: "We solve first.\nThen we structure.",
-    body: "Every engagement begins with understanding the problem - not with pushing a product. We don't arrive with a pre-built solution. We arrive with questions, and we design the structure around the answer.",
+    headline: "WE IDENTIFY OPPORTUNITIES. THEN WE BUILD VALUE.",
+    body: "Every investment begins with understanding the business, the market, and the long-term opportunity. We partner with founders and management teams to strengthen fundamentals, accelerate growth, and create sustainable enterprise value - not simply provide capital.",
   },
   {
     Icon: IconNestedDiamonds,
-    headline: "One team.\nNo handoffs.",
-    body: "Merchant bankers, CAs, lawyers, valuers - working together on your transaction, not in sequence. The person who understands your deal is the one who closes it. Complex transactions demand this. We're built for it.",
+    headline: "ONE PLATFORM. MULTIPLE CAPABILITIES.",
+    body: "Capital alone does not build great businesses. Our multidisciplinary team combines investment expertise, strategic insight, financial structuring, industry relationships, and execution capabilities to support businesses through every stage of their growth journey.",
   },
   {
     Icon: IconConcentricCrosshair,
-    headline: "Honest before\noptimistic.",
-    body: "We tell you what the market can support - not what you want to hear. Getting the mandate matters less to us than getting the outcome right. That is why clients come back, and why they refer others.",
+    headline: "LONG-TERM PARTNERS. NOT SHORT-TERM INVESTORS.",
+    body: "We invest with conviction and patience. Our objective is not simply to participate in transactions, but to build enduring businesses through strategic guidance, disciplined capital allocation, and long-term collaboration with entrepreneurs.",
   },
   {
     Icon: IconNestedTriangles,
-    headline: "We stay\nuntil it closes.",
-    body: "Advisory doesn't end at term sheet. We stay through documentation, regulatory steps, and every complication in between. A SkyBridge partner is in the room at every critical moment - because that's when it counts.",
+    headline: "WE CREATE VALUE BEYOND CAPITAL.",
+    body: "Our involvement extends beyond investment. We help businesses unlock growth opportunities, optimize capital structures, strengthen governance, build strategic partnerships, and prepare for the next phase of expansion.",
   },
   {
     Icon: IconRadiantStar,
-    headline: "When the standard structure doesn't fit, we build a new one.",
-    body: "We work with the full toolkit - not just the obvious instruments - because the right structure is the one that actually gets the deal done.",
+    headline: "WE BUILD PLATFORMS FOR THE FUTURE.",
+    body: "We invest behind structural growth themes, emerging technologies, and transformative business models. Whether through strategic investments, joint ventures, or platform creation, our focus is on building businesses positioned to lead tomorrow's economy.",
   },
 ] as const;
 
