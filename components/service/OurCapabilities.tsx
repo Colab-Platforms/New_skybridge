@@ -166,7 +166,7 @@ function TabContent({ tab }: { tab: CapabilityTab }) {
           onMouseLeave={() => setShowQuote(false)}
           aria-expanded={showQuote}
           aria-label="Toggle quote"
-          className="absolute bottom-4 right-4 lg:bottom-6 lg:right-6 z-10 w-9 h-9 lg:w-10 lg:h-10 rounded-full bg-gray-300 hover:bg-gray-400 backdrop-blur-sm text-black flex items-center justify-center transition-colors cursor-pointer"
+          className="absolute bottom-4 right-4 lg:bottom-6 lg:right-6 z-10 w-9 h-9 lg:w-10 lg:h-10 rounded-full bg-gray-50 hover:bg-gray-400 backdrop-blur-sm text-black flex items-center justify-center transition-colors cursor-pointer border border-black"
         >
           <span className="font-serif italic text-sm lg:text-base leading-none">i</span>
         </button>
@@ -175,14 +175,14 @@ function TabContent({ tab }: { tab: CapabilityTab }) {
       {/* Title + body — stacks on mobile, side-by-side on desktop */}
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 lg:gap-8 px-5 lg:px-[34px]">
         <div className="flex flex-col gap-3 lg:gap-[18px] lg:shrink-0 lg:w-[min(49%,860px)] lg:tracking-[-0.96px]">
-          <h2 className="font-oswald font-normal text-[#10296e] text-[34px] sm:text-[46px] lg:text-[70px] leading-[1.2] uppercase">
+          <h2 className="font-oswald  text-[#10296e] text-[34px] sm:text-[46px] lg:text-[70px] leading-[1.2] uppercase">
             {tab.title}
           </h2>
           <p className="font-tasa-orbiter font-medium text-[#275ff9] text-[15px] sm:text-[18px] lg:text-[30px] leading-[1.2] uppercase not-italic">
             {tab.subtitle}
           </p>
         </div>
-        <p className="font-tasa-orbiter font-normal text-[#1a1a1a] text-[15px] sm:text-[17px] lg:text-[25px] leading-[1.6] not-italic lg:shrink-0 lg:w-[min(44%,756px)]">
+        <p className="font-tasa-orbiter lg:max-w-[50%]   text-[#1a1a1a] text-[15px] sm:text-[17px] lg:text-[25px] leading-[1.6] not-italic lg:shrink-0 ">
           {tab.body}
         </p>
       </div>
