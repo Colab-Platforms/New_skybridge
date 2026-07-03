@@ -36,7 +36,7 @@ const SERVICES: ServiceItem[] = [
       ["Strategic Investments", "Buyouts  "],
     ],
     image: "/carouselcards/card2.png",
-    bgImage: "/carouselbgimage/4.png",
+    bgImage: "/carouselbgimage/2.png",
   },
   {
     id: 3,
