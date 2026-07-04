@@ -75,6 +75,7 @@ const SERVICES: ServiceItem[] = [
 
 const VISIBLE_COUNT = 5;
 const ANIM_MS = 520;
+const TRANSITION_DURATION_MS = 1400;
 type Dir = "next" | "prev" | null;
 
 // ─────────────────────────────────────────────────────────────
@@ -83,6 +84,18 @@ export default function OurServices() {
   const [dir, setDir] = useState<Dir>(null);
   const [busy, setBusy] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const [expandingIdx, setExpandingIdx] = useState<number | null>(null);
+  const [shrinkingIdx, setShrinkingIdx] = useState<number | null>(null);
+  const [expandingRect, setExpandingRect] = useState<{
+    top: number;
+    left: number;
+    width: number;
+    height: number;
+  } | null>(null);
+  const [isExpanding, setIsExpanding] = useState(false);
+  const [isShrinking, setIsShrinking] = useState(false);
 
   // Responsive card sizing: track window width
   const [windowW, setWindowW] = useState(0);
@@ -102,15 +115,69 @@ export default function OurServices() {
     (direction: Dir, newIdx: number) => {
       if (busy) return;
       setBusy(true);
+
+      if (sectionRef.current) {
+        const secRect = sectionRef.current.getBoundingClientRect();
+
+        if (direction === "prev") {
+          // Shrinking transition: old active background shrinks to first card slot.
+          // Measure the first card in the carousel (currently activeIdx + 1).
+          const currentFirstIdx = (activeIdx + 1) % SERVICES.length;
+          const cardEl = sectionRef.current.querySelector(`[data-card-idx="${currentFirstIdx}"]`);
+          if (cardEl) {
+            const cardRect = cardEl.getBoundingClientRect();
+            setExpandingRect({
+              top: cardRect.top - secRect.top,
+              left: cardRect.left - secRect.left,
+              width: cardRect.width,
+              height: cardRect.height,
+            });
+            setShrinkingIdx(activeIdx);
+            setIsShrinking(false);
+            
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => {
+                setIsShrinking(true);
+              });
+            });
+          }
+        } else {
+          // Expanding transition: target card expands to cover screen.
+          const cardEl = sectionRef.current.querySelector(`[data-card-idx="${newIdx}"]`);
+          if (cardEl) {
+            const cardRect = cardEl.getBoundingClientRect();
+            setExpandingRect({
+              top: cardRect.top - secRect.top,
+              left: cardRect.left - secRect.left,
+              width: cardRect.width,
+              height: cardRect.height,
+            });
+            setExpandingIdx(newIdx);
+            setIsExpanding(false);
+
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => {
+                setIsExpanding(true);
+              });
+            });
+          }
+        }
+      }
+
       setActiveIdx(newIdx);
       setDir(direction);
+
       if (timer.current) clearTimeout(timer.current);
       timer.current = setTimeout(() => {
         setDir(null);
         setBusy(false);
-      }, 850);
+        setExpandingIdx(null);
+        setShrinkingIdx(null);
+        setIsExpanding(false);
+        setIsShrinking(false);
+      }, TRANSITION_DURATION_MS);
     },
-    [busy]
+    [busy, activeIdx]
   );
 
   const next = () => go("next", (activeIdx + 1) % SERVICES.length);
@@ -123,6 +190,7 @@ export default function OurServices() {
 
   return (
     <section
+      ref={sectionRef}
       className="relative w-full bg-[#0d0a07] select-none overflow-hidden"
       style={{ minHeight: "100svh" }}
     >
@@ -131,10 +199,71 @@ export default function OurServices() {
         {SERVICES.map((svc, i) => {
           const bgSrc = svc.bgImage ?? svc.image;
           const isActive = i === activeIdx;
+          const isExpandingCurrent = i === expandingIdx;
+          const isShrinkingCurrent = i === shrinkingIdx;
+
+          let style: React.CSSProperties = {};
+          let className = "";
+
+          if (isExpandingCurrent && expandingRect) {
+            if (isExpanding) {
+              style = {
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                borderRadius: "0px",
+                opacity: 1,
+                filter: "brightness(1)",
+                transition: `all ${TRANSITION_DURATION_MS / 1000}s cubic-bezier(0.16, 1, 0.3, 1)`,
+                willChange: "top, left, width, height, border-radius",
+              };
+            } else {
+              style = {
+                top: expandingRect.top,
+                left: expandingRect.left,
+                width: expandingRect.width,
+                height: expandingRect.height,
+                borderRadius: "19px",
+                opacity: 0.8,
+                filter: "brightness(0.8)",
+              };
+            }
+            className = "absolute z-20 overflow-hidden";
+          } else if (isShrinkingCurrent && expandingRect) {
+            if (isShrinking) {
+              style = {
+                top: expandingRect.top,
+                left: expandingRect.left,
+                width: expandingRect.width,
+                height: expandingRect.height,
+                borderRadius: "19px",
+                opacity: 0.8,
+                filter: "brightness(0.8)",
+                transition: `all ${TRANSITION_DURATION_MS / 1000}s cubic-bezier(0.16, 1, 0.3, 1)`,
+                willChange: "top, left, width, height, border-radius",
+              };
+            } else {
+              style = {
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                borderRadius: "0px",
+                opacity: 1,
+                filter: "brightness(1)",
+              };
+            }
+            className = "absolute z-20 overflow-hidden";
+          } else {
+            className = `absolute inset-0 transition-opacity duration-1000 ${isActive ? "opacity-100 z-10" : "opacity-0 z-0"}`;
+          }
+
           return (
             <div
               key={svc.id}
-              className={`absolute inset-0 transition-opacity duration-1000 ${isActive ? "bg-spread-active z-10" : "opacity-0 z-0"}`}
+              className={className}
+              style={style}
             >
               <Image
                 src={bgSrc}
@@ -224,7 +353,7 @@ export default function OurServices() {
             style={{ height: STRIP_H, width: "100%" }}
           >
             {SERVICES.map((svc, i) => {
-              const relIdx = (i - activeIdx + SERVICES.length) % SERVICES.length;
+              const relIdx = (i - (activeIdx + 1) + SERVICES.length) % SERVICES.length;
               const brightnessSteps = [1, 0.82, 0.65, 0.45, 0.28];
               const brightness = brightnessSteps[relIdx] ?? 0.2;
               const gap = isMobile ? 14 : 23;
@@ -232,13 +361,14 @@ export default function OurServices() {
               return (
                 <div
                   key={svc.id}
+                  data-card-idx={i}
                   onClick={() => go(null, i)}
                   className="absolute top-0 left-0 h-full rounded-[19px] overflow-hidden group cursor-pointer"
                   style={{
                     width: CARD_W,
                     transform: `translateX(${relIdx * (CARD_W + gap)}px)`,
                     filter: `brightness(${brightness})`,
-                    transition: `transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), filter 0.85s ease, opacity 0.85s ease`,
+                    transition: `transform ${TRANSITION_DURATION_MS / 1000}s cubic-bezier(0.16, 1, 0.3, 1), filter ${TRANSITION_DURATION_MS / 1000}s ease, opacity ${TRANSITION_DURATION_MS / 1000}s ease`,
                     boxShadow: "0px 40px 80px -19px rgba(0,0,0,0.25)",
                     zIndex: SERVICES.length - relIdx,
                     opacity: relIdx >= 4 ? 0 : 1,
