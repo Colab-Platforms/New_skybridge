@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Preloader from "@/components/ui/Preloader";
 import HeroSection from "@/components/home/Herosection";
 import AtGlance from "@/components/home/AtGlance";
 import OurServices from "@/components/home/OurServices";
@@ -13,6 +14,7 @@ import LetsDiscuss from "@/components/home/LetsDiscuss";
 export default function Home() {
   return (
     <>
+      <Preloader />
       <HeroSection />
       <AtGlance />
       <OurServices />
