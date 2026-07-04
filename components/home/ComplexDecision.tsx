@@ -27,6 +27,57 @@ function useInView(threshold = 0.08) {
   return { ref, inView };
 }
 
+// ─── Scroll-driven horizontal pin/pan ────────────────────────────────────────
+type ScrollPinOptions = {
+  wrapperRef: React.RefObject<HTMLDivElement | null>;
+  stripRef: React.RefObject<HTMLDivElement | null>;
+  isActive: () => boolean;
+  visible: number;
+  lPad: () => number;
+};
+
+function useScrollPin({ wrapperRef, stripRef, isActive, visible, lPad }: ScrollPinOptions) {
+  useEffect(() => {
+    let cur = 0;
+    let tgt = 0;
+    let raf: number;
+
+    const tick = () => {
+      const diff = tgt - cur;
+      if (Math.abs(diff) > 0.05) {
+        cur += diff * 0.1;
+        if (stripRef.current) {
+          stripRef.current.style.transform = `translateX(${-cur}px)`;
+        }
+      }
+      raf = requestAnimationFrame(tick);
+    };
+
+    const onScroll = () => {
+      if (!wrapperRef.current || !isActive()) {
+        tgt = 0;
+        return;
+      }
+      const rect = wrapperRef.current.getBoundingClientRect();
+      const scrollable = wrapperRef.current.offsetHeight - window.innerHeight;
+      if (scrollable <= 0) return;
+      const progress = Math.max(0, Math.min(1, -rect.top / scrollable));
+      const cardW = (window.innerWidth - lPad()) / visible;
+      tgt = progress * (CARDS.length - visible) * cardW;
+    };
+
+    raf = requestAnimationFrame(tick);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+}
+
 // ─── SVG Icons (viewBox 0 0 90 90, thin white strokes on navy) ───────────────
 
 function IconStackedSquares({ className }: { className?: string }) {
@@ -133,6 +184,13 @@ const CARDS = [
 const L_PAD = 80;     // px — Figma pl-[80px]
 const VISIBLE = 3.25; // cards visible at once on desktop
 
+const MOBILE_VISIBLE     = 1.25; // cards visible at rest on mobile — card1 100%, card2 25% peek
+const MOBILE_L_PAD_BASE  = 48;   // px — matches Tailwind `pl-12` (<640px)
+const MOBILE_L_PAD_SM    = 64;   // px — matches Tailwind `sm:pl-16` (>=640px)
+const SM_BREAKPOINT      = 640;
+const LG_BREAKPOINT      = 1024;
+const MOBILE_WRAPPER_VH  = 300;  // scroll-distance runway for the mobile pin
+
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function ComplexDecision() {
@@ -141,6 +199,8 @@ export default function ComplexDecision() {
 
   const wrapperRef = useRef<HTMLDivElement>(null);
   const stripRef   = useRef<HTMLDivElement>(null);
+  const mobileWrapperRef = useRef<HTMLDivElement>(null);
+  const mobileStripRef   = useRef<HTMLDivElement>(null);
 
   // Animation helpers
   const makeSlideProps = (inView: boolean) =>
@@ -161,45 +221,22 @@ export default function ComplexDecision() {
       style: (inView ? { animationDelay: `${delay}s` } : {}) as React.CSSProperties,
     });
 
-  // ── Scroll-driven horizontal pan (desktop only) ──────────────────────────────
-  useEffect(() => {
-    let cur = 0;
-    let tgt = 0;
-    let raf: number;
+  // ── Scroll-driven horizontal pan — desktop and mobile share the same mechanism ──
+  useScrollPin({
+    wrapperRef, stripRef,
+    visible: VISIBLE,
+    isActive: () => window.innerWidth >= LG_BREAKPOINT,
+    lPad: () => L_PAD,
+  });
 
-    const tick = () => {
-      const diff = tgt - cur;
-      if (Math.abs(diff) > 0.05) {
-        cur += diff * 0.1;
-        if (stripRef.current) {
-          stripRef.current.style.transform = `translateX(${-cur}px)`;
-        }
-      }
-      raf = requestAnimationFrame(tick);
-    };
+  useScrollPin({
+    wrapperRef: mobileWrapperRef, stripRef: mobileStripRef,
+    visible: MOBILE_VISIBLE,
+    isActive: () => window.innerWidth < LG_BREAKPOINT,
+    lPad: () => (window.innerWidth >= SM_BREAKPOINT ? MOBILE_L_PAD_SM : MOBILE_L_PAD_BASE),
+  });
 
-    const onScroll = () => {
-      if (!wrapperRef.current || window.innerWidth < 1024) {
-        tgt = 0;
-        return;
-      }
-      const rect = wrapperRef.current.getBoundingClientRect();
-      const scrollable = wrapperRef.current.offsetHeight - window.innerHeight;
-      if (scrollable <= 0) return;
-      const progress = Math.max(0, Math.min(1, -rect.top / scrollable));
-      const cardW = (window.innerWidth - L_PAD) / VISIBLE;
-      tgt = progress * (CARDS.length - VISIBLE) * cardW;
-    };
-
-    raf = requestAnimationFrame(tick);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("scroll", onScroll);
-    };
-  }, []);
+  const mobileCardWidth = `calc((100vw - var(--cd-m-lpad, ${MOBILE_L_PAD_BASE}px)) / ${MOBILE_VISIBLE})`;
 
   const desktopSlide = makeSlideProps(desktopInView);
   const desktopSlit  = makeSlitProps(desktopInView);
@@ -308,71 +345,82 @@ export default function ComplexDecision() {
       </div>
 
       {/* ══════════════════════════════════════════════════════════════════════
-          MOBILE / TABLET (<1024px): normal flow, vertical stack
+          MOBILE / TABLET (<1024px): sticky pinned section + horizontal scroll strip
          ══════════════════════════════════════════════════════════════════════ */}
-      <section
-        ref={mobileRef as React.RefObject<HTMLElement>}
-        className="lg:hidden bg-[#10296e] w-full pl-12 pr-8 sm:pl-16 sm:pr-12 pt-14 sm:pt-16 pb-16 sm:pb-20 flex flex-col gap-10 sm:gap-12 overflow-hidden"
+      <div
+        ref={mobileWrapperRef}
+        className="lg:hidden relative"
+        style={{ height: `${MOBILE_WRAPPER_VH}vh` }}
       >
-        {/* Header */}
-        <div className="flex flex-col gap-4 sm:gap-5 shrink-0">
-          <div {...mobileSlide(0, "flex items-center gap-2.5")}>
-            <div className="w-2.5 h-2.5 bg-white rounded-[1px] shrink-0" />
-            <span className="font-ibm-mono text-white text-xs sm:text-sm font-semibold tracking-[0.3em] uppercase">
-              The SkyBridge Difference
-            </span>
-          </div>
-          <div {...mobileSlide(0.08)}>
-            <h2
-              className="font-oswald text-white font-normal capitalize"
-              style={{ fontSize: "clamp(32px, 5.5vw, 56px)", lineHeight: 1.08 }}
-            >
-              Built for Complex Decisions.
-            </h2>
-          </div>
-        </div>
-
-        {/* Icon row — free-scrolling, icons connected by a line (mirrors the desktop strip) */}
-        <div
-          className="flex overflow-x-auto snap-x snap-mandatory pb-2 -ml-12 pl-12 -mr-8 pr-8 sm:-ml-16 sm:pl-16 sm:-mr-12 sm:pr-12 shrink-0"
-          style={{ scrollbarWidth: "none" }}
+        <section
+          ref={mobileRef as React.RefObject<HTMLElement>}
+          className="sticky top-0 h-dvh overflow-hidden bg-[#10296e] w-full flex flex-col justify-between pl-12 sm:pl-16 pt-14 sm:pt-16 pb-16 sm:pb-20 [--cd-m-lpad:48px] sm:[--cd-m-lpad:64px]"
         >
-          {CARDS.map((card, i) => (
-            <div
-              key={i}
-              className="flex items-center shrink-0 snap-start"
-              style={{ width: i < CARDS.length - 1 ? "80%" : "auto" }}
-            >
-              <div {...mobileSlit(0.15 + i * 0.07, "shrink-0")}>
-                <card.Icon className="w-14 h-14 sm:w-18 sm:h-18" />
-              </div>
-              {i < CARDS.length - 1 && (
-                <div className="flex-1 h-px bg-white/20 ml-6 sm:ml-8" />
-              )}
+          {/* Header — top-anchored */}
+          <div className="flex flex-col gap-4 sm:gap-5 shrink-0 pr-8 sm:pr-12">
+            <div {...mobileSlide(0, "flex items-center gap-2.5")}>
+              <div className="w-2.5 h-2.5 bg-white rounded-[1px] shrink-0" />
+              <span className="font-ibm-mono text-white text-xs sm:text-sm font-semibold tracking-[0.3em] uppercase">
+                The SkyBridge Difference
+              </span>
             </div>
-          ))}
-        </div>
+            <div {...mobileSlide(0.08)}>
+              <h2
+                className="font-oswald text-white font-normal capitalize"
+                style={{ fontSize: "clamp(32px, 5.5vw, 56px)", lineHeight: 1.08 }}
+              >
+                Built for Complex Decisions.
+              </h2>
+            </div>
+          </div>
 
-        {/* Text cards — horizontally swipeable strip, next card peeks at the edge */}
-        <div
-          className="flex items-stretch gap-6 sm:gap-10 overflow-x-auto snap-x snap-mandatory pb-2 -ml-12 pl-12 -mr-8 pr-8 sm:-ml-16 sm:pl-16 sm:-mr-12 sm:pr-12"
-          style={{ scrollbarWidth: "none" }}
-        >
-          {CARDS.map((card, i) => (
-            <div
-              key={i}
-              {...mobileSlide(0.2 + i * 0.07, "flex flex-col gap-3 shrink-0 w-[80%] sm:w-[46%] snap-start")}
-            >
-              <h3 className="font-tasa-orbiter text-white uppercase whitespace-pre-line leading-[1.45] text-[17px] sm:text-[20px]">
-                {card.headline}
-              </h3>
-              <p className="font-tasa-orbiter text-[#dedede] leading-[1.65] text-[13px] sm:text-[14px]">
-                {card.body}
-              </p>
+          {/* Content strip — icon row + text row scroll together, driven by useScrollPin */}
+          <div
+            ref={mobileStripRef}
+            className="flex flex-col shrink-0"
+            style={{ gap: "clamp(20px, 5vw, 32px)", willChange: "transform" }}
+          >
+            {/* Icon row — each slot matches one card width */}
+            <div className="flex items-center shrink-0">
+              {CARDS.map((card, i) => (
+                <div
+                  key={i}
+                  className="flex items-center shrink-0"
+                  style={{ width: mobileCardWidth }}
+                >
+                  <div {...mobileSlit(0.15 + i * 0.07, "shrink-0")}>
+                    <card.Icon className="w-14 h-14 sm:w-18 sm:h-18" />
+                  </div>
+                  {i < CARDS.length - 1 && (
+                    <div className="flex-1 h-px bg-white/20 ml-6 sm:ml-8" />
+                  )}
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </section>
+
+            {/* Text row */}
+            <div className="flex items-start shrink-0">
+              {CARDS.map((card, i) => {
+                const sd = mobileSlide(0.2 + i * 0.07, "flex flex-col gap-3 shrink-0");
+                return (
+                  <div
+                    key={i}
+                    className={sd.className}
+                    style={{ ...sd.style, width: mobileCardWidth, paddingRight: "clamp(16px, 4vw, 24px)" }}
+                  >
+                    <h3 className="font-tasa-orbiter text-white uppercase whitespace-pre-line leading-[1.45] text-[17px] sm:text-[20px]">
+                      {card.headline}
+                    </h3>
+                    <p className="font-tasa-orbiter text-[#dedede] leading-[1.65] text-[13px] sm:text-[14px]">
+                      {card.body}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      </div>
     </>
   );
 }
