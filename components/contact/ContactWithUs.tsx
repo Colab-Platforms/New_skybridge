@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import emailjs from "@emailjs/browser";
 
 interface FormData {
   fullName: string;
@@ -23,6 +24,8 @@ export default function ContactWithUs() {
     requirementType: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [status, setStatus] = useState<{ type: "success" | "error"; message: string } | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -31,10 +34,57 @@ export default function ContactWithUs() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert(`Thank you, ${formData.fullName || "there"}! We'll be in touch soon.`);
-    setFormData({ fullName: "", email: "", phone: "", city: "", requirementType: "", message: "" });
+    setIsSubmitting(true);
+
+    const formattedMessage = `
+Message:
+${formData.message || "No message provided"}
+
+--------------------------------------
+Submitted Form Details:
+• Name: ${formData.fullName}
+• Email: ${formData.email}
+• Phone: ${formData.phone}
+• City: ${formData.city}
+• Requirement: ${formData.requirementType || "Not specified"}
+`;
+
+    const templateParams = {
+      from_name: "Skybridge Inquiry",
+      reply_to: formData.email,
+      fullName: formData.fullName,
+      name: formData.fullName,
+      email: formData.email,
+      emailAddress: formData.email,
+      phone: formData.phone,
+      phoneNumber: formData.phone,
+      company: "N/A",
+      city: formData.city,
+      requirementType: formData.requirementType,
+      message: formattedMessage.trim(),
+      fileName: "No file uploaded",
+    };
+
+    try {
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "",
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "",
+        templateParams,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || ""
+      );
+
+      setStatus({ type: "success", message: "Message sent successfully!" });
+      setTimeout(() => setStatus(null), 5000);
+      setFormData({ fullName: "", email: "", phone: "", city: "", requirementType: "", message: "" });
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      setStatus({ type: "error", message: "Failed to send message. Please try again." });
+      setTimeout(() => setStatus(null), 5000);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -143,18 +193,35 @@ export default function ContactWithUs() {
             className="w-full bg-[#f6f6f6] rounded-[4px] px-5 py-6 h-[160px] lg:h-[206px] font-tasa-orbiter text-[#6b7280] text-lg lg:text-[22px] outline-none focus:ring-2 focus:ring-[#275ff9]/30 transition-all resize-none placeholder:text-[#6b7280]"
           />
 
+          {status && (
+            <div className="flex justify-center w-full mt-4">
+              <div
+                className={`text-center py-3 px-6 rounded-xl text-sm font-semibold max-w-md w-full transition-all duration-300 ${
+                  status.type === "success"
+                    ? "bg-emerald-50 text-emerald-600 border border-emerald-200"
+                    : "bg-rose-50 text-rose-600 border border-rose-200"
+                }`}
+              >
+                {status.message}
+              </div>
+            </div>
+          )}
+
           {/* Submit Button */}
           <div className="flex justify-center pt-6 lg:pt-[44px]">
             <button
               type="submit"
-              className="flex items-center gap-3 bg-[#10296e] text-white rounded-full md:px-8 md:py-5 font-tasa-orbiter text-xl lg:text-2xl uppercase tracking-[0.8px] cursor-pointer hover:bg-[#0d2159] transition-colors duration-200 sm:w-auto justify-center"
+              disabled={isSubmitting}
+              className={`flex items-center gap-3 bg-[#10296e] text-white rounded-full md:px-8 md:py-5 font-tasa-orbiter text-xl lg:text-2xl uppercase tracking-[0.8px] hover:bg-[#0d2159] transition-colors duration-200 sm:w-auto justify-center ${
+                isSubmitting ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+              }`}
               style={{
                 minWidth: "clamp(240px, 30vw, 417px)",
                 boxShadow:
                   "0px 0px 18px 0px rgba(6,182,212,0.2), 0px 10px 24px 0px rgba(0,0,0,0.15)",
               }}
             >
-              <span>SEND A MESSAGE</span>
+              <span>{isSubmitting ? "Sending..." : "SEND A MESSAGE"}</span>
               <svg
                 width="20"
                 height="20"

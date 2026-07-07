@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import emailjs from "@emailjs/browser";
 
 export default function LetsDiscuss() {
   const [formData, setFormData] = useState({
@@ -15,6 +16,8 @@ export default function LetsDiscuss() {
 
   const [fileName, setFileName] = useState<string | null>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [status, setStatus] = useState<{ type: "success" | "error"; message: string } | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -44,19 +47,67 @@ export default function LetsDiscuss() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert(`Thank you! Conversation initiated with ${formData.fullName || "us"}.`);
-    // Clear form
-    setFormData({
-      fullName: "",
-      company: "",
-      emailAddress: "",
-      phoneNumber: "",
-      requirementType: "",
-      message: "",
-    });
-    setFileName(null);
+    setIsSubmitting(true);
+
+    const formattedMessage = `
+Message:
+${formData.message || "No message provided"}
+
+--------------------------------------
+Submitted Form Details:
+• Name: ${formData.fullName}
+• Company: ${formData.company}
+• Email: ${formData.emailAddress}
+• Phone: ${formData.phoneNumber}
+• Requirement: ${formData.requirementType || "Not specified"}
+• Attachment Name: ${fileName || "No file uploaded"}
+`;
+
+    const templateParams = {
+      from_name: "Skybridge Inquiry",
+      reply_to: formData.emailAddress,
+      fullName: formData.fullName,
+      name: formData.fullName,
+      email: formData.emailAddress,
+      emailAddress: formData.emailAddress,
+      phone: formData.phoneNumber,
+      phoneNumber: formData.phoneNumber,
+      company: formData.company,
+      city: "N/A",
+      requirementType: formData.requirementType,
+      message: formattedMessage.trim(),
+      fileName: fileName || "No file uploaded",
+    };
+
+    try {
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "",
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "",
+        templateParams,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || ""
+      );
+
+      setStatus({ type: "success", message: "Message sent successfully!" });
+      setTimeout(() => setStatus(null), 5000);
+      // Clear form
+      setFormData({
+        fullName: "",
+        company: "",
+        emailAddress: "",
+        phoneNumber: "",
+        requirementType: "",
+        message: "",
+      });
+      setFileName(null);
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      setStatus({ type: "error", message: "Failed to send message. Please try again." });
+      setTimeout(() => setStatus(null), 5000);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -285,12 +336,27 @@ export default function LetsDiscuss() {
               </span>
             </label>
 
+            {status && (
+              <div
+                className={`text-center py-3 px-4 rounded-xl text-sm font-semibold transition-all duration-300 ${
+                  status.type === "success"
+                    ? "bg-emerald-50 text-emerald-600 border border-emerald-200"
+                    : "bg-rose-50 text-rose-600 border border-rose-200"
+                }`}
+              >
+                {status.message}
+              </div>
+            )}
+
             {/* Initiate Button */}
             <button
               type="submit"
-              className="w-full bg-[#0b1d47] text-white hover:bg-[#132a68] transition-colors py-4 rounded-full font-bold text-center text-sm tracking-wider uppercase shadow-md cursor-pointer mt-2"
+              disabled={isSubmitting}
+              className={`w-full bg-[#0b1d47] text-white hover:bg-[#132a68] transition-colors py-4 rounded-full font-bold text-center text-sm tracking-wider uppercase shadow-md mt-2 ${
+                isSubmitting ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+              }`}
             >
-              Initiate a Conversation
+              {isSubmitting ? "Sending..." : "Initiate a Conversation"}
             </button>
           </form>
 
