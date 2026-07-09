@@ -51,10 +51,10 @@ function ServiceCardItem({
       {/* Number + title (+ mobile toggle, sharing the top row) */}
       <div className="flex items-start justify-between gap-4 lg:contents">
         <div className="flex flex-col gap-3 lg:gap-4 lg:shrink-0 lg:w-[min(49%,860px)]">
-          <span className="font-mono font-medium text-[#275ff9] text-[20px] lg:text-[30px] leading-[1.2] uppercase">
+          <span className="font-mono font-medium text-[#275ff9] text-[20px] lg:text-[30px] leading-[1.2] ">
             {card.number}
           </span>
-          <h3 className="font-tasa-orbiter font-medium text-[#1a1a1a] text-[26px] sm:text-[34px] lg:text-[50px] leading-[1.2] capitalize">
+          <h3 className="font-tasa-orbiter font-medium text-[#1a1a1a] text-[26px] sm:text-[34px] lg:text-[50px] leading-[1.2] ">
             {card.title}
           </h3>
         </div>
@@ -175,7 +175,7 @@ function TabContent({ tab }: { tab: CapabilityTab }) {
       {/* Title + body — stacks on mobile, side-by-side on desktop */}
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 lg:gap-8 px-5 lg:px-[34px]">
         <div className="flex flex-col gap-3 lg:gap-[18px] lg:shrink-0 lg:w-[min(49%,860px)] lg:tracking-[-0.96px]">
-          <h2 className="font-oswald  text-[#10296e] text-[34px] sm:text-[46px] lg:text-[70px] leading-[1.2] uppercase">
+          <h2 className="font-oswald  text-[#10296e] text-[34px] sm:text-[46px] lg:text-[70px] leading-[1.2] ">
             {tab.title}
           </h2>
           <p className="font-tasa-orbiter font-medium text-[#275ff9] text-[15px] sm:text-[18px] lg:text-[30px] leading-[1.2] uppercase not-italic">

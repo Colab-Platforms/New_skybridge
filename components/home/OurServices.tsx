@@ -293,7 +293,7 @@ export default function OurServices() {
         <div className="flex flex-col gap-6 px-6 sm:px-10 lg:px-16 xl:px-20 pt-14 pb-6 lg:py-24">
 
           {/* Section label */}
-          <div className="flex items-center gap-2 text-[11px] lg:text-[13px] font-semibold tracking-[0.35em]  font-ibm-mono ">
+          <div className="flex items-center gap-2 text-[11px] lg:text-[23px] leading-[30.28px] uppercase font-semibold font-ibm-plex-mono text-white text-left ">
             <span className="inline-block w-2.5 h-2.5 bg-[#275ff9] rounded-[2px] flex-shrink-0" />
             <span className="text-white ">Our Services</span>
           </div>

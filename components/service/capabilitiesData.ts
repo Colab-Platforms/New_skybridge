@@ -145,12 +145,12 @@ export const CAPABILITIES_DATA: CapabilityTab[] = [
     ],
   },
   {
-    id: "cross-border-advisory",
-    label: "Cross-Border Advisory",
+    id: "cross-border-capital",
+    label: "Cross-Border Capital",
     heroImage: "/capabilities/hero-cross-border.jpg",
     quote:
       "Migration reflects the pursuit of new opportunities beyond existing boundaries. The image represents how businesses navigate international markets, partnerships, and investment opportunities while adapting to new environments and growth possibilities.",
-    title: "Cross-Border Advisory",
+    title: "Cross-Border Capital",
     subtitle: "Capital without borders",
     body: "As businesses expand beyond domestic markets, access to the right capital, partnerships, and investment structures becomes increasingly important. SkyBridge supports both inbound and outbound investment opportunities across geographies.",
     cards: [
@@ -161,7 +161,7 @@ export const CAPABILITIES_DATA: CapabilityTab[] = [
           "We facilitate domestic and international investment opportunities through strategic advisory and cross-border transaction support.",
         solutions: [
           "Inbound Investments into India",
-          "Cross-Border Partnerships",
+          "Cross-Border Partnerships",  
           "Global Capital Deployment",
           "Overseas Expansion Strategies",
           "International Joint Ventures",
@@ -177,7 +177,7 @@ export const CAPABILITIES_DATA: CapabilityTab[] = [
       "The converging pathways symbolize the coming together of complementary strengths, shared objectives, and strategic partnerships. Much like successful joint ventures and consortium investments, meaningful outcomes are created when multiple stakeholders align around a common vision and opportunity.",
     title: "Joint Ventures & Consortiums",
     subtitle: "Bringing the right partners together.",
-    body: "We works with promoters, investors, corporations, and institutions to create collaborative structures that combine capital, expertise, and strategic alignment.",
+    body: "We work with promoters, investors, corporations, and institutions to create collaborative structures that combine capital, expertise, and strategic alignment.",
     cards: [
       {
         number: "[01]",
