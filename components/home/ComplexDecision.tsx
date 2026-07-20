@@ -34,9 +34,19 @@ type ScrollPinOptions = {
   isActive: () => boolean;
   visible: number;
   lPad: () => number;
+  stickyHeight?: () => number;
+  translateNextSibling?: boolean;
 };
 
-function useScrollPin({ wrapperRef, stripRef, isActive, visible, lPad }: ScrollPinOptions) {
+function useScrollPin({
+  wrapperRef,
+  stripRef,
+  isActive,
+  visible,
+  lPad,
+  stickyHeight,
+  translateNextSibling,
+}: ScrollPinOptions) {
   useEffect(() => {
     let cur = 0;
     let tgt = 0;
@@ -54,25 +64,54 @@ function useScrollPin({ wrapperRef, stripRef, isActive, visible, lPad }: ScrollP
     };
 
     const onScroll = () => {
-      if (!wrapperRef.current || !isActive()) {
+      if (!wrapperRef.current) return;
+
+      const sibling = translateNextSibling
+        ? (wrapperRef.current.nextElementSibling as HTMLElement | null)
+        : null;
+
+      if (!isActive()) {
         tgt = 0;
+        if (sibling) {
+          sibling.style.transform = "";
+          sibling.style.overflowAnchor = "";
+        }
         return;
       }
+
       const rect = wrapperRef.current.getBoundingClientRect();
-      const scrollable = wrapperRef.current.offsetHeight - window.innerHeight;
+      const sHeight = stickyHeight ? stickyHeight() : window.innerHeight;
+      const scrollable = wrapperRef.current.offsetHeight - sHeight;
       if (scrollable <= 0) return;
+
       const progress = Math.max(0, Math.min(1, -rect.top / scrollable));
       const cardW = (window.innerWidth - lPad()) / visible;
       tgt = progress * (CARDS.length - visible) * cardW;
+
+      if (sibling) {
+        const y = Math.max(0, Math.min(scrollable, -rect.top));
+        const dy = y - scrollable;
+        sibling.style.transform = `translateY(${dy}px)`;
+        sibling.style.overflowAnchor = "none";
+      }
     };
 
     raf = requestAnimationFrame(tick);
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
     onScroll();
 
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (wrapperRef.current && translateNextSibling) {
+        const sibling = wrapperRef.current.nextElementSibling as HTMLElement | null;
+        if (sibling) {
+          sibling.style.transform = "";
+          sibling.style.overflowAnchor = "";
+        }
+      }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -234,6 +273,8 @@ export default function ComplexDecision() {
     visible: MOBILE_VISIBLE,
     isActive: () => window.innerWidth < LG_BREAKPOINT,
     lPad: () => (window.innerWidth >= SM_BREAKPOINT ? MOBILE_L_PAD_SM : MOBILE_L_PAD_BASE),
+    stickyHeight: () => window.innerHeight * 0.5,
+    translateNextSibling: true,
   });
 
   const mobileCardWidth = `calc((100vw - var(--cd-m-lpad, ${MOBILE_L_PAD_BASE}px)) / ${MOBILE_VISIBLE})`;
@@ -349,25 +390,28 @@ export default function ComplexDecision() {
          ══════════════════════════════════════════════════════════════════════ */}
       <div
         ref={mobileWrapperRef}
-        className="lg:hidden relative"
-        style={{ height: `${MOBILE_WRAPPER_VH}vh` }}
+        className="lg:hidden relative bg-[#10296e]"
+        style={{
+          height: `${MOBILE_WRAPPER_VH}vh`,
+          overflowAnchor: "none",
+        }}
       >
         <section
           ref={mobileRef as React.RefObject<HTMLElement>}
-          className="sticky top-0 h-dvh overflow-hidden bg-[#10296e] w-full flex flex-col justify-between pl-12 sm:pl-16 pt-14 sm:pt-16 pb-16 sm:pb-20 [--cd-m-lpad:48px] sm:[--cd-m-lpad:64px]"
+          className="sticky top-0 h-[50vh] overflow-hidden bg-[#10296e] w-full flex flex-col justify-start gap-4 sm:gap-6 pl-12 sm:pl-16 pt-6 sm:pt-10 pb-6 sm:pb-10 [--cd-m-lpad:48px] sm:[--cd-m-lpad:64px]"
         >
           {/* Header — top-anchored */}
-          <div className="flex flex-col gap-4 sm:gap-5 shrink-0 pr-8 sm:pr-12">
+          <div className="flex flex-col gap-2 sm:gap-4 shrink-0 pr-8 sm:pr-12">
             <div {...mobileSlide(0, "flex items-center gap-2.5")}>
-              <div className="w-2.5 h-2.5 bg-white rounded-[1px] shrink-0" />
-              <span className="font-ibm-mono text-white text-xs sm:text-sm font-semibold tracking-[0.3em] uppercase">
+              <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-white rounded-[1px] shrink-0" />
+              <span className="font-ibm-mono text-white text-[10px] sm:text-xs font-semibold tracking-[0.3em] uppercase">
                 The SkyBridge Difference
               </span>
             </div>
             <div {...mobileSlide(0.08)}>
               <h2
                 className="font-oswald text-white font-normal capitalize"
-                style={{ fontSize: "clamp(32px, 5.5vw, 56px)", lineHeight: 1.08 }}
+                style={{ fontSize: "clamp(24px, 5.5vw, 40px)", lineHeight: 1.1 }}
               >
                 Built for Complex Decisions.
               </h2>
@@ -378,7 +422,7 @@ export default function ComplexDecision() {
           <div
             ref={mobileStripRef}
             className="flex flex-col shrink-0"
-            style={{ gap: "clamp(20px, 5vw, 32px)", willChange: "transform" }}
+            style={{ gap: "clamp(12px, 3vw, 24px)", willChange: "transform" }}
           >
             {/* Icon row — each slot matches one card width */}
             <div className="flex items-center shrink-0">
@@ -389,10 +433,10 @@ export default function ComplexDecision() {
                   style={{ width: mobileCardWidth }}
                 >
                   <div {...mobileSlit(0.15 + i * 0.07, "shrink-0")}>
-                    <card.Icon className="w-14 h-14 sm:w-18 sm:h-18" />
+                    <card.Icon className="w-11 h-11 sm:w-16 sm:h-16" />
                   </div>
                   {i < CARDS.length - 1 && (
-                    <div className="flex-1 h-px bg-white/20 ml-6 sm:ml-8" />
+                    <div className="flex-1 h-px bg-white/20 ml-4 sm:ml-6" />
                   )}
                 </div>
               ))}
@@ -401,17 +445,17 @@ export default function ComplexDecision() {
             {/* Text row */}
             <div className="flex items-start shrink-0">
               {CARDS.map((card, i) => {
-                const sd = mobileSlide(0.2 + i * 0.07, "flex flex-col gap-3 shrink-0");
+                const sd = mobileSlide(0.2 + i * 0.07, "flex flex-col gap-1.5 sm:gap-3 shrink-0");
                 return (
                   <div
                     key={i}
                     className={sd.className}
                     style={{ ...sd.style, width: mobileCardWidth, paddingRight: "clamp(16px, 4vw, 24px)" }}
                   >
-                    <h3 className="font-tasa-orbiter text-white uppercase whitespace-pre-line leading-[1.45] text-[17px] sm:text-[20px]">
+                    <h3 className="font-tasa-orbiter text-white uppercase whitespace-pre-line leading-[1.35] text-[15px] sm:text-[18px]">
                       {card.headline}
                     </h3>
-                    <p className="font-tasa-orbiter text-[#dedede] leading-[1.65] text-[13px] sm:text-[14px]">
+                    <p className="font-tasa-orbiter text-[#dedede] leading-[1.5] text-[12px] sm:text-[13px]">
                       {card.body}
                     </p>
                   </div>
