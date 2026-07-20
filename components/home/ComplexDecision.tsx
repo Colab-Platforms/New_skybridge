@@ -47,6 +47,16 @@ function useScrollPin({
   stickyHeight,
   translateNextSibling,
 }: ScrollPinOptions) {
+  const isActiveRef = useRef(isActive);
+  const lPadRef = useRef(lPad);
+  const stickyHeightRef = useRef(stickyHeight);
+
+  useEffect(() => {
+    isActiveRef.current = isActive;
+    lPadRef.current = lPad;
+    stickyHeightRef.current = stickyHeight;
+  });
+
   useEffect(() => {
     let cur = 0;
     let tgt = 0;
@@ -70,7 +80,7 @@ function useScrollPin({
         ? (wrapperRef.current.nextElementSibling as HTMLElement | null)
         : null;
 
-      if (!isActive()) {
+      if (!isActiveRef.current()) {
         tgt = 0;
         if (sibling) {
           sibling.style.transform = "";
@@ -80,12 +90,12 @@ function useScrollPin({
       }
 
       const rect = wrapperRef.current.getBoundingClientRect();
-      const sHeight = stickyHeight ? stickyHeight() : window.innerHeight;
+      const sHeight = stickyHeightRef.current ? stickyHeightRef.current() : window.innerHeight;
       const scrollable = wrapperRef.current.offsetHeight - sHeight;
       if (scrollable <= 0) return;
 
       const progress = Math.max(0, Math.min(1, -rect.top / scrollable));
-      const cardW = (window.innerWidth - lPad()) / visible;
+      const cardW = (window.innerWidth - lPadRef.current()) / visible;
       tgt = progress * (CARDS.length - visible) * cardW;
 
       if (sibling) {
@@ -241,6 +251,34 @@ export default function ComplexDecision() {
   const mobileWrapperRef = useRef<HTMLDivElement>(null);
   const mobileStripRef   = useRef<HTMLDivElement>(null);
 
+  const [mobileHeights, setMobileHeights] = useState<{ wrapper: number; sticky: number } | null>(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < LG_BREAKPOINT) {
+        setMobileHeights({
+          wrapper: window.innerHeight * 3, // 300vh
+          sticky: window.innerHeight * 0.5, // 50vh
+        });
+      } else {
+        setMobileHeights(null);
+      }
+    };
+
+    handleResize();
+
+    let lastWidth = window.innerWidth;
+    const onWindowResize = () => {
+      if (window.innerWidth !== lastWidth) {
+        lastWidth = window.innerWidth;
+        handleResize();
+      }
+    };
+
+    window.addEventListener("resize", onWindowResize);
+    return () => window.removeEventListener("resize", onWindowResize);
+  }, []);
+
   // Animation helpers
   const makeSlideProps = (inView: boolean) =>
     (delay: number, extra = "") => ({
@@ -273,7 +311,7 @@ export default function ComplexDecision() {
     visible: MOBILE_VISIBLE,
     isActive: () => window.innerWidth < LG_BREAKPOINT,
     lPad: () => (window.innerWidth >= SM_BREAKPOINT ? MOBILE_L_PAD_SM : MOBILE_L_PAD_BASE),
-    stickyHeight: () => window.innerHeight * 0.5,
+    stickyHeight: () => (mobileHeights ? mobileHeights.sticky : window.innerHeight * 0.5),
     translateNextSibling: true,
   });
 
@@ -392,13 +430,16 @@ export default function ComplexDecision() {
         ref={mobileWrapperRef}
         className="lg:hidden relative bg-[#10296e]"
         style={{
-          height: `${MOBILE_WRAPPER_VH}vh`,
+          height: mobileHeights ? `${mobileHeights.wrapper}px` : `${MOBILE_WRAPPER_VH}vh`,
           overflowAnchor: "none",
         }}
       >
         <section
           ref={mobileRef as React.RefObject<HTMLElement>}
-          className="sticky top-0 h-[50vh] overflow-hidden bg-[#10296e] w-full flex flex-col justify-start gap-4 sm:gap-6 pl-12 sm:pl-16 pt-6 sm:pt-10 pb-6 sm:pb-10 [--cd-m-lpad:48px] sm:[--cd-m-lpad:64px]"
+          className="sticky top-0 overflow-hidden bg-[#10296e] w-full flex flex-col justify-start gap-4 sm:gap-6 pl-12 sm:pl-16 pt-6 sm:pt-10 pb-6 sm:pb-10 [--cd-m-lpad:48px] sm:[--cd-m-lpad:64px]"
+          style={{
+            height: mobileHeights ? `${mobileHeights.sticky}px` : "50vh",
+          }}
         >
           {/* Header — top-anchored */}
           <div className="flex flex-col gap-2 sm:gap-4 shrink-0 pr-8 sm:pr-12">
